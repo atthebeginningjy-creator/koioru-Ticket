@@ -353,6 +353,9 @@
           <button onclick="exportCsv()" class="bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-black px-3.5 py-2 rounded-xl">
             📥 購入者リストをCSV出力
           </button>
+          <button onclick="clearAllWebOrders()" class="bg-rose-100 hover:bg-rose-200 text-rose-700 border border-rose-300 text-xs font-black px-3 py-2 rounded-xl">
+            🗑️ Web申込データを全消去
+          </button>
         </div>
       </div>
 
@@ -369,49 +372,64 @@
         </button>
       </div>
 
-      <!-- 🖐️ 手売り枚数クイック入力パネル -->
+      <!-- 🖐️ 手売り枚数クイック入力＆一括リセットパネル -->
       <div class="bg-amber-50 rounded-2xl p-4 border-2 border-amber-400 space-y-3">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div>
             <h3 class="text-sm sm:text-base font-black text-slate-900 flex items-center gap-1.5">
-              <span>🖐️</span> 紙チケット「手売り販売枚数」クイック入力
+              <span>🖐️</span> 紙チケット「手売り販売枚数」クイック調整・一括リセット
             </h3>
             <p class="text-xs text-slate-600 mt-0.5">
-              手売りした枚数を入力（または＋ボタン）すると、264席の残り枚数と応援メーターに即座に合算されます。
+              ボタンで増減するか、「0に戻す」で一括クリアできます（直接数字を入力して「保存」を押しても反映されます）。
             </p>
           </div>
-          <span id="adminTotalQuickBadge" class="bg-slate-900 text-amber-300 text-xs font-black px-3 py-1.5 rounded-xl">
-            確定販売: 0 / 528枚 (0%)
-          </span>
+          <div class="flex flex-wrap items-center gap-2">
+            <span id="adminTotalQuickBadge" class="bg-slate-900 text-amber-300 text-xs font-black px-3 py-1.5 rounded-xl">
+              確定販売: 0 / 528枚 (0%)
+            </span>
+            <button onclick="resetAllManualSold()" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-black px-3 py-1.5 rounded-xl shadow">
+              🔄 昼・夜の手売りを一括0リセット
+            </button>
+          </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1 text-xs">
-          <div class="bg-white rounded-xl p-3.5 border border-sky-300 space-y-2 shadow-sm">
+          <!-- 昼公演 手売り -->
+          <div class="bg-white rounded-xl p-3.5 border border-sky-300 space-y-2.5 shadow-sm">
             <div class="flex justify-between items-center">
               <span class="font-black text-sm text-sky-800">☀️ 昼公演 手売り累計枚数</span>
               <span id="admDayBreakdown" class="text-slate-500 font-bold">Web確定:0 + 手売り:0 = 計0/264枚</span>
             </div>
-            <div class="flex flex-wrap items-center gap-2">
-              <button onclick="adjustManualSold('day', -1)" class="bg-slate-200 hover:bg-slate-300 font-black px-3 py-2 rounded-lg">-1</button>
-              <input type="number" id="admManualDay" min="0" max="264" value="0" class="w-24 border-2 border-sky-400 rounded-lg px-2 py-1.5 font-black text-base text-center" />
+            <div class="flex flex-wrap items-center gap-1.5">
+              <button onclick="resetSingleManualSold('day')" class="bg-rose-100 hover:bg-rose-200 text-rose-700 border border-rose-300 font-black px-2.5 py-2 rounded-lg">0に戻す</button>
+              <button onclick="adjustManualSold('day', -5)" class="bg-slate-200 hover:bg-slate-300 font-black px-2.5 py-2 rounded-lg">-5</button>
+              <button onclick="adjustManualSold('day', -1)" class="bg-slate-200 hover:bg-slate-300 font-black px-2.5 py-2 rounded-lg">-1</button>
+              <input type="number" id="admManualDay" min="0" max="264" value="0"
+                onfocus="isEditingManual=true" onblur="isEditingManual=false"
+                class="w-20 border-2 border-sky-400 rounded-lg px-2 py-1.5 font-black text-base text-center" />
               <span class="font-bold">枚</span>
-              <button onclick="adjustManualSold('day', 1)" class="bg-sky-600 hover:bg-sky-500 text-white font-black px-3.5 py-2 rounded-lg shadow">+1枚</button>
-              <button onclick="adjustManualSold('day', 5)" class="bg-sky-800 hover:bg-sky-700 text-white font-black px-3 py-2 rounded-lg shadow">+5枚</button>
+              <button onclick="adjustManualSold('day', 1)" class="bg-sky-600 hover:bg-sky-500 text-white font-black px-3 py-2 rounded-lg shadow">+1</button>
+              <button onclick="adjustManualSold('day', 5)" class="bg-sky-800 hover:bg-sky-700 text-white font-black px-3 py-2 rounded-lg shadow">+5</button>
               <button onclick="saveManualSoldOnly()" class="ml-auto bg-slate-900 text-amber-300 font-black px-3 py-2 rounded-lg">保存</button>
             </div>
           </div>
 
-          <div class="bg-white rounded-xl p-3.5 border border-purple-300 space-y-2 shadow-sm">
+          <!-- 夜公演 手売り -->
+          <div class="bg-white rounded-xl p-3.5 border border-purple-300 space-y-2.5 shadow-sm">
             <div class="flex justify-between items-center">
               <span class="font-black text-sm text-purple-800">🌙 夜公演 手売り累計枚数</span>
               <span id="admNightBreakdown" class="text-slate-500 font-bold">Web確定:0 + 手売り:0 = 計0/264枚</span>
             </div>
-            <div class="flex flex-wrap items-center gap-2">
-              <button onclick="adjustManualSold('night', -1)" class="bg-slate-200 hover:bg-slate-300 font-black px-3 py-2 rounded-lg">-1</button>
-              <input type="number" id="admManualNight" min="0" max="264" value="0" class="w-24 border-2 border-purple-400 rounded-lg px-2 py-1.5 font-black text-base text-center" />
+            <div class="flex flex-wrap items-center gap-1.5">
+              <button onclick="resetSingleManualSold('night')" class="bg-rose-100 hover:bg-rose-200 text-rose-700 border border-rose-300 font-black px-2.5 py-2 rounded-lg">0に戻す</button>
+              <button onclick="adjustManualSold('night', -5)" class="bg-slate-200 hover:bg-slate-300 font-black px-2.5 py-2 rounded-lg">-5</button>
+              <button onclick="adjustManualSold('night', -1)" class="bg-slate-200 hover:bg-slate-300 font-black px-2.5 py-2 rounded-lg">-1</button>
+              <input type="number" id="admManualNight" min="0" max="264" value="0"
+                onfocus="isEditingManual=true" onblur="isEditingManual=false"
+                class="w-20 border-2 border-purple-400 rounded-lg px-2 py-1.5 font-black text-base text-center" />
               <span class="font-bold">枚</span>
-              <button onclick="adjustManualSold('night', 1)" class="bg-purple-600 hover:bg-purple-500 text-white font-black px-3.5 py-2 rounded-lg shadow">+1枚</button>
-              <button onclick="adjustManualSold('night', 5)" class="bg-purple-800 hover:bg-purple-700 text-white font-black px-3 py-2 rounded-lg shadow">+5枚</button>
+              <button onclick="adjustManualSold('night', 1)" class="bg-purple-600 hover:bg-purple-500 text-white font-black px-3 py-2 rounded-lg shadow">+1</button>
+              <button onclick="adjustManualSold('night', 5)" class="bg-purple-800 hover:bg-purple-700 text-white font-black px-3 py-2 rounded-lg shadow">+5</button>
               <button onclick="saveManualSoldOnly()" class="ml-auto bg-slate-900 text-amber-300 font-black px-3 py-2 rounded-lg">保存</button>
             </div>
           </div>
@@ -489,17 +507,17 @@
     const IMG_NIGHT_PRIMARY = "恋するオルゴール (170 x 54 mm) (夜).jpg";
     const IMG_NIGHT_FALLBACK = "ticket_night.jpg";
 
-    const KEY_MY_ORDERS = "koioru_my_order_ids_v4";
+    const KEY_MY_ORDERS = "koioru_my_order_ids_v5";
 
     let orders = [];
     let myOrderIds = [];
     let isMutating = false;
+    let isEditingManual = false; // 手売り枚数を手入力中に自動同期で上書きされるのを防ぐフラグ
 
     let selectedSession = "day";
     let selectedFormat = "electronic";
     let selectedPay = "stripe";
 
-    // ★ チケット単価3,500円、紙チケット送料120円、入金確認後カウント(countOnlyPaid: true)を初期設定
     let config = {
       dayCap: 264,
       nightCap: 264,
@@ -507,7 +525,7 @@
       shippingFee: 120,
       manualDaySold: 0,
       manualNightSold: 0,
-      countOnlyPaid: true, // trueなら入金確認済のみメーター加算
+      countOnlyPaid: true,
       stripeUrl: "",
       bankInfo: "【振込先口座】（準備中：確定次第こちらに表示されます）\n※お振込名義は「お申込時のお名前」でお願いいたします。",
       reward30Url: "",
@@ -545,7 +563,7 @@
         if (isMutating && !force) return;
 
         if (data && data.orders && typeof data.orders === "object") {
-          orders = Object.values(data.orders).filter(o => o && !o.cancelled);
+          orders = Object.values(data.orders).filter(o => o && !o.cancelled && o.orderNo);
         } else {
           orders = [];
         }
@@ -554,10 +572,11 @@
           config = Object.assign(config, data.config);
           if (!data.config.dayCap || data.config.dayCap === 100) config.dayCap = 264;
           if (!data.config.nightCap || data.config.nightCap === 100) config.nightCap = 264;
-          // 旧価格4000円が残っていた場合は3500円に自動補正
           if (!data.config.ticketPrice || data.config.ticketPrice === 4000) config.ticketPrice = 3500;
           if (data.config.shippingFee === undefined) config.shippingFee = 120;
           if (data.config.countOnlyPaid === undefined) config.countOnlyPaid = true;
+          config.manualDaySold = Math.max(0, parseInt(data.config.manualDaySold, 10) || 0);
+          config.manualNightSold = Math.max(0, parseInt(data.config.manualNightSold, 10) || 0);
         }
 
         renderAll();
@@ -654,7 +673,6 @@
       return { dayQty: dQty, nightQty: nQty, totalQty: dQty + nQty };
     }
 
-    // ★ チケット3,500円×枚数 ＋ 紙チケット送料120円の計算
     function updateTotalAmount() {
       const price = parseInt(config.ticketPrice, 10) || 3500;
       const shipFee = selectedFormat === "paper" ? (parseInt(config.shippingFee, 10) || 120) : 0;
@@ -676,7 +694,6 @@
       document.getElementById("totalPriceDisplay").textContent = totalYen.toLocaleString() + "円";
     }
 
-    // ★ 集計計算（入金確認済のみカウントするか、全申込をカウントするかを反映）
     function getSalesStats() {
       let webConfirmedDay = 0;
       let webConfirmedNight = 0;
@@ -709,14 +726,13 @@
       const daySold = webConfirmedDay + manualDay;
       const nightSold = webConfirmedNight + manualNight;
 
-      const totalGoal = dayCap + nightCap; // 528枚
+      const totalGoal = dayCap + nightCap;
       const totalSold = daySold + nightSold;
       const remaining = Math.max(0, totalGoal - totalSold);
 
       const dayRemain = Math.max(0, dayCap - daySold);
       const nightRemain = Math.max(0, nightCap - nightSold);
 
-      // オーバーブッキング防止用（未入金仮予約も含めた残り枠）
       const dayAvailableForBooking = Math.max(0, dayCap - (daySold + webPendingDay));
       const nightAvailableForBooking = Math.max(0, nightCap - (nightSold + webPendingNight));
 
@@ -917,7 +933,6 @@
       }).join("");
     }
 
-    // ★ 購入者の画面表示（未入金時はお支払い案内、入金確認済になると電子チケット画像を表示）
     function renderMyTickets() {
       const sec = document.getElementById("myTicketSection");
       const myList = orders.filter(o => myOrderIds.includes(o.id));
@@ -1046,8 +1061,10 @@
         const el = document.getElementById(id);
         if (el && document.activeElement !== el) el.value = val !== undefined ? val : "";
       };
-      f("admManualDay", config.manualDaySold || 0);
-      f("admManualNight", config.manualNightSold || 0);
+      if (!isEditingManual) {
+        f("admManualDay", config.manualDaySold || 0);
+        f("admManualNight", config.manualNightSold || 0);
+      }
       f("admDayCap", config.dayCap || 264);
       f("admNightCap", config.nightCap || 264);
       f("admTicketPrice", config.ticketPrice || 3500);
@@ -1139,30 +1156,58 @@
       await pushConfigToCloud(false);
     }
 
+    // 手売り枚数の増減（+1, +5, -1, -5）
     async function adjustManualSold(session, delta) {
       if (session === "day") {
-        const cur = parseInt(document.getElementById("admManualDay").value, 10) || 0;
+        const cur = parseInt(config.manualDaySold, 10) || 0;
         const next = Math.max(0, cur + delta);
-        document.getElementById("admManualDay").value = next;
         config.manualDaySold = next;
+        document.getElementById("admManualDay").value = next;
       } else {
-        const cur = parseInt(document.getElementById("admManualNight").value, 10) || 0;
+        const cur = parseInt(config.manualNightSold, 10) || 0;
         const next = Math.max(0, cur + delta);
-        document.getElementById("admManualNight").value = next;
         config.manualNightSold = next;
+        document.getElementById("admManualNight").value = next;
       }
       await pushConfigToCloud(false);
     }
 
+    // ★ 昼または夜の手売り枚数をワンタップで「0」にリセット
+    async function resetSingleManualSold(session) {
+      if (session === "day") {
+        config.manualDaySold = 0;
+        document.getElementById("admManualDay").value = 0;
+      } else {
+        config.manualNightSold = 0;
+        document.getElementById("admManualNight").value = 0;
+      }
+      await pushConfigToCloud(false);
+    }
+
+    // ★ 昼・夜両方の手売り枚数を一括で「0」にリセット
+    async function resetAllManualSold() {
+      config.manualDaySold = 0;
+      config.manualNightSold = 0;
+      document.getElementById("admManualDay").value = 0;
+      document.getElementById("admManualNight").value = 0;
+      await pushConfigToCloud(false);
+    }
+
     async function saveManualSoldOnly() {
-      config.manualDaySold = Math.max(0, parseInt(document.getElementById("admManualDay").value, 10) || 0);
-      config.manualNightSold = Math.max(0, parseInt(document.getElementById("admManualNight").value, 10) || 0);
+      isEditingManual = false;
+      const dVal = parseInt(document.getElementById("admManualDay").value, 10);
+      const nVal = parseInt(document.getElementById("admManualNight").value, 10);
+      config.manualDaySold = isNaN(dVal) ? 0 : Math.max(0, dVal);
+      config.manualNightSold = isNaN(nVal) ? 0 : Math.max(0, nVal);
       await pushConfigToCloud(true);
     }
 
     async function saveAdminConfig() {
-      config.manualDaySold = Math.max(0, parseInt(document.getElementById("admManualDay").value, 10) || 0);
-      config.manualNightSold = Math.max(0, parseInt(document.getElementById("admManualNight").value, 10) || 0);
+      isEditingManual = false;
+      const dVal = parseInt(document.getElementById("admManualDay").value, 10);
+      const nVal = parseInt(document.getElementById("admManualNight").value, 10);
+      config.manualDaySold = isNaN(dVal) ? 0 : Math.max(0, dVal);
+      config.manualNightSold = isNaN(nVal) ? 0 : Math.max(0, nVal);
       config.dayCap = parseInt(document.getElementById("admDayCap").value, 10) || 264;
       config.nightCap = parseInt(document.getElementById("admNightCap").value, 10) || 264;
       config.ticketPrice = parseInt(document.getElementById("admTicketPrice").value, 10) || 3500;
@@ -1185,6 +1230,24 @@
           body: JSON.stringify(config)
         });
         if (showAlert) alert("設定を保存し、応援メーターに反映しました！");
+      } catch (e) {}
+      isMutating = false;
+      await fetchCloudData(true);
+    }
+
+    // ★ Webテスト申込データを一括で全消去
+    async function clearAllWebOrders() {
+      isMutating = true;
+      orders = [];
+      myOrderIds = [];
+      localStorage.removeItem(KEY_MY_ORDERS);
+      renderAll();
+      try {
+        await fetch(getCleanDbUrl() + DB_NODE + "/orders.json?_t=" + Date.now(), {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ _empty: { cancelled: true } })
+        });
       } catch (e) {}
       isMutating = false;
       await fetchCloudData(true);
