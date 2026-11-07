@@ -37,7 +37,7 @@
   <!-- ==================== 1. ファン向け チケット購入＆応援画面 ==================== -->
   <div id="userView" class="max-w-2xl w-full mx-auto px-4 pt-5 pb-16 space-y-6">
 
-    <!-- 🌸 フライヤーポスター ヘッダーエリア（全体表示） -->
+    <!-- 🌸 フライヤーポスター ヘッダーエリア（見切れなし・全体表示） -->
     <header class="rounded-3xl overflow-hidden shadow-2xl border-2 border-amber-400/60 bg-slate-950">
       <img src="poster.jpg" alt="恋するオルゴール ライブポスター"
            onerror="this.onerror=null;this.src='きらめく「恋するオルゴール」ライブポスター.png';"
@@ -283,12 +283,12 @@
           <button type="button" onclick="selectPaymentMethod('stripe')" id="btnPay_stripe"
             class="p-3.5 rounded-2xl border-2 text-left transition">
             <div class="font-black text-sm text-emerald-300">💳 クレジットカード決済（Stripe）</div>
-            <div class="text-[11px] text-slate-300 mt-1">お申込後、Stripe決済ページへ進みます</div>
+            <div class="text-[11px] text-slate-300 mt-1">お申込後、選択したチケット種別のStripe決済ページへ進みます</div>
           </button>
           <button type="button" onclick="selectPaymentMethod('bank')" id="btnPay_bank"
             class="p-3.5 rounded-2xl border-2 text-left transition">
-            <div class="font-black text-sm text-amber-300">🏦 銀行振込</div>
-            <div class="text-[11px] text-slate-300 mt-1">お申込後に表示される弊社口座へお振込みください</div>
+            <div class="font-black text-sm text-amber-300">🏦 銀行振込（ドコモSMTBネット銀行）</div>
+            <div class="text-[11px] text-slate-300 mt-1">お申込後に表示される弊社口座（カ）カルテツロ）へお振込みください</div>
           </button>
         </div>
       </div>
@@ -337,15 +337,16 @@
   <div id="adminView" class="hidden max-w-6xl w-full mx-auto px-4 pt-6 pb-20 text-slate-800">
     <div class="bg-white rounded-3xl p-5 sm:p-6 shadow-2xl border-2 border-amber-400 space-y-6">
 
-      <!-- 🚨 管理画面トップバー（ここに一括リセットボタンを配置） -->
+      <!-- 🚨 管理画面トップバー -->
       <div class="flex flex-wrap items-center justify-between gap-2 border-b pb-4">
         <div class="flex flex-wrap items-center gap-2">
           <span class="bg-amber-400 text-slate-950 text-xs font-black px-3 py-1 rounded-full">
-            👑 チケット管理画面 Ver.2.1
+            👑 チケット管理画面 Ver.2.2
           </span>
           <button onclick="switchMode('user')" class="bg-slate-200 hover:bg-slate-300 text-xs font-bold px-3 py-1.5 rounded-xl">
             ← 購入ページへ戻る
           </button>
+          <span id="adminStatusToast" class="text-xs font-black text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg hidden"></span>
         </div>
         <div class="flex flex-wrap gap-2">
           <button onclick="resetAllManualSold()" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-black px-4 py-2.5 rounded-xl shadow-md">
@@ -434,7 +435,7 @@
 
       <details class="bg-slate-50 rounded-2xl p-4 border border-slate-200 text-xs">
         <summary class="font-black text-sm text-slate-900 cursor-pointer">
-          ⚙️ 定員(264枚)・価格(3,500円)・郵送料(120円)・Stripe決済URL・振込口座・特典設定を開く
+          ⚙️ 定員(264枚)・価格(3,500円)・Stripe決済URL(2種)・振込口座・特典URL設定を開く
         </summary>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 pt-3 border-t">
           <div class="space-y-2.5">
@@ -445,9 +446,19 @@
               <div><label class="block text-slate-500 font-bold mb-0.5">1枚価格(円)</label><input type="number" id="admTicketPrice" value="3500" class="w-full border rounded-lg p-2 font-black" /></div>
               <div><label class="block text-slate-500 font-bold mb-0.5">紙郵送料(円)</label><input type="number" id="admShippingFee" value="120" class="w-full border rounded-lg p-2 font-black" /></div>
             </div>
-            <div class="font-black text-slate-800 pt-2">💳 決済・振込設定</div>
-            <div><label class="block text-slate-500 font-bold mb-0.5">Stripe 決済URL</label><input type="text" id="admStripeUrl" placeholder="https://buy.stripe.com/..." class="w-full border rounded-lg p-2" /></div>
-            <div><label class="block text-slate-500 font-bold mb-0.5">銀行振込先口座</label><textarea id="admBankInfo" rows="3" class="w-full border rounded-lg p-2"></textarea></div>
+            <div class="font-black text-slate-800 pt-2">💳 Stripe決済リンク（2種類） ＆ 振込先口座</div>
+            <div>
+              <label class="block text-slate-500 font-bold mb-0.5">📱 電子チケット用 Stripe決済URL</label>
+              <input type="text" id="admStripeElectronicUrl" class="w-full border rounded-lg p-2" />
+            </div>
+            <div>
+              <label class="block text-slate-500 font-bold mb-0.5">✉️ 紙チケット（送料込み）用 Stripe決済URL</label>
+              <input type="text" id="admStripePaperUrl" class="w-full border rounded-lg p-2" />
+            </div>
+            <div>
+              <label class="block text-slate-500 font-bold mb-0.5">🏦 銀行振込先口座案内</label>
+              <textarea id="admBankInfo" rows="5" class="w-full border rounded-lg p-2"></textarea>
+            </div>
           </div>
           <div class="space-y-2.5">
             <div class="font-black text-slate-800">🎁 特典URL設定</div>
@@ -476,8 +487,8 @@
 
   <footer class="border-t border-slate-800/80 py-5 px-4 text-xs text-slate-400">
     <div class="max-w-2xl mx-auto flex justify-between items-center">
-      <span>恋するオルゴール 卒業コンサート実行委員会 (Ver.2.1)</span>
-      <button onclick="openLoginModal()" class="underline hover:text-amber-300 font-bold">🔒 スタッフ管理画面（手売り調整・リセット）</button>
+      <span>恋するオルゴール 卒業コンサート実行委員会 (Ver.2.2)</span>
+      <button onclick="openLoginModal()" class="underline hover:text-amber-300 font-bold">🔒 スタッフ管理画面</button>
     </div>
   </footer>
 
@@ -503,7 +514,18 @@
     const IMG_NIGHT_PRIMARY = "恋するオルゴール (170 x 54 mm) (夜).jpg";
     const IMG_NIGHT_FALLBACK = "ticket_night.jpg";
 
-    const KEY_MY_ORDERS = "koioru_my_order_ids_v6";
+    // ★ 確定した2種類のStripe決済URLと振込先情報
+    const DEFAULT_STRIPE_ELECTRONIC = "https://buy.stripe.com/fZu3cu0QsgGx3vAcVR6sw01";
+    const DEFAULT_STRIPE_PAPER = "https://buy.stripe.com/cNiaEWfLm1LD8PU4pl6sw02";
+    const DEFAULT_BANK_INFO =
+      "ドコモSMTBネット銀行（金融機関コード0038）\n" +
+      "法人第一支店（支店コード106）\n" +
+      "普通 2686319\n" +
+      "カ）カルテツロ\n" +
+      "※株式会社Cartelloは恋するオルゴールマネジメント会社になります。\n" +
+      "※振込名義は申込者名を記載ください。";
+
+    const KEY_MY_ORDERS = "koioru_my_order_ids_v7";
 
     let orders = [];
     let myOrderIds = [];
@@ -523,8 +545,9 @@
       manualDaySold: 0,
       manualNightSold: 0,
       countOnlyPaid: true,
-      stripeUrl: "",
-      bankInfo: "【振込先口座】（準備中：確定次第こちらに表示されます）\n※お振込名義は「お申込時のお名前」でお願いいたします。",
+      stripeElectronicUrl: DEFAULT_STRIPE_ELECTRONIC,
+      stripePaperUrl: DEFAULT_STRIPE_PAPER,
+      bankInfo: DEFAULT_BANK_INFO,
       reward30Url: "",
       reward50Url: "",
       reward80Url: ""
@@ -532,6 +555,14 @@
 
     function getCleanDbUrl() {
       return CLOUD_DB_URL.trim().replace(/\/$/, "");
+    }
+
+    function showAdminToast(msg) {
+      const el = document.getElementById("adminStatusToast");
+      if (!el) return;
+      el.textContent = msg;
+      el.classList.remove("hidden");
+      setTimeout(() => el.classList.add("hidden"), 3500);
     }
 
     async function initApp() {
@@ -574,6 +605,13 @@
           if (data.config.countOnlyPaid === undefined) config.countOnlyPaid = true;
           config.manualDaySold = Math.max(0, parseInt(data.config.manualDaySold, 10) || 0);
           config.manualNightSold = Math.max(0, parseInt(data.config.manualNightSold, 10) || 0);
+
+          // クラウド側にまだ新しいStripe URLや口座情報が入っていない場合は確定情報を自動適用
+          if (!data.config.stripeElectronicUrl) config.stripeElectronicUrl = DEFAULT_STRIPE_ELECTRONIC;
+          if (!data.config.stripePaperUrl) config.stripePaperUrl = DEFAULT_STRIPE_PAPER;
+          if (!data.config.bankInfo || data.config.bankInfo.includes("準備中")) {
+            config.bankInfo = DEFAULT_BANK_INFO;
+          }
         }
 
         renderAll();
@@ -930,6 +968,7 @@
       }).join("");
     }
 
+    // ★ チケット種別（電子 or 紙）に応じて2つのStripe URLを自動で出し分け
     function renderMyTickets() {
       const sec = document.getElementById("myTicketSection");
       const myList = orders.filter(o => myOrderIds.includes(o.id));
@@ -941,7 +980,8 @@
 
       const latest = myList[myList.length - 1];
       const payBox = document.getElementById("paymentInstructionBox");
-      const shipNote = latest.ticketFormat === "paper" ? "（郵送料120円含む）" : "（電子チケット・送料無料）";
+      const isPaper = latest.ticketFormat === "paper";
+      const shipNote = isPaper ? "（紙チケット・郵送料120円込）" : "（電子チケット・送料無料）";
 
       if (latest.paid) {
         payBox.innerHTML =
@@ -950,20 +990,36 @@
           '</div>' +
           '<p class="text-slate-200 text-xs">ご入金ありがとうございました！あなたのチケット枚数が応援メーターに加算されました✨</p>';
       } else if (latest.paymentMethod === "stripe") {
-        const stripeBtnHtml = config.stripeUrl
-          ? '<a href="' + esc(config.stripeUrl) + '" target="_blank" rel="noopener noreferrer" class="inline-block w-full sm:w-auto text-center bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black px-6 py-3 rounded-xl shadow-lg text-sm">💳 Stripeでクレジットカード決済へ進む（' + latest.totalPrice.toLocaleString() + '円）</a>'
-          : '<div class="bg-slate-900 p-3 rounded-xl border border-amber-400/40 text-amber-200 font-bold">※ただいまクレジットカード決済URLを準備中です。確定次第こちらから決済いただけます。</div>';
+        const targetStripeUrl = isPaper
+          ? (config.stripePaperUrl || DEFAULT_STRIPE_PAPER)
+          : (config.stripeElectronicUrl || DEFAULT_STRIPE_ELECTRONIC);
+        const btnLabel = isPaper
+          ? "💳 紙チケット（送料込み）Stripe決済ページへ進む"
+          : "💳 電子チケット Stripe決済ページへ進む";
 
         payBox.innerHTML =
-          '<div class="font-black text-pink-300 text-sm">⏳ ステータス：お支払い手続き待ち（仮受付）</div>' +
-          '<p class="text-slate-200 leading-relaxed">お支払い合計金額：<span class="font-black text-amber-300 text-base">' + latest.totalPrice.toLocaleString() + '円</span> ' + shipNote + '</p>' +
-          '<div class="pt-1">' + stripeBtnHtml + '</div>' +
+          '<div class="font-black text-pink-300 text-sm">⏳ ステータス：クレジットカード決済手続き待ち</div>' +
+          '<p class="text-slate-200 leading-relaxed">お申し込み内容：<strong class="text-white">合計 ' + latest.totalQty + '枚</strong> ／ お支払い合計：<span class="font-black text-amber-300 text-base">' + latest.totalPrice.toLocaleString() + '円</span> ' + shipNote + '</p>' +
+          '<div class="pt-1">' +
+            '<a href="' + esc(targetStripeUrl) + '" target="_blank" rel="noopener noreferrer" class="block w-full text-center bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black px-6 py-3.5 rounded-xl shadow-lg text-sm transition">' +
+              btnLabel + '（' + latest.totalPrice.toLocaleString() + '円）' +
+            '</a>' +
+          '</div>' +
+          (latest.totalQty > 1
+            ? '<p class="text-xs font-bold text-amber-300 bg-amber-950/60 p-2.5 rounded-xl border border-amber-400/40">⚠️ <strong>' + latest.totalQty + '枚お申し込みの方へ：</strong>遷移先のStripe決済画面にて数量を「' + latest.totalQty + '」に変更して決済してください。</p>'
+            : '') +
           '<p class="text-[11px] text-slate-400">※決済完了後、スタッフの確認が完了すると応援メーターに加算され、下に電子チケット画像が表示されます。</p>';
       } else {
         payBox.innerHTML =
-          '<div class="font-black text-amber-300 text-sm">⏳ ステータス：銀行振込手続き待ち（仮受付）</div>' +
-          '<p class="text-slate-200">お振込合計金額：<span class="font-black text-amber-300 text-base">' + latest.totalPrice.toLocaleString() + '円</span> ' + shipNote + '</p>' +
-          '<div class="bg-slate-900 p-3 rounded-xl border border-slate-700 font-bold text-amber-100 whitespace-pre-line leading-relaxed">' + esc(config.bankInfo) + '</div>' +
+          '<div class="font-black text-amber-300 text-sm">⏳ ステータス：銀行振込手続き待ち</div>' +
+          '<p class="text-slate-200">お振込合計金額：<span class="font-black text-amber-300 text-lg">' + latest.totalPrice.toLocaleString() + '円</span> ' + shipNote + '</p>' +
+          '<div class="bg-slate-900 p-3.5 rounded-xl border border-amber-400/40 space-y-2">' +
+            '<div class="font-bold text-amber-100 whitespace-pre-line leading-relaxed text-xs sm:text-sm">' + esc(config.bankInfo || DEFAULT_BANK_INFO) + '</div>' +
+            '<div class="pt-1 flex flex-wrap items-center gap-2">' +
+              '<button onclick="copyAccountNumber()" class="bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-400/40 text-xs font-bold px-3 py-1.5 rounded-lg">📋 口座番号「2686319」をコピー</button>' +
+              '<span class="text-[11px] text-pink-300 font-bold">※お振込名義：「' + esc(latest.name) + '」様のお名前でご送金ください</span>' +
+            '</div>' +
+          '</div>' +
           '<p class="text-[11px] text-slate-400">※ご入金確認後、応援メーターに加算され、下に電子チケット画像が表示されます。</p>';
       }
 
@@ -1020,6 +1076,13 @@
       }).join('<hr class="border-slate-700 my-4" />');
     }
 
+    function copyAccountNumber() {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText("2686319");
+        alert("口座番号「2686319」をコピーしました！");
+      }
+    }
+
     function openRewardModal(type) {
       const modal = document.getElementById("rewardModal");
       const title = document.getElementById("rewardModalTitle");
@@ -1065,8 +1128,9 @@
       f("admNightCap", config.nightCap || 264);
       f("admTicketPrice", config.ticketPrice || 3500);
       f("admShippingFee", config.shippingFee !== undefined ? config.shippingFee : 120);
-      f("admStripeUrl", config.stripeUrl);
-      f("admBankInfo", config.bankInfo);
+      f("admStripeElectronicUrl", config.stripeElectronicUrl || DEFAULT_STRIPE_ELECTRONIC);
+      f("admStripePaperUrl", config.stripePaperUrl || DEFAULT_STRIPE_PAPER);
+      f("admBankInfo", config.bankInfo || DEFAULT_BANK_INFO);
       f("admReward30", config.reward30Url);
       f("admReward50", config.reward50Url);
       f("admReward80", config.reward80Url);
@@ -1167,7 +1231,6 @@
       await pushConfigToCloud(false);
     }
 
-    // 昼または夜の手売りを0に戻す
     async function resetSingleManualSold(session) {
       isEditingManual = false;
       if (session === "day") {
@@ -1177,20 +1240,20 @@
         config.manualNightSold = 0;
         document.getElementById("admManualNight").value = 0;
       }
-      config.manualSold = 0; // 旧変数もクリア
+      config.manualSold = 0;
       await pushConfigToCloud(false);
+      showAdminToast("✅ 手売り枚数を0にリセットしました");
     }
 
-    // 昼・夜すべての手売り枚数を一括0リセット
     async function resetAllManualSold() {
       isEditingManual = false;
       config.manualDaySold = 0;
       config.manualNightSold = 0;
-      config.manualSold = 0; // 旧変数もクリア
+      config.manualSold = 0;
       document.getElementById("admManualDay").value = 0;
       document.getElementById("admManualNight").value = 0;
       await pushConfigToCloud(false);
-      alert("手売り枚数をすべて「0枚」にリセットしました！");
+      showAdminToast("✅ 昼・夜の手売り枚数をすべて0枚にリセットしました！");
     }
 
     async function saveManualSoldOnly() {
@@ -1214,7 +1277,8 @@
       config.nightCap = parseInt(document.getElementById("admNightCap").value, 10) || 264;
       config.ticketPrice = parseInt(document.getElementById("admTicketPrice").value, 10) || 3500;
       config.shippingFee = parseInt(document.getElementById("admShippingFee").value, 10) || 120;
-      config.stripeUrl = document.getElementById("admStripeUrl").value.trim();
+      config.stripeElectronicUrl = document.getElementById("admStripeElectronicUrl").value.trim() || DEFAULT_STRIPE_ELECTRONIC;
+      config.stripePaperUrl = document.getElementById("admStripePaperUrl").value.trim() || DEFAULT_STRIPE_PAPER;
       config.bankInfo = document.getElementById("admBankInfo").value;
       config.reward30Url = document.getElementById("admReward30").value.trim();
       config.reward50Url = document.getElementById("admReward50").value.trim();
@@ -1231,7 +1295,7 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(config)
         });
-        if (showAlert) alert("設定を保存し、応援メーターに反映しました！");
+        if (showAlert) showAdminToast("💾 設定をクラウドに保存しました！");
       } catch (e) {}
       isMutating = false;
       await fetchCloudData(true);
@@ -1249,7 +1313,7 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ _empty: { cancelled: true } })
         });
-        alert("Webテスト申込データをすべて消去しました！");
+        showAdminToast("🗑️ Webテスト申込データをすべて消去しました！");
       } catch (e) {}
       isMutating = false;
       await fetchCloudData(true);
