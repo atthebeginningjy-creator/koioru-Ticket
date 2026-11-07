@@ -37,7 +37,7 @@
   <!-- ==================== 1. ファン向け チケット購入＆応援画面 ==================== -->
   <div id="userView" class="max-w-2xl w-full mx-auto px-4 pt-5 pb-16 space-y-6">
 
-    <!-- 🌸 フライヤーポスター ヘッダーエリア（見切れなし・全体表示） -->
+    <!-- 🌸 フライヤーポスター ヘッダーエリア（全体表示） -->
     <header class="rounded-3xl overflow-hidden shadow-2xl border-2 border-amber-400/60 bg-slate-950">
       <img src="poster.jpg" alt="恋するオルゴール ライブポスター"
            onerror="this.onerror=null;this.src='きらめく「恋するオルゴール」ライブポスター.png';"
@@ -337,39 +337,27 @@
   <div id="adminView" class="hidden max-w-6xl w-full mx-auto px-4 pt-6 pb-20 text-slate-800">
     <div class="bg-white rounded-3xl p-5 sm:p-6 shadow-2xl border-2 border-amber-400 space-y-6">
 
-      <div class="flex flex-wrap items-center justify-between gap-2 border-b pb-3">
-        <div class="flex items-center gap-2">
+      <!-- 🚨 管理画面トップバー（ここに一括リセットボタンを配置） -->
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b pb-4">
+        <div class="flex flex-wrap items-center gap-2">
           <span class="bg-amber-400 text-slate-950 text-xs font-black px-3 py-1 rounded-full">
-            👑 恋するオルゴール チケット管理画面
+            👑 チケット管理画面 Ver.2.1
           </span>
           <button onclick="switchMode('user')" class="bg-slate-200 hover:bg-slate-300 text-xs font-bold px-3 py-1.5 rounded-xl">
             ← 購入ページへ戻る
           </button>
         </div>
         <div class="flex flex-wrap gap-2">
-          <button onclick="fetchCloudData(true)" class="bg-slate-100 hover:bg-slate-200 border text-xs font-bold px-3 py-2 rounded-xl">
-            🔄 最新データに更新
+          <button onclick="resetAllManualSold()" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-black px-4 py-2.5 rounded-xl shadow-md">
+            🔄 手売り枚数を一括「0」にリセット
           </button>
-          <button onclick="exportCsv()" class="bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-black px-3.5 py-2 rounded-xl">
-            📥 購入者リストをCSV出力
+          <button onclick="clearAllWebOrders()" class="bg-rose-100 hover:bg-rose-200 text-rose-700 border border-rose-300 text-xs font-black px-3.5 py-2.5 rounded-xl">
+            🗑️ Webテスト申込を全消去
           </button>
-          <button onclick="clearAllWebOrders()" class="bg-rose-100 hover:bg-rose-200 text-rose-700 border border-rose-300 text-xs font-black px-3 py-2 rounded-xl">
-            🗑️ Web申込データを全消去
+          <button onclick="exportCsv()" class="bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-black px-3.5 py-2.5 rounded-xl">
+            📥 CSV出力
           </button>
         </div>
-      </div>
-
-      <!-- 🛡️ 未入金カウント防止設定（メーター反映タイミングの切り替え） -->
-      <div class="bg-indigo-50 rounded-2xl p-4 border-2 border-indigo-300 flex flex-wrap items-center justify-between gap-3 text-xs">
-        <div class="space-y-1">
-          <div class="font-black text-sm text-indigo-950">🛡️ 販売メーター＆電子チケット発券の反映ルール（未払いカウント防止）</div>
-          <p class="text-indigo-800">
-            現在は<strong>「入金済にチェックを入れた申込のみ」</strong>が販売枚数メーターに加算され、購入者のスマホに電子チケット画像が表示される安全設定です。
-          </p>
-        </div>
-        <button id="toggleCountRuleBtn" onclick="toggleCountOnlyPaid()" class="font-black px-4 py-2.5 rounded-xl shadow shrink-0">
-          設定読込中...
-        </button>
       </div>
 
       <!-- 🖐️ 手売り枚数クイック入力＆一括リセットパネル -->
@@ -377,20 +365,15 @@
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div>
             <h3 class="text-sm sm:text-base font-black text-slate-900 flex items-center gap-1.5">
-              <span>🖐️</span> 紙チケット「手売り販売枚数」クイック調整・一括リセット
+              <span>🖐️</span> 紙チケット「手売り販売枚数」調整パネル
             </h3>
             <p class="text-xs text-slate-600 mt-0.5">
-              ボタンで増減するか、「0に戻す」で一括クリアできます（直接数字を入力して「保存」を押しても反映されます）。
+              「0に戻す」を押すと即座に0枚にクリアされます。
             </p>
           </div>
-          <div class="flex flex-wrap items-center gap-2">
-            <span id="adminTotalQuickBadge" class="bg-slate-900 text-amber-300 text-xs font-black px-3 py-1.5 rounded-xl">
-              確定販売: 0 / 528枚 (0%)
-            </span>
-            <button onclick="resetAllManualSold()" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-black px-3 py-1.5 rounded-xl shadow">
-              🔄 昼・夜の手売りを一括0リセット
-            </button>
-          </div>
+          <span id="adminTotalQuickBadge" class="bg-slate-900 text-amber-300 text-xs font-black px-3 py-1.5 rounded-xl">
+            確定販売: 0 / 528枚 (0%)
+          </span>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1 text-xs">
@@ -401,7 +384,7 @@
               <span id="admDayBreakdown" class="text-slate-500 font-bold">Web確定:0 + 手売り:0 = 計0/264枚</span>
             </div>
             <div class="flex flex-wrap items-center gap-1.5">
-              <button onclick="resetSingleManualSold('day')" class="bg-rose-100 hover:bg-rose-200 text-rose-700 border border-rose-300 font-black px-2.5 py-2 rounded-lg">0に戻す</button>
+              <button onclick="resetSingleManualSold('day')" class="bg-rose-600 hover:bg-rose-500 text-white font-black px-3 py-2 rounded-lg shadow">0に戻す</button>
               <button onclick="adjustManualSold('day', -5)" class="bg-slate-200 hover:bg-slate-300 font-black px-2.5 py-2 rounded-lg">-5</button>
               <button onclick="adjustManualSold('day', -1)" class="bg-slate-200 hover:bg-slate-300 font-black px-2.5 py-2 rounded-lg">-1</button>
               <input type="number" id="admManualDay" min="0" max="264" value="0"
@@ -421,7 +404,7 @@
               <span id="admNightBreakdown" class="text-slate-500 font-bold">Web確定:0 + 手売り:0 = 計0/264枚</span>
             </div>
             <div class="flex flex-wrap items-center gap-1.5">
-              <button onclick="resetSingleManualSold('night')" class="bg-rose-100 hover:bg-rose-200 text-rose-700 border border-rose-300 font-black px-2.5 py-2 rounded-lg">0に戻す</button>
+              <button onclick="resetSingleManualSold('night')" class="bg-rose-600 hover:bg-rose-500 text-white font-black px-3 py-2 rounded-lg shadow">0に戻す</button>
               <button onclick="adjustManualSold('night', -5)" class="bg-slate-200 hover:bg-slate-300 font-black px-2.5 py-2 rounded-lg">-5</button>
               <button onclick="adjustManualSold('night', -1)" class="bg-slate-200 hover:bg-slate-300 font-black px-2.5 py-2 rounded-lg">-1</button>
               <input type="number" id="admManualNight" min="0" max="264" value="0"
@@ -434,6 +417,19 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- 🛡️ 未入金カウント防止設定 -->
+      <div class="bg-indigo-50 rounded-2xl p-4 border-2 border-indigo-300 flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div class="space-y-1">
+          <div class="font-black text-sm text-indigo-950">🛡️ 販売メーター＆電子チケット発券の反映ルール（未払いカウント防止）</div>
+          <p class="text-indigo-800">
+            現在は<strong>「入金確認済にチェックを入れた申込のみ」</strong>が販売枚数メーターに加算される安全設定です。
+          </p>
+        </div>
+        <button id="toggleCountRuleBtn" onclick="toggleCountOnlyPaid()" class="font-black px-4 py-2.5 rounded-xl shadow shrink-0">
+          設定読込中...
+        </button>
       </div>
 
       <details class="bg-slate-50 rounded-2xl p-4 border border-slate-200 text-xs">
@@ -467,8 +463,8 @@
       <div class="space-y-3">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div>
-            <h3 class="text-base font-black text-slate-900">📋 Webチケットお申し込み一覧（入金チェックでメーター加算＆発券）</h3>
-            <p class="text-xs text-rose-600 font-bold">※右側の「✅ 入金確認済（発券）」にチェックを入れると、応援メーターの枚数に加算され、購入者のスマホに電子チケットが表示されます。</p>
+            <h3 class="text-base font-black text-slate-900">📋 Webチケットお申し込み一覧</h3>
+            <p class="text-xs text-rose-600 font-bold">※右側の「入金確認済（発券）」にチェックを入れるとメーターに加算され、購入者の画面に電子チケットが表示されます。</p>
           </div>
           <div id="adminStatsSummary" class="text-xs font-bold text-slate-600"></div>
         </div>
@@ -480,8 +476,8 @@
 
   <footer class="border-t border-slate-800/80 py-5 px-4 text-xs text-slate-400">
     <div class="max-w-2xl mx-auto flex justify-between items-center">
-      <span>恋するオルゴール 卒業コンサート実行委員会</span>
-      <button onclick="openLoginModal()" class="underline hover:text-amber-300">🔒 スタッフ管理画面</button>
+      <span>恋するオルゴール 卒業コンサート実行委員会 (Ver.2.1)</span>
+      <button onclick="openLoginModal()" class="underline hover:text-amber-300 font-bold">🔒 スタッフ管理画面（手売り調整・リセット）</button>
     </div>
   </footer>
 
@@ -507,12 +503,12 @@
     const IMG_NIGHT_PRIMARY = "恋するオルゴール (170 x 54 mm) (夜).jpg";
     const IMG_NIGHT_FALLBACK = "ticket_night.jpg";
 
-    const KEY_MY_ORDERS = "koioru_my_order_ids_v5";
+    const KEY_MY_ORDERS = "koioru_my_order_ids_v6";
 
     let orders = [];
     let myOrderIds = [];
     let isMutating = false;
-    let isEditingManual = false; // 手売り枚数を手入力中に自動同期で上書きされるのを防ぐフラグ
+    let isEditingManual = false;
 
     let selectedSession = "day";
     let selectedFormat = "electronic";
@@ -523,6 +519,7 @@
       nightCap: 264,
       ticketPrice: 3500,
       shippingFee: 120,
+      manualSold: 0,
       manualDaySold: 0,
       manualNightSold: 0,
       countOnlyPaid: true,
@@ -1055,7 +1052,6 @@
       document.getElementById("rewardModal").classList.add("hidden");
     }
 
-    // ==================== 管理者画面の描画＆操作 ====================
     function renderAdminView() {
       const f = (id, val) => {
         const el = document.getElementById(id);
@@ -1103,7 +1099,7 @@
 
       const summaryEl = document.getElementById("adminStatsSummary");
       if (summaryEl) {
-        summaryEl.textContent = "Web申込総数: " + orders.length + "件（うち入金済: " + orders.filter(o => o.paid).length + "件 ／ 未入金: " + orders.filter(o => !o.paid).length + "件）";
+        summaryEl.textContent = "Web申込総数: " + orders.length + "件（入金済: " + orders.filter(o => o.paid).length + "件 ／ 未入金: " + orders.filter(o => !o.paid).length + "件）";
       }
 
       const listEl = document.getElementById("adminOrdersList");
@@ -1122,8 +1118,8 @@
             '<div class="flex flex-wrap items-center gap-2">' +
               '<span class="font-mono font-black bg-slate-900 text-amber-300 px-2 py-0.5 rounded">' + esc(o.orderNo) + '</span>' +
               (o.paid
-                ? '<span class="bg-emerald-600 text-white font-black px-2 py-0.5 rounded-full text-[10px]">✅ 入金確認済・メーター反映中</span>'
-                : '<span class="bg-amber-500 text-slate-950 font-black px-2 py-0.5 rounded-full text-[10px]">⏳ 未入金（確認待ち）</span>') +
+                ? '<span class="bg-emerald-600 text-white font-black px-2 py-0.5 rounded-full text-[10px]">✅ 入金確認済</span>'
+                : '<span class="bg-amber-500 text-slate-950 font-black px-2 py-0.5 rounded-full text-[10px]">⏳ 未入金</span>') +
               '<span class="font-black text-sm text-slate-900">' + esc(o.name) + ' 様</span>' +
               '<span class="text-slate-500">(' + esc(o.email) + ')</span>' +
               '<span class="font-black text-rose-600">昼:' + o.dayQty + '枚 / 夜:' + o.nightQty + '枚（計' + o.totalPrice.toLocaleString() + '円）</span>' +
@@ -1156,7 +1152,6 @@
       await pushConfigToCloud(false);
     }
 
-    // 手売り枚数の増減（+1, +5, -1, -5）
     async function adjustManualSold(session, delta) {
       if (session === "day") {
         const cur = parseInt(config.manualDaySold, 10) || 0;
@@ -1172,8 +1167,9 @@
       await pushConfigToCloud(false);
     }
 
-    // ★ 昼または夜の手売り枚数をワンタップで「0」にリセット
+    // 昼または夜の手売りを0に戻す
     async function resetSingleManualSold(session) {
+      isEditingManual = false;
       if (session === "day") {
         config.manualDaySold = 0;
         document.getElementById("admManualDay").value = 0;
@@ -1181,16 +1177,20 @@
         config.manualNightSold = 0;
         document.getElementById("admManualNight").value = 0;
       }
+      config.manualSold = 0; // 旧変数もクリア
       await pushConfigToCloud(false);
     }
 
-    // ★ 昼・夜両方の手売り枚数を一括で「0」にリセット
+    // 昼・夜すべての手売り枚数を一括0リセット
     async function resetAllManualSold() {
+      isEditingManual = false;
       config.manualDaySold = 0;
       config.manualNightSold = 0;
+      config.manualSold = 0; // 旧変数もクリア
       document.getElementById("admManualDay").value = 0;
       document.getElementById("admManualNight").value = 0;
       await pushConfigToCloud(false);
+      alert("手売り枚数をすべて「0枚」にリセットしました！");
     }
 
     async function saveManualSoldOnly() {
@@ -1199,6 +1199,7 @@
       const nVal = parseInt(document.getElementById("admManualNight").value, 10);
       config.manualDaySold = isNaN(dVal) ? 0 : Math.max(0, dVal);
       config.manualNightSold = isNaN(nVal) ? 0 : Math.max(0, nVal);
+      config.manualSold = 0;
       await pushConfigToCloud(true);
     }
 
@@ -1208,6 +1209,7 @@
       const nVal = parseInt(document.getElementById("admManualNight").value, 10);
       config.manualDaySold = isNaN(dVal) ? 0 : Math.max(0, dVal);
       config.manualNightSold = isNaN(nVal) ? 0 : Math.max(0, nVal);
+      config.manualSold = 0;
       config.dayCap = parseInt(document.getElementById("admDayCap").value, 10) || 264;
       config.nightCap = parseInt(document.getElementById("admNightCap").value, 10) || 264;
       config.ticketPrice = parseInt(document.getElementById("admTicketPrice").value, 10) || 3500;
@@ -1235,7 +1237,6 @@
       await fetchCloudData(true);
     }
 
-    // ★ Webテスト申込データを一括で全消去
     async function clearAllWebOrders() {
       isMutating = true;
       orders = [];
@@ -1248,6 +1249,7 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ _empty: { cancelled: true } })
         });
+        alert("Webテスト申込データをすべて消去しました！");
       } catch (e) {}
       isMutating = false;
       await fetchCloudData(true);
