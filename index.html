@@ -3,673 +3,598 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>恋するオルゴール 卒業コンサート | チケットお申込みサイト</title>
+  <title>恋するオルゴール 4部作完結記念 卒業コンサート チケット申込サイト</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@600;700;900&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
   <style>
-    /* 全体の文字サイズを一回り大きく設定 */
-    html {
-      font-size: 18px;
-    }
-    @media (max-width: 640px) {
-      html {
-        font-size: 17px;
-      }
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700;900&family=Zen+Maru+Gothic:wght@500;700;900&display=swap');
     body {
       font-family: 'Zen Maru Gothic', "Hiragino Kaku Gothic ProN", sans-serif;
-      background: radial-gradient(circle at top, #1e1b4b 0%, #0f172a 55%, #090d16 100%);
+      background: radial-gradient(circle at top, #1e1b4b 0%, #0f172a 50%, #090d16 100%);
       color: #f8fafc;
-      min-height: 100vh;
-      line-height: 1.75;
+      font-size: 16px;
     }
     .serif-title {
       font-family: 'Noto Serif JP', serif;
     }
+    .gold-bg {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #fbbf24 100%);
+    }
     .glass-card {
-      background: rgba(15, 23, 42, 0.78);
+      background: rgba(15, 23, 42, 0.82);
       backdrop-filter: blur(14px);
-      border: 1px solid rgba(251, 191, 36, 0.35);
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(251, 191, 36, 0.45);
     }
-    .gold-grad {
-      background: linear-gradient(135deg, #fde68a 0%, #f59e0b 50%, #fbbf24 100%);
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.3); }
+      50% { box-shadow: 0 0 35px rgba(244, 114, 182, 0.55); }
     }
-    .gold-text {
-      background: linear-gradient(135deg, #fef08a 0%, #f59e0b 55%, #fde047 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .shimmer-bar {
-      background: linear-gradient(90deg, #ec4899, #f59e0b, #fde047, #ec4899);
-      background-size: 200% 100%;
-      animation: shimmer 3s infinite linear;
-    }
-    @keyframes shimmer {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 200% 50%; }
-    }
-    @media print {
-      .no-print { display: none !important; }
-      body { background: #fff !important; color: #000 !important; }
+    .glow-box {
+      animation: pulse-glow 3.5s infinite ease-in-out;
     }
   </style>
 </head>
-<body class="flex flex-col justify-between">
+<body class="min-h-screen flex flex-col justify-between">
 
-  <!-- ==================== 1. お客様向け メイン画面 ==================== -->
-  <div id="userView" class="max-w-3xl w-full mx-auto px-4 pt-6 pb-20 space-y-8">
+  <!-- ==================== 1. ファン向け チケット購入＆応援画面 ==================== -->
+  <div id="userView" class="max-w-2xl w-full mx-auto px-4 pt-5 pb-20 space-y-7">
 
-    <!-- ヘッダー ＆ フライヤービジュアル -->
-    <header class="glass-card rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden">
-      <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
-        <span class="bg-amber-400/20 text-amber-300 border border-amber-400/50 text-xs sm:text-sm font-black px-3.5 py-1 rounded-full">
-          ✨ 1980s Retro Idol Project 卒業公演
+    <!-- 🌸 フライヤーポスター ヘッダーエリア（全体表示） -->
+    <header class="rounded-3xl overflow-hidden shadow-2xl border-2 border-amber-400/60 bg-slate-950">
+      <img src="poster.jpg" alt="恋するオルゴール ライブポスター"
+           onerror="this.onerror=null;this.src='きらめく「恋するオルゴール」ライブポスター.png';"
+           class="w-full h-auto block object-contain" />
+      <div class="bg-gradient-to-r from-indigo-950 via-slate-900 to-indigo-950 py-3.5 px-4 text-center border-t border-amber-400/40">
+        <span class="inline-block bg-amber-400 text-slate-950 text-sm sm:text-base font-black px-6 py-1.5 rounded-full shadow">
+          ✨ 4部作完結記念・卒業コンサート チケット受付ページ ✨
         </span>
-        <span id="syncBadge" class="text-xs sm:text-sm bg-emerald-950/90 text-emerald-300 border border-emerald-500/40 font-bold px-3 py-1 rounded-full">
-          🟢 リアルタイム残席連動中
-        </span>
-      </div>
-
-      <p class="text-amber-200 font-bold tracking-widest text-base sm:text-lg mb-1">
-        早坂 恵美 ・ 宮本 直美
-      </p>
-      <h1 class="serif-title text-3xl sm:text-5xl font-black gold-text tracking-wide leading-tight mb-3">
-        恋するオルゴール
-      </h1>
-      <p class="serif-title text-xl sm:text-2xl font-bold text-pink-200 mb-5">
-        〜 卒業コンサート チケットお申込み 〜
-      </p>
-
-      <!-- ポスター画像（ファイル名自動フォールバック対応） -->
-      <div class="rounded-2xl overflow-hidden border-2 border-amber-400/50 shadow-2xl mb-6 bg-slate-900/60">
-        <img src="きらめく「恋するオルゴール」ライブポスター.png"
-             alt="恋するオルゴール 卒業コンサート ポスター"
-             onerror="if(this.dataset.step!=='1'){this.dataset.step='1';this.src='poster.png';}else if(this.dataset.step!=='2'){this.dataset.step='2';this.src='poster.jpg';}else{this.style.display='none';}"
-             class="w-full h-auto object-cover max-h-[680px] mx-auto" />
-      </div>
-
-      <!-- 開催概要ボックス（文字サイズ拡大） -->
-      <div class="bg-slate-900/90 rounded-2xl p-5 sm:p-6 border border-amber-400/30 text-left space-y-3 text-base sm:text-lg">
-        <div class="flex flex-wrap items-center gap-2 font-black text-amber-300 text-lg sm:text-xl">
-          <span>📅 開催日：2027年1月9日(土)</span>
-        </div>
-        <div class="font-bold text-slate-100">
-          📍 会場：川崎市国際交流センター ホール
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-          <div class="bg-amber-500/15 border border-amber-400/40 rounded-xl p-3.5">
-            <div class="font-black text-amber-300 text-base sm:text-lg">☀️ 昼公演</div>
-            <div class="font-bold text-white text-base">開場 12:00 ／ 開演 13:00</div>
-            <div class="text-xs sm:text-sm text-amber-200/80 mt-0.5">定員 264席</div>
-          </div>
-          <div class="bg-pink-500/15 border border-pink-400/40 rounded-xl p-3.5">
-            <div class="font-black text-pink-300 text-base sm:text-lg">🌙 夜公演</div>
-            <div class="font-bold text-white text-base">開場 16:30 ／ 開演 17:30</div>
-            <div class="text-xs sm:text-sm text-pink-200/80 mt-0.5">定員 264席</div>
-          </div>
-        </div>
-        <div class="pt-3 border-t border-slate-700 flex flex-wrap justify-between items-center gap-2">
-          <span class="font-black text-amber-200 text-base sm:text-lg">🎫 チケット料金：1枚 3,500円（税込）</span>
-          <span class="text-sm sm:text-base text-slate-300 font-bold">※紙チケット郵送は別途送料120円</span>
-        </div>
       </div>
     </header>
 
-    <!-- 📊 リアルタイム応援メーター ＆ 達成率特典セクション -->
-    <section class="glass-card rounded-3xl p-6 sm:p-8 space-y-6">
-      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-700 pb-4">
+    <!-- 🔥 みんなで応援！チケット販売メーター ＆ 特典解放エリア -->
+    <section class="glass-card rounded-3xl p-5 sm:p-7 shadow-xl glow-box space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-amber-400/25 pb-3.5">
         <div>
           <span class="bg-pink-600 text-white text-xs sm:text-sm font-black px-3 py-1 rounded-full">
-            リアルタイム動員メーター
+            各公演264席・みんなで満員にしよう！
           </span>
-          <h2 class="serif-title text-xl sm:text-2xl font-black text-amber-200 mt-2">
-            ✨ チケット達成率でスペシャル特典が解放！
+          <h2 class="text-xl sm:text-2xl font-black text-amber-200 mt-1.5">
+            🎵 チケット販売達成メーター
           </h2>
         </div>
-        <button onclick="fetchCloudData(true)" class="text-xs sm:text-sm bg-slate-800 hover:bg-slate-700 text-amber-200 font-bold px-3.5 py-2 rounded-xl border border-amber-400/30">
-          🔄 最新状況に更新
-        </button>
+        <span class="text-xs sm:text-sm text-emerald-300 bg-emerald-950/80 border border-emerald-500/40 px-3 py-1 rounded-full font-bold">
+          🟢 リアルタイム連動中
+        </span>
       </div>
 
-      <!-- 昼・夜 各メーター -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <!-- 昼公演 -->
-        <div class="bg-slate-900/85 rounded-2xl p-5 border border-amber-400/30 space-y-2.5">
-          <div class="flex justify-between items-center">
-            <span class="font-black text-amber-300 text-base sm:text-lg">☀️ 昼公演（13:00開演）</span>
-            <span id="dayRemainBadge" class="bg-amber-400/20 text-amber-200 border border-amber-400/40 text-xs sm:text-sm font-black px-3 py-0.5 rounded-full">
-              残席 264枚
-            </span>
-          </div>
-          <div class="flex items-baseline justify-between">
-            <div class="text-2xl sm:text-3xl font-black text-white">
-              <span id="daySoldNum">0</span>
-              <span class="text-sm sm:text-base font-bold text-slate-400">/ <span id="dayCapNum">264</span>枚</span>
-            </div>
-            <div class="text-xl sm:text-2xl font-black text-amber-300"><span id="dayPctNum">0</span>%</div>
-          </div>
-          <div class="w-full bg-slate-800 h-4 rounded-full overflow-hidden p-0.5 border border-slate-700">
-            <div id="dayMeterBar" class="gold-grad h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+      <!-- 全体数字カウンター -->
+      <div class="grid grid-cols-3 gap-2.5 sm:gap-3 text-center">
+        <div class="bg-slate-900/90 rounded-2xl p-3.5 border border-amber-400/30">
+          <div class="text-xs sm:text-sm text-slate-300 font-bold">全体達成率</div>
+          <div id="meterPercentText" class="text-2xl sm:text-4xl font-black text-amber-300 mt-1">0%</div>
+        </div>
+        <div class="bg-slate-900/90 rounded-2xl p-3.5 border border-pink-400/40">
+          <div class="text-xs sm:text-sm text-pink-200 font-bold">全席完売まであと</div>
+          <div class="mt-1">
+            <span id="meterRemainingText" class="text-2xl sm:text-4xl font-black text-pink-400">528</span>
+            <span class="text-sm sm:text-base font-bold text-pink-200">枚</span>
           </div>
         </div>
-
-        <!-- 夜公演 -->
-        <div class="bg-slate-900/85 rounded-2xl p-5 border border-pink-400/30 space-y-2.5">
-          <div class="flex justify-between items-center">
-            <span class="font-black text-pink-300 text-base sm:text-lg">🌙 夜公演（17:30開演）</span>
-            <span id="nightRemainBadge" class="bg-pink-400/20 text-pink-200 border border-pink-400/40 text-xs sm:text-sm font-black px-3 py-0.5 rounded-full">
-              残席 264枚
-            </span>
-          </div>
-          <div class="flex items-baseline justify-between">
-            <div class="text-2xl sm:text-3xl font-black text-white">
-              <span id="nightSoldNum">0</span>
-              <span class="text-sm sm:text-base font-bold text-slate-400">/ <span id="nightCapNum">264</span>枚</span>
-            </div>
-            <div class="text-xl sm:text-2xl font-black text-pink-300"><span id="nightPctNum">0</span>%</div>
-          </div>
-          <div class="w-full bg-slate-800 h-4 rounded-full overflow-hidden p-0.5 border border-slate-700">
-            <div id="nightMeterBar" class="shimmer-bar h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+        <div class="bg-slate-900/90 rounded-2xl p-3.5 border border-sky-400/30">
+          <div class="text-xs sm:text-sm text-slate-300 font-bold">現在の確定枚数</div>
+          <div class="mt-1.5">
+            <span id="meterSoldText" class="text-xl sm:text-3xl font-black text-white">0</span>
+            <span class="text-xs sm:text-sm text-slate-400"> / <span id="meterGoalText">528</span>枚</span>
           </div>
         </div>
       </div>
 
-      <!-- 30% / 50% / 80% / 100% 特典カード -->
-      <div class="space-y-3 pt-1">
-        <div class="flex justify-between items-center text-sm sm:text-base font-bold text-slate-300">
-          <span>🎁 達成率に応じた特典一覧（昼・夜の合計達成率で解放）</span>
-          <span class="text-amber-300 font-black">総合達成率：<span id="totalPctNum">0</span>%</span>
+      <!-- 昼・夜別の個別カウント（各264枚） -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-sm">
+        <div class="bg-sky-950/60 border border-sky-400/40 rounded-2xl p-4 space-y-2.5">
+          <div class="flex justify-between items-center">
+            <span class="font-black text-sky-300 text-base">☀️ 昼公演（13:00開演）</span>
+            <span id="dayRemainBadge" class="bg-sky-400 text-slate-950 font-black px-3 py-1 rounded-full text-sm">
+              あと 264 枚
+            </span>
+          </div>
+          <div class="w-full h-3 bg-slate-950 rounded-full overflow-hidden border border-sky-500/40">
+            <div id="dayBarFill" class="h-full bg-gradient-to-r from-sky-400 to-amber-300 transition-all duration-500" style="width: 0%;"></div>
+          </div>
+          <div class="flex justify-between text-xs sm:text-sm text-sky-200 font-bold">
+            <span id="daySoldDetail">確定数: 0 / 264枚</span>
+            <span id="dayPctDetail">0%</span>
+          </div>
         </div>
-        <div id="rewardsGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-3"></div>
+
+        <div class="bg-indigo-950/60 border border-purple-400/40 rounded-2xl p-4 space-y-2.5">
+          <div class="flex justify-between items-center">
+            <span class="font-black text-purple-300 text-base">🌙 夜公演（17:30開演）</span>
+            <span id="nightRemainBadge" class="bg-purple-400 text-slate-950 font-black px-3 py-1 rounded-full text-sm">
+              あと 264 枚
+            </span>
+          </div>
+          <div class="w-full h-3 bg-slate-950 rounded-full overflow-hidden border border-purple-500/40">
+            <div id="nightBarFill" class="h-full bg-gradient-to-r from-purple-400 to-pink-400 transition-all duration-500" style="width: 0%;"></div>
+          </div>
+          <div class="flex justify-between text-xs sm:text-sm text-purple-200 font-bold">
+            <span id="nightSoldDetail">確定数: 0 / 264枚</span>
+            <span id="nightPctDetail">0%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 全体プログレスバー -->
+      <div class="pt-1 pb-1">
+        <div class="text-sm font-bold text-amber-200 mb-2 flex flex-wrap justify-between gap-1">
+          <span>✨ 全体達成率ゲージ</span>
+          <span id="nextMilestoneHint" class="text-pink-300 font-black"></span>
+        </div>
+        <div class="relative w-full h-7 bg-slate-950 rounded-full overflow-hidden border-2 border-amber-400/50 shadow-inner">
+          <div id="meterBarFill" class="h-full bg-gradient-to-r from-pink-500 via-amber-400 to-yellow-200 transition-all duration-700" style="width: 0%;"></div>
+          <div class="absolute top-0 bottom-0 left-[30%] border-r-2 border-dashed border-white/70"></div>
+          <div class="absolute top-0 bottom-0 left-[50%] border-r-2 border-dashed border-white/70"></div>
+          <div class="absolute top-0 bottom-0 left-[80%] border-r-2 border-dashed border-white/70"></div>
+        </div>
+        <div class="relative w-full text-xs font-black text-amber-200/90 h-5 mt-1.5">
+          <span class="absolute left-0">0%</span>
+          <span class="absolute left-[30%] -translate-x-1/2">30%</span>
+          <span class="absolute left-[50%] -translate-x-1/2">50%</span>
+          <span class="absolute left-[80%] -translate-x-1/2">80%</span>
+          <span class="absolute right-0">100%</span>
+        </div>
+        <div id="pendingNoticeText" class="text-xs sm:text-sm text-slate-300 text-right mt-1 font-bold"></div>
+      </div>
+
+      <!-- 🎁 特典カード -->
+      <div class="space-y-2.5">
+        <div class="text-sm sm:text-base font-black text-amber-200 flex items-center gap-1.5">
+          <span>🎁</span> 販売達成率で解放されるスペシャル特典
+        </div>
+        <div id="rewardsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
       </div>
     </section>
 
-    <!-- 🎟️ 申込完了後のお客様控え ＆ 決済・デジタルチケット表示エリア -->
-    <section id="myOrderBox" class="hidden glass-card rounded-3xl p-6 sm:p-8 border-2 border-amber-400 space-y-6">
-      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-700 pb-4">
+    <!-- 🎫 購入申込後の「お支払い案内 ＆ 電子チケット」表示エリア -->
+    <section id="myTicketSection" class="hidden glass-card rounded-3xl p-5 sm:p-7 border-4 border-amber-400 shadow-2xl space-y-6">
+      <div class="flex items-center justify-between border-b border-amber-400/30 pb-3.5">
         <div>
-          <span class="bg-amber-400 text-slate-950 text-xs sm:text-sm font-black px-3 py-1 rounded-full">
-            お申込み受付完了
-          </span>
-          <h2 class="serif-title text-xl sm:text-2xl font-black text-white mt-1.5">
-            🎫 お申込み内容・お支払いのご案内
-          </h2>
+          <span class="bg-amber-400 text-slate-950 text-xs sm:text-sm font-black px-3.5 py-1 rounded-full">お申込控え</span>
+          <h2 class="text-xl sm:text-2xl font-black text-amber-300 mt-1.5">✨ お申し込みありがとうございます！</h2>
         </div>
-        <span id="myOrderStatusBadge" class="text-sm sm:text-base font-black px-4 py-1.5 rounded-full"></span>
-      </div>
-
-      <!-- 申込内容詳細 -->
-      <div id="myOrderSummary" class="bg-slate-900/90 rounded-2xl p-5 border border-slate-700 space-y-2 text-base sm:text-lg font-bold"></div>
-
-      <!-- 🚨 Stripe決済案内 ＆ サイト上での特大枚数注意喚起（Stripe選択時） -->
-      <div id="myStripeGuideBox" class="hidden bg-rose-950/90 border-4 border-amber-400 rounded-3xl p-5 sm:p-6 space-y-4 shadow-2xl">
-        <div class="inline-block bg-amber-400 text-slate-950 text-sm sm:text-base font-black px-4 py-1 rounded-full">
-          ⚠️ Stripe決済へ進む前に必ずご確認ください！
-        </div>
-        <h3 class="text-xl sm:text-2xl font-black text-amber-200 leading-snug">
-          お申込みフォームの枚数と、Stripe決済画面の枚数は自動連動しません！
-        </h3>
-        <p class="text-base sm:text-lg font-bold text-white leading-relaxed">
-          次のStripe決済画面が開いたら、数量（枚数）欄に必ず<span class="bg-amber-300 text-rose-950 font-black px-2 py-0.5 rounded mx-1 underline">お申込みフォームで入力した枚数</span>を入力してご購入ください。
-        </p>
-        <div class="bg-slate-950 border-2 border-amber-400 rounded-2xl p-4 text-center">
-          <div class="text-sm sm:text-base font-bold text-slate-300">Stripeの決済画面で入力していただく数量（枚数）：</div>
-          <div id="myStripeQtyBigText" class="text-2xl sm:text-4xl font-black text-amber-300 mt-1"></div>
-        </div>
-        <a id="myStripeCheckoutBtn" href="#" target="_blank" rel="noopener noreferrer"
-          class="block w-full text-center gold-grad hover:opacity-95 text-slate-950 font-black text-lg sm:text-2xl py-4 rounded-2xl shadow-xl transition">
-          💳 Stripe決済画面を開いて購入する ➔
-        </a>
-      </div>
-
-      <!-- 🏦 銀行振込案内（銀行振込選択時） -->
-      <div id="myBankGuideBox" class="hidden bg-slate-900/95 border-2 border-sky-400/60 rounded-3xl p-5 sm:p-6 space-y-3">
-        <div class="inline-block bg-sky-500 text-slate-950 text-sm sm:text-base font-black px-4 py-1 rounded-full">
-          🏦 銀行振込先のご案内
-        </div>
-        <div class="bg-slate-950 rounded-2xl p-4 border border-slate-800 space-y-1.5 text-base sm:text-lg font-bold text-slate-100">
-          <div>金融機関名：<span class="text-amber-300 font-black">ドコモSMTBネット銀行</span>（金融機関コード：0038）</div>
-          <div>支店名：<span class="text-amber-300 font-black">法人第一支店</span>（支店コード：106）</div>
-          <div>口座種別・番号：<span class="text-amber-300 font-black text-xl sm:text-2xl">普通 2686319</span></div>
-          <div>口座名義：<span class="text-amber-300 font-black">カ）カルテツロ</span></div>
-        </div>
-        <p class="text-sm sm:text-base font-bold text-slate-300 leading-relaxed">
-          ※必ず<span class="text-amber-300 underline">お申込み者様のお名前</span>でお振込みください（振込手数料はお客様ご負担となります）。<br>
-          ※ご入金の確認が取れ次第、電子チケットの発行（または紙チケットの郵送手配）を行います。
-        </p>
-      </div>
-
-      <!-- 🎟️ デジタルチケット発行エリア（電子チケット＆入金確認後） -->
-      <div id="myIssuedTicketsArea" class="hidden space-y-4 pt-2"></div>
-
-      <div class="pt-3 border-t border-slate-700 flex flex-wrap justify-between items-center gap-2">
-        <span class="text-xs sm:text-sm text-slate-400 font-bold">※追加で別のお申込みを行う場合は右のボタンを押してください</span>
-        <button onclick="resetForNewOrder()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-bold px-4 py-2 rounded-xl border border-slate-600">
-          新しく別の申込みを入力する
+        <button onclick="scrollToFormForAdditional()" class="text-sm font-bold underline text-slate-300 hover:text-white">
+          追加で申し込む
         </button>
       </div>
+
+      <div id="paymentInstructionBox" class="bg-slate-950/95 rounded-2xl p-4 sm:p-5 border-2 border-pink-400 space-y-4 text-sm sm:text-base"></div>
+      <div id="issuedTicketsContainer" class="space-y-5"></div>
     </section>
 
-    <!-- 📝 チケットお申込みフォーム -->
-    <section id="orderFormSection" class="glass-card rounded-3xl p-6 sm:p-8 space-y-7">
-      <div class="border-b border-slate-700 pb-4">
-        <h2 class="serif-title text-2xl sm:text-3xl font-black text-amber-200">
-          🎫 チケットお申込みフォーム
+    <!-- 📝 チケット購入申し込みフォーム -->
+    <section id="orderFormSection" class="glass-card rounded-3xl p-5 sm:p-7 shadow-xl space-y-6">
+      <div class="border-b border-amber-400/30 pb-3.5">
+        <h2 class="text-xl sm:text-2xl font-black text-amber-300 flex items-center gap-2">
+          <span>🎫</span> チケットお申し込みフォーム
         </h2>
-        <p class="text-base sm:text-lg text-slate-300 font-bold mt-1">
-          ご希望の公演・枚数・お客様情報をご入力ください。
+        <p class="text-sm sm:text-base text-slate-200 mt-1.5 font-bold">
+          チケット料金：1枚 <strong class="text-amber-300 text-lg">3,500円</strong>（紙チケット郵送をご希望の場合は別途送料120円）
         </p>
       </div>
 
-      <!-- ① 希望公演の選択（昼・夜・通し） -->
-      <div class="space-y-3">
-        <label class="block text-lg sm:text-xl font-black text-amber-200">
-          ① ご希望の公演を選択してください <span class="text-pink-400">*</span>
+      <div>
+        <label class="block text-base sm:text-lg font-black text-amber-100 mb-1.5">
+          ① お名前（フルネーム） <span class="text-pink-400">*</span>
         </label>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <label class="cursor-pointer">
-            <input type="radio" name="sessionType" value="day" checked onchange="onFormChange()" class="peer sr-only">
-            <div class="p-4 rounded-2xl border-2 border-slate-700 bg-slate-900/70 peer-checked:border-amber-400 peer-checked:bg-amber-500/20 transition text-center">
-              <div class="text-lg sm:text-xl font-black text-amber-300">☀️ 昼公演のみ</div>
-              <div class="text-xs sm:text-sm font-bold text-slate-300 mt-1">12:00開場 / 13:00開演</div>
-            </div>
-          </label>
-          <label class="cursor-pointer">
-            <input type="radio" name="sessionType" value="night" onchange="onFormChange()" class="peer sr-only">
-            <div class="p-4 rounded-2xl border-2 border-slate-700 bg-slate-900/70 peer-checked:border-pink-400 peer-checked:bg-pink-500/20 transition text-center">
-              <div class="text-lg sm:text-xl font-black text-pink-300">🌙 夜公演のみ</div>
-              <div class="text-xs sm:text-sm font-bold text-slate-300 mt-1">16:30開場 / 17:30開演</div>
-            </div>
-          </label>
-          <label class="cursor-pointer">
-            <input type="radio" name="sessionType" value="both" onchange="onFormChange()" class="peer sr-only">
-            <div class="p-4 rounded-2xl border-2 border-slate-700 bg-slate-900/70 peer-checked:border-amber-300 peer-checked:bg-gradient-to-br peer-checked:from-amber-500/25 peer-checked:to-pink-500/25 transition text-center">
-              <div class="text-lg sm:text-xl font-black text-white">🌟 昼・夜 両公演</div>
-              <div class="text-xs sm:text-sm font-bold text-amber-200 mt-1">両方まとめてお申込み</div>
-            </div>
-          </label>
-        </div>
+        <input type="text" id="buyerName" placeholder="例：オルゴール 花子"
+          class="w-full bg-slate-900/90 border-2 border-slate-600 focus:border-amber-400 rounded-xl px-4 py-3.5 text-base sm:text-lg text-white font-bold focus:outline-none" />
       </div>
 
-      <!-- ② 枚数の選択 ＆ サイト内での特大Stripe枚数注意喚起 -->
-      <div class="space-y-4 bg-slate-900/85 p-5 sm:p-6 rounded-3xl border-2 border-amber-400/50">
-        <label class="block text-lg sm:text-xl font-black text-amber-200">
-          ② お申込み枚数（1枚 3,500円） <span class="text-pink-400">*</span>
+      <div>
+        <label class="block text-base sm:text-lg font-black text-amber-100 mb-1.5">
+          ② メールアドレス <span class="text-pink-400">*</span>
+        </label>
+        <input type="email" id="buyerEmail" placeholder="例：example@email.com"
+          class="w-full bg-slate-900/90 border-2 border-slate-600 focus:border-amber-400 rounded-xl px-4 py-3.5 text-base sm:text-lg text-white font-bold focus:outline-none" />
+      </div>
+
+      <div class="space-y-3.5">
+        <label class="block text-base sm:text-lg font-black text-amber-100">
+          ③ ご希望の公演時間・枚数 <span class="text-pink-400">*</span>
+          <span class="text-sm font-bold text-amber-300 ml-1">（1枚 <span id="unitPriceLabel">3,500</span>円）</span>
         </label>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <!-- 昼公演枚数 -->
-          <div id="dayQtyBox" class="space-y-1.5">
-            <span class="block text-base sm:text-lg font-black text-amber-300">☀️ 昼公演の枚数：</span>
-            <select id="dayQtySelect" onchange="onFormChange()" class="w-full bg-slate-950 border-2 border-amber-400 rounded-2xl px-4 py-3 text-xl font-black text-white">
-              <option value="1">1 枚</option>
-              <option value="2">2 枚</option>
-              <option value="3">3 枚</option>
-              <option value="4">4 枚</option>
-              <option value="5">5 枚</option>
-              <option value="6">6 枚</option>
-              <option value="7">7 枚</option>
-              <option value="8">8 枚</option>
-              <option value="9">9 枚</option>
-              <option value="10">10 枚</option>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
+          <button type="button" onclick="selectSessionType('day')" id="btnSession_day"
+            class="p-4 rounded-2xl border-2 text-left transition flex flex-col justify-between">
+            <span class="font-black text-base text-sky-300">☀️ 昼公演のみ</span>
+            <span class="text-xs sm:text-sm text-slate-200 mt-1 font-bold">12:00開場 / 13:00開演</span>
+          </button>
+          <button type="button" onclick="selectSessionType('night')" id="btnSession_night"
+            class="p-4 rounded-2xl border-2 text-left transition flex flex-col justify-between">
+            <span class="font-black text-base text-purple-300">🌙 夜公演のみ</span>
+            <span class="text-xs sm:text-sm text-slate-200 mt-1 font-bold">16:30開場 / 17:30開演</span>
+          </button>
+          <button type="button" onclick="selectSessionType('both')" id="btnSession_both"
+            class="p-4 rounded-2xl border-2 text-left transition flex flex-col justify-between">
+            <span class="font-black text-base text-amber-300">✨ 昼・夜 両方参加</span>
+            <span class="text-xs sm:text-sm text-slate-200 mt-1 font-bold">両公演チケットを発行</span>
+          </button>
+        </div>
+
+        <div class="bg-slate-900/80 rounded-2xl p-4 border border-slate-700 space-y-3.5 text-sm sm:text-base">
+          <div id="dayQtyRow" class="flex items-center justify-between gap-2">
+            <span class="font-bold text-sky-200">☀️ 昼公演（12:00開場・13:00開演）の枚数：</span>
+            <select id="dayQtySelect" onchange="updateTotalAmount()" class="bg-slate-800 border-2 border-sky-400/60 rounded-xl px-4 py-2.5 font-black text-base sm:text-lg text-white">
+              <option value="1">1枚</option><option value="2">2枚</option><option value="3">3枚</option><option value="4">4枚</option><option value="5">5枚</option><option value="6">6枚</option><option value="7">7枚</option><option value="8">8枚</option><option value="9">9枚</option><option value="10">10枚</option>
             </select>
           </div>
-
-          <!-- 夜公演枚数 -->
-          <div id="nightQtyBox" class="hidden space-y-1.5">
-            <span class="block text-base sm:text-lg font-black text-pink-300">🌙 夜公演の枚数：</span>
-            <select id="nightQtySelect" onchange="onFormChange()" class="w-full bg-slate-950 border-2 border-pink-400 rounded-2xl px-4 py-3 text-xl font-black text-white">
-              <option value="1">1 枚</option>
-              <option value="2">2 枚</option>
-              <option value="3">3 枚</option>
-              <option value="4">4 枚</option>
-              <option value="5">5 枚</option>
-              <option value="6">6 枚</option>
-              <option value="7">7 枚</option>
-              <option value="8">8 枚</option>
-              <option value="9">9 枚</option>
-              <option value="10">10 枚</option>
+          <div id="nightQtyRow" class="hidden flex items-center justify-between gap-2">
+            <span class="font-bold text-purple-200">🌙 夜公演（16:30開場・17:30開演）の枚数：</span>
+            <select id="nightQtySelect" onchange="updateTotalAmount()" class="bg-slate-800 border-2 border-purple-400/60 rounded-xl px-4 py-2.5 font-black text-base sm:text-lg text-white">
+              <option value="1">1枚</option><option value="2">2枚</option><option value="3">3枚</option><option value="4">4枚</option><option value="5">5枚</option><option value="6">6枚</option><option value="7">7枚</option><option value="8">8枚</option><option value="9">9枚</option><option value="10">10枚</option>
             </select>
           </div>
         </div>
-
-        <!-- ★ サイト内・枚数欄直下の特大注意喚起ボックス ★ -->
-        <div class="mt-4 bg-gradient-to-r from-rose-950 via-red-950 to-amber-950 border-4 border-amber-400 rounded-2xl p-4 sm:p-5 shadow-xl space-y-2">
-          <div class="flex items-center gap-2 text-amber-300 font-black text-lg sm:text-xl">
-            <span>⚠️</span>
-            <span>【重要】Stripe（クレジットカード）でご購入されるお客様へ</span>
-          </div>
-          <p class="text-base sm:text-xl font-black text-white leading-relaxed">
-            お申込みフォームの枚数と、Stripe決済画面の枚数は<span class="text-amber-300 underline decoration-2">自動連動しません！</span><br>
-            Stripe側の画面では、必ず<span class="bg-amber-300 text-slate-950 px-2.5 py-0.5 rounded-lg mx-1 font-black">お申込みフォーム入力の枚数（合計 <span class="sync-total-qty">1</span> 枚）</span>をご自身で入力し購入してください！
-          </p>
-        </div>
       </div>
 
-      <!-- ③ チケット種別（電子 or 紙） -->
-      <div class="space-y-3">
-        <label class="block text-lg sm:text-xl font-black text-amber-200">
-          ③ チケットの受取方法（電子チケット ／ 紙チケット郵送） <span class="text-pink-400">*</span>
+      <div class="space-y-3.5">
+        <label class="block text-base sm:text-lg font-black text-amber-100">
+          ④ チケットの種類 <span class="text-pink-400">*</span>
         </label>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <label class="cursor-pointer">
-            <input type="radio" name="ticketFormat" value="electronic" checked onchange="onFormChange()" class="peer sr-only">
-            <div class="p-4 rounded-2xl border-2 border-slate-700 bg-slate-900/70 peer-checked:border-emerald-400 peer-checked:bg-emerald-500/15 transition">
-              <div class="text-lg sm:text-xl font-black text-emerald-300">📱 電子チケット（送料無料 0円）</div>
-              <div class="text-sm sm:text-base font-bold text-slate-300 mt-1">ご入金確認後、このサイト上で昼・夜デザインのデジタルチケットが発行されます</div>
-            </div>
-          </label>
-          <label class="cursor-pointer">
-            <input type="radio" name="ticketFormat" value="paper" onchange="onFormChange()" class="peer sr-only">
-            <div class="p-4 rounded-2xl border-2 border-slate-700 bg-slate-900/70 peer-checked:border-amber-400 peer-checked:bg-amber-500/15 transition">
-              <div class="text-lg sm:text-xl font-black text-amber-300">✉️ 紙チケット郵送（送料 +120円）</div>
-              <div class="text-sm sm:text-base font-bold text-slate-300 mt-1">実物の記念紙チケットをご入力いただいたご住所へ郵送いたします</div>
-            </div>
-          </label>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+          <button type="button" onclick="selectTicketFormat('electronic')" id="btnFormat_electronic"
+            class="p-4 rounded-2xl border-2 text-left transition">
+            <div class="font-black text-base text-amber-300">📱 電子チケット（送料無料・0円）</div>
+            <div class="text-xs sm:text-sm text-slate-200 mt-1.5 leading-relaxed">お支払い確認後、この画面に昼・夜それぞれの記念チケット画像が表示されます</div>
+          </button>
+          <button type="button" onclick="selectTicketFormat('paper')" id="btnFormat_paper"
+            class="p-4 rounded-2xl border-2 text-left transition">
+            <div class="font-black text-base text-pink-300">✉️ 紙チケット郵送（別途送料 120円）</div>
+            <div class="text-xs sm:text-sm text-slate-200 mt-1.5 leading-relaxed">実物の記念デザイン紙チケットをご指定のご住所へ郵送いたします</div>
+          </button>
         </div>
 
-        <!-- 電子チケット見本プレビュー -->
-        <div id="elecPreviewBox" class="bg-slate-900/70 rounded-2xl p-4 border border-slate-700 space-y-2">
-          <div class="text-xs sm:text-sm font-bold text-amber-200">✨ 電子チケット デザインイメージ（ご入金確認後に整理番号入りで表示されます）</div>
+        <div id="shippingAddressBox" class="hidden bg-pink-950/35 border-2 border-pink-400/60 rounded-2xl p-4 sm:p-5 space-y-3.5 text-sm">
+          <div class="font-black text-base text-pink-300 flex items-center justify-between">
+            <span>📮 紙チケットの郵送先ご住所</span>
+            <span class="bg-pink-500 text-white px-2.5 py-1 rounded-lg text-xs">＋送料 120円</span>
+          </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <div class="text-xs font-bold text-amber-300 mb-1">☀️ 昼公演チケット</div>
-              <img src="恋するオルゴール (170 x 54 mm)(昼）.jpg" alt="昼公演チケット見本"
-                   onerror="if(this.dataset.step!=='1'){this.dataset.step='1';this.src='恋するオルゴール (170 x 54 mm) (昼).jpg';}else{this.parentElement.style.display='none';}"
-                   class="w-full rounded-xl border border-amber-400/40 shadow" />
+              <label class="block text-slate-200 mb-1 font-bold">郵便番号 <span class="text-pink-400">*</span></label>
+              <input type="text" id="buyerZip" placeholder="例：211-0000" class="w-full bg-slate-900 border-2 border-slate-600 rounded-xl px-3.5 py-2.5 text-base text-white font-bold" />
             </div>
             <div>
-              <div class="text-xs font-bold text-pink-300 mb-1">🌙 夜公演チケット</div>
-              <img src="恋するオルゴール (170 x 54 mm) (夜).jpg" alt="夜公演チケット見本"
-                   onerror="if(this.dataset.step!=='1'){this.dataset.step='1';this.src='恋するオルゴール (170 x 54 mm)(夜）.jpg';}else{this.parentElement.style.display='none';}"
-                   class="w-full rounded-xl border border-pink-400/40 shadow" />
+              <label class="block text-slate-200 mb-1 font-bold">電話番号 <span class="text-pink-400">*</span></label>
+              <input type="tel" id="buyerPhone" placeholder="例：090-1234-5678" class="w-full bg-slate-900 border-2 border-slate-600 rounded-xl px-3.5 py-2.5 text-base text-white font-bold" />
             </div>
+          </div>
+          <div>
+            <label class="block text-slate-200 mb-1 font-bold">ご住所（建物名・部屋番号まで） <span class="text-pink-400">*</span></label>
+            <input type="text" id="buyerAddress" placeholder="例：神奈川県川崎市中原区〇〇 1-2-3 オルゴールハイツ101" class="w-full bg-slate-900 border-2 border-slate-600 rounded-xl px-3.5 py-2.5 text-base text-white font-bold" />
           </div>
         </div>
       </div>
 
-      <!-- ④ お支払い方法 -->
-      <div class="space-y-3">
-        <label class="block text-lg sm:text-xl font-black text-amber-200">
-          ④ お支払い方法 <span class="text-pink-400">*</span>
+      <div class="space-y-3.5">
+        <label class="block text-base sm:text-lg font-black text-amber-100">
+          ⑤ お支払い方法 <span class="text-pink-400">*</span>
         </label>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <label class="cursor-pointer">
-            <input type="radio" name="paymentMethod" value="stripe" checked onchange="onFormChange()" class="peer sr-only">
-            <div class="p-4 rounded-2xl border-2 border-slate-700 bg-slate-900/70 peer-checked:border-amber-400 peer-checked:bg-amber-500/20 transition">
-              <div class="text-lg sm:text-xl font-black text-amber-300">💳 クレジットカード決済（Stripe）</div>
-              <div class="text-sm sm:text-base font-bold text-slate-200 mt-1">お申込み後、Stripe決済画面へ移動します</div>
-            </div>
-          </label>
-          <label class="cursor-pointer">
-            <input type="radio" name="paymentMethod" value="bank" onchange="onFormChange()" class="peer sr-only">
-            <div class="p-4 rounded-2xl border-2 border-slate-700 bg-slate-900/70 peer-checked:border-sky-400 peer-checked:bg-sky-500/20 transition">
-              <div class="text-lg sm:text-xl font-black text-sky-300">🏦 銀行振込（ドコモSMTBネット銀行）</div>
-              <div class="text-sm sm:text-base font-bold text-slate-200 mt-1">お申込み後に表示される指定口座へお振込みください</div>
-            </div>
-          </label>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+          <button type="button" onclick="selectPaymentMethod('stripe')" id="btnPay_stripe"
+            class="p-4 rounded-2xl border-2 text-left transition">
+            <div class="font-black text-base text-emerald-300">💳 クレジットカード決済（Stripe）</div>
+            <div class="text-xs sm:text-sm text-slate-200 mt-1.5 leading-relaxed">お申込後、選択したチケット種別のStripe決済ページへ進みます</div>
+          </button>
+          <button type="button" onclick="selectPaymentMethod('bank')" id="btnPay_bank"
+            class="p-4 rounded-2xl border-2 text-left transition">
+            <div class="font-black text-base text-amber-300">🏦 銀行振込（ドコモSMTBネット銀行）</div>
+            <div class="text-xs sm:text-sm text-slate-200 mt-1.5 leading-relaxed">お申込後に表示される弊社口座（カ）カルテツロ）へお振込みください</div>
+          </button>
+        </div>
+
+        <!-- 🚨 フォーム内の特大Stripe枚数注意喚起ボックス（クレカ選択時に常時表示） -->
+        <div id="stripeFormWarningBox" class="bg-rose-950/95 border-4 border-amber-400 rounded-2xl p-4 sm:p-5 space-y-2 shadow-xl">
+          <div class="flex items-center gap-2 text-amber-300 font-black text-base sm:text-lg">
+            <span class="text-2xl">⚠️</span>
+            <span>【重要】クレジットカード（Stripe）決済時の枚数入力について</span>
+          </div>
+          <p class="text-white font-bold text-sm sm:text-base leading-relaxed">
+            このお申し込みフォームの枚数と、次のStripe決済画面の枚数は<span class="text-amber-300 underline font-black">自動連動しません</span>。<br>
+            Stripeの決済画面が開きましたら、<span class="bg-amber-300 text-slate-950 font-black px-2 py-0.5 rounded">必ずお申し込みフォームと同じ枚数（数量）を入力・変更</span>してご購入ください！
+          </p>
+          <div id="stripeFormQtyReminder" class="bg-slate-950/90 border border-amber-400/60 rounded-xl p-3 text-center text-base sm:text-lg font-black text-amber-300">
+            👉 現在選択中の枚数：Stripe画面で数量を【 1 】にして決済してください
+          </div>
         </div>
       </div>
 
-      <!-- ⑤ お客様情報入力 -->
-      <div class="space-y-4 pt-2 border-t border-slate-700">
-        <h3 class="text-lg sm:text-xl font-black text-amber-200">⑤ お客様情報のご入力</h3>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-base sm:text-lg font-black text-slate-100 mb-1.5">
-              お名前（フルネーム） <span class="text-pink-400">*</span>
-            </label>
-            <input type="text" id="buyerName" placeholder="例：山田 太郎"
-              class="w-full bg-slate-950 border-2 border-slate-600 focus:border-amber-400 rounded-2xl px-4 py-3.5 text-lg font-bold text-white outline-none">
-          </div>
-          <div>
-            <label class="block text-base sm:text-lg font-black text-slate-100 mb-1.5">
-              電話番号 <span class="text-pink-400">*</span>
-            </label>
-            <input type="tel" id="buyerPhone" placeholder="例：090-1234-5678"
-              class="w-full bg-slate-950 border-2 border-slate-600 focus:border-amber-400 rounded-2xl px-4 py-3.5 text-lg font-bold text-white outline-none">
-          </div>
-        </div>
-
+      <!-- 合計金額の確認（チケット代3,500円×枚数 ＋ 紙チケット時120円） -->
+      <div class="bg-slate-950/90 rounded-2xl p-4 sm:p-5 border-2 border-amber-400/50 flex flex-wrap items-center justify-between gap-2">
         <div>
-          <label class="block text-base sm:text-lg font-black text-slate-100 mb-1.5">
-            メールアドレス <span class="text-pink-400">*</span>
-          </label>
-          <input type="email" id="buyerEmail" placeholder="例：example@mail.com"
-            class="w-full bg-slate-950 border-2 border-slate-600 focus:border-amber-400 rounded-2xl px-4 py-3.5 text-lg font-bold text-white outline-none">
+          <div class="text-xs sm:text-sm text-slate-300 font-bold">お支払い合計金額の内訳</div>
+          <div id="totalSummarySub" class="text-sm sm:text-base text-amber-200 font-black mt-1">昼公演 1枚（電子チケット 送料無料）</div>
         </div>
-
-        <!-- 紙チケット選択時に展開される郵送先住所欄 -->
-        <div id="shippingFieldsBox" class="hidden bg-slate-900/90 p-5 rounded-2xl border-2 border-amber-400/50 space-y-4">
-          <div class="text-base sm:text-lg font-black text-amber-300">
-            ✉️ 紙チケット郵送先ご住所（必須）
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div>
-              <label class="block text-sm sm:text-base font-bold text-slate-200 mb-1">郵便番号 <span class="text-pink-400">*</span></label>
-              <input type="text" id="buyerZip" placeholder="例：211-0000"
-                class="w-full bg-slate-950 border-2 border-slate-600 rounded-xl px-4 py-3 text-lg font-bold text-white">
-            </div>
-            <div class="sm:col-span-2">
-              <label class="block text-sm sm:text-base font-bold text-slate-200 mb-1">ご住所（建物名・部屋番号まで） <span class="text-pink-400">*</span></label>
-              <input type="text" id="buyerAddress" placeholder="例：神奈川県川崎市中原区〇〇1-2-3"
-                class="w-full bg-slate-950 border-2 border-slate-600 rounded-xl px-4 py-3 text-lg font-bold text-white">
-            </div>
-          </div>
+        <div class="text-right">
+          <span id="totalPriceDisplay" class="text-3xl sm:text-4xl font-black text-amber-300">3,500円</span>
+          <span class="text-xs text-slate-300 block font-bold">（税込）</span>
         </div>
       </div>
 
-      <!-- お支払い合計金額ボックス -->
-      <div class="bg-slate-950 rounded-3xl p-5 sm:p-6 border-2 border-amber-400/60 space-y-2">
-        <div class="flex flex-wrap justify-between items-center gap-2">
-          <span class="text-base sm:text-lg font-bold text-slate-300">お支払い合計金額：</span>
-          <span id="totalPriceText" class="text-3xl sm:text-4xl font-black text-amber-300">3,500円</span>
-        </div>
-        <div id="priceFormulaText" class="text-sm sm:text-base font-bold text-slate-300">
-          内訳：チケット 3,500円 × 1枚 ＋ 送料 0円（電子チケット）
-        </div>
+      <div class="bg-indigo-950/80 border border-indigo-400/50 rounded-2xl p-4 text-xs sm:text-sm text-indigo-100 leading-relaxed font-bold">
+        💡 <strong>お申し込みと販売枚数カウントについて：</strong><br>
+        フォーム送信後にお支払い手続きのご案内が表示されます。ご入金確認が完了した時点で販売達成メーターへの加算および電子チケット画像の発行（紙チケットの場合は発送手配）が行われます。
       </div>
 
-      <!-- ★ 申込ボタン直前：サイト上での特大注意喚起ボックス（Stripe選択時） ★ -->
-      <div id="bottomStripeWarningBox" class="bg-amber-300 text-slate-950 border-4 border-rose-600 rounded-3xl p-5 sm:p-6 shadow-2xl space-y-2.5">
-        <div class="inline-block bg-rose-600 text-white text-sm sm:text-base font-black px-3.5 py-1 rounded-full">
-          🚨 ご購入前の最終確認（重要）
-        </div>
-        <div class="text-xl sm:text-2xl font-black text-rose-800 leading-snug">
-          お申込みフォームの枚数と、Stripeの枚数は連動しません！
-        </div>
-        <p class="text-base sm:text-xl font-black text-slate-900 leading-relaxed">
-          次のStripe決済画面では、必ず<span class="bg-rose-600 text-white px-2.5 py-0.5 rounded-lg mx-1 underline">お申込みフォーム入力の枚数（<span class="sync-total-qty">1</span>枚）</span>を入力し購入してください！
-        </p>
-      </div>
+      <p id="orderErrorMsg" class="hidden text-sm sm:text-base font-black text-rose-200 bg-rose-950 p-4 rounded-xl border-2 border-rose-400"></p>
 
-      <p id="orderErrorMsg" class="hidden text-base sm:text-lg font-black text-rose-200 bg-rose-950/90 p-4 rounded-2xl border-2 border-rose-500"></p>
-
-      <button id="submitOrderBtn" onclick="submitOrder()"
-        class="w-full gold-grad hover:opacity-95 text-slate-950 font-black text-xl sm:text-2xl py-5 rounded-2xl shadow-2xl transition transform active:scale-95">
-        ✨ この内容で申し込む
+      <button type="button" id="submitOrderBtn" onclick="submitOrder()"
+        class="w-full gold-bg hover:opacity-95 text-slate-950 font-black text-lg sm:text-xl py-4 sm:py-5 rounded-2xl shadow-xl transition transform active:scale-95">
+        ✨ この内容で申し込む（お支払い案内へ）
       </button>
     </section>
-
   </div>
 
-  <!-- ==================== 2. スタッフ管理画面（パスワード：12345） ==================== -->
-  <div id="adminView" class="hidden max-w-5xl w-full mx-auto px-4 pt-6 pb-24 space-y-6">
-    <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-6">
-      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-700 pb-4">
-        <div class="flex items-center gap-3">
-          <span class="gold-grad text-slate-950 text-sm sm:text-base font-black px-4 py-1 rounded-full">
-            👑 恋するオルゴール 管理画面
-          </span>
-          <button onclick="switchMode('user')" class="bg-slate-800 hover:bg-slate-700 text-white text-sm font-bold px-4 py-2 rounded-xl border border-slate-600">
-            ← お客様サイトへ戻る
-          </button>
-        </div>
-        <button onclick="fetchCloudData(true)" class="bg-slate-800 hover:bg-slate-700 text-amber-300 text-sm font-bold px-4 py-2 rounded-xl border border-amber-400/40">
-          🔄 最新データに更新
-        </button>
+  <!-- ==================== 2. 特典閲覧モーダル ==================== -->
+  <div id="rewardModal" class="fixed inset-0 z-50 hidden bg-black/80 flex items-center justify-center p-4">
+    <div class="bg-slate-900 border-2 border-amber-400 w-full max-w-lg rounded-3xl p-6 space-y-4 shadow-2xl">
+      <div class="flex justify-between items-center border-b border-slate-700 pb-3">
+        <h3 id="rewardModalTitle" class="font-black text-lg text-amber-300">🎁 特典コンテンツ</h3>
+        <button onclick="closeRewardModal()" class="text-3xl font-bold text-slate-400 hover:text-white">&times;</button>
       </div>
-
-      <!-- 手売り枚数・定員・メーター反映設定 -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-900/90 p-5 rounded-2xl border border-slate-700">
-        <div class="space-y-2">
-          <div class="text-base sm:text-lg font-black text-amber-300">☀️ 昼公演 手売り枚数の加算</div>
-          <div class="flex items-center gap-2">
-            <button onclick="stepManual('day', -1)" class="bg-slate-800 px-3.5 py-2 rounded-xl font-black">-1</button>
-            <input type="number" id="manualDayInput" value="0" min="0" class="w-24 bg-slate-950 border border-slate-600 rounded-xl px-3 py-2 text-center font-black text-lg text-white">
-            <button onclick="stepManual('day', 1)" class="bg-amber-500 text-slate-950 px-3.5 py-2 rounded-xl font-black">+1</button>
-          </div>
-        </div>
-        <div class="space-y-2">
-          <div class="text-base sm:text-lg font-black text-pink-300">🌙 夜公演 手売り枚数の加算</div>
-          <div class="flex items-center gap-2">
-            <button onclick="stepManual('night', -1)" class="bg-slate-800 px-3.5 py-2 rounded-xl font-black">-1</button>
-            <input type="number" id="manualNightInput" value="0" min="0" class="w-24 bg-slate-950 border border-slate-600 rounded-xl px-3 py-2 text-center font-black text-lg text-white">
-            <button onclick="stepManual('night', 1)" class="bg-pink-500 text-white px-3.5 py-2 rounded-xl font-black">+1</button>
-          </div>
-        </div>
-
-        <div class="md:col-span-2 pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
-          <label class="inline-flex items-center gap-2 cursor-pointer text-sm sm:text-base font-bold text-slate-200">
-            <input type="checkbox" id="countOnlyPaidCheck" class="w-5 h-5 accent-amber-400">
-            <span>入金確認済（paid）の注文のみ応援メーターにカウントする</span>
-          </label>
-          <button onclick="saveAdminConfig()" class="gold-grad text-slate-950 font-black px-5 py-2 rounded-xl text-sm">
-            💾 設定を保存する
-          </button>
-        </div>
-      </div>
-
-      <!-- 特典URL設定 -->
-      <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-700 space-y-3">
-        <div class="text-base sm:text-lg font-black text-amber-200">🎁 達成率特典リンクURL設定</div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-          <div>
-            <label class="block font-bold text-slate-300 mb-1">30%達成（限定画像① URL）</label>
-            <input type="url" id="reward30Input" placeholder="https://..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white">
-          </div>
-          <div>
-            <label class="block font-bold text-slate-300 mb-1">50%達成（限定画像② URL）</label>
-            <input type="url" id="reward50Input" placeholder="https://..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white">
-          </div>
-          <div>
-            <label class="block font-bold text-slate-300 mb-1">80%達成（限定動画 URL）</label>
-            <input type="url" id="reward80Input" placeholder="https://..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white">
-          </div>
-          <div>
-            <label class="block font-bold text-slate-300 mb-1">100%達成（限定グッズ URL）</label>
-            <input type="url" id="reward100Input" placeholder="https://..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white">
-          </div>
-        </div>
-        <button onclick="saveAdminConfig()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-black px-5 py-2 rounded-xl text-sm">
-          💾 特典URLを保存
-        </button>
-      </div>
-
-      <!-- 申込一覧 -->
-      <div class="space-y-3">
-        <h3 class="text-lg sm:text-xl font-black text-white">📋 お申込み一覧（入金確認・チケット発行・郵送管理）</h3>
-        <div id="adminOrdersContainer" class="space-y-3"></div>
-      </div>
+      <div id="rewardModalBody" class="text-center space-y-3 text-sm sm:text-base text-slate-200"></div>
+      <button onclick="closeRewardModal()" class="w-full bg-slate-800 hover:bg-slate-700 text-amber-300 font-black py-3 rounded-xl text-sm">
+        閉じる
+      </button>
     </div>
   </div>
 
-  <!-- フッター -->
-  <footer class="no-print border-t border-slate-800 bg-slate-950/80 py-5 px-4 text-xs sm:text-sm text-slate-400">
-    <div class="max-w-3xl mx-auto flex justify-between items-center">
-      <span>恋するオルゴール Project</span>
-      <button onclick="openLoginModal()" class="underline hover:text-amber-300 font-bold">🔒 スタッフ管理</button>
+  <!-- ==================== 3. 管理者画面 ==================== -->
+  <div id="adminView" class="hidden max-w-6xl w-full mx-auto px-4 pt-6 pb-20 text-slate-800">
+    <div class="bg-white rounded-3xl p-5 sm:p-6 shadow-2xl border-2 border-amber-400 space-y-6">
+
+      <!-- 🚨 管理画面トップバー -->
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b pb-4">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="bg-amber-400 text-slate-950 text-xs sm:text-sm font-black px-3 py-1 rounded-full">
+            👑 チケット管理画面 Ver.2.3
+          </span>
+          <button onclick="switchMode('user')" class="bg-slate-200 hover:bg-slate-300 text-xs sm:text-sm font-bold px-3.5 py-2 rounded-xl">
+            ← 購入ページへ戻る
+          </button>
+          <span id="adminStatusToast" class="text-xs sm:text-sm font-black text-emerald-700 bg-emerald-50 px-3 py-1 rounded-lg hidden"></span>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="resetAllManualSold()" class="bg-rose-600 hover:bg-rose-500 text-white text-xs sm:text-sm font-black px-4 py-2.5 rounded-xl shadow-md">
+            🔄 手売り枚数を一括「0」にリセット
+          </button>
+          <button onclick="clearAllWebOrders()" class="bg-rose-100 hover:bg-rose-200 text-rose-700 border border-rose-300 text-xs sm:text-sm font-black px-3.5 py-2.5 rounded-xl">
+            🗑️ Webテスト申込を全消去
+          </button>
+          <button onclick="exportCsv()" class="bg-emerald-700 hover:bg-emerald-600 text-white text-xs sm:text-sm font-black px-3.5 py-2.5 rounded-xl">
+            📥 CSV出力
+          </button>
+        </div>
+      </div>
+
+      <!-- 🖐️ 手売り枚数クイック入力＆一括リセットパネル -->
+      <div class="bg-amber-50 rounded-2xl p-4 border-2 border-amber-400 space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h3 class="text-base font-black text-slate-900 flex items-center gap-1.5">
+              <span>🖐️</span> 紙チケット「手売り販売枚数」調整パネル
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 mt-0.5">
+              「0に戻す」を押すと即座に0枚にクリアされます。
+            </p>
+          </div>
+          <span id="adminTotalQuickBadge" class="bg-slate-900 text-amber-300 text-xs sm:text-sm font-black px-3.5 py-1.5 rounded-xl">
+            確定販売: 0 / 528枚 (0%)
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1 text-xs sm:text-sm">
+          <!-- 昼公演 手売り -->
+          <div class="bg-white rounded-xl p-3.5 border border-sky-300 space-y-2.5 shadow-sm">
+            <div class="flex justify-between items-center">
+              <span class="font-black text-sm sm:text-base text-sky-800">☀️ 昼公演 手売り累計枚数</span>
+              <span id="admDayBreakdown" class="text-slate-500 font-bold">Web確定:0 + 手売り:0 = 計0/264枚</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-1.5">
+              <button onclick="resetSingleManualSold('day')" class="bg-rose-600 hover:bg-rose-500 text-white font-black px-3 py-2 rounded-lg shadow">0に戻す</button>
+              <button onclick="adjustManualSold('day', -5)" class="bg-slate-200 hover:bg-slate-300 font-black px-2.5 py-2 rounded-lg">-5</button>
+              <button onclick="adjustManualSold('day', -1)" class="bg-slate-200 hover:bg-slate-300 font-black px-2.5 py-2 rounded-lg">-1</button>
+              <input type="number" id="admManualDay" min="0" max="264" value="0"
+                onfocus="isEditingManual=true" onblur="isEditingManual=false"
+                class="w-20 border-2 border-sky-400 rounded-lg px-2 py-1.5 font-black text-base text-center" />
+              <span class="font-bold">枚</span>
+              <button onclick="adjustManualSold('day', 1)" class="bg-sky-600 hover:bg-sky-500 text-white font-black px-3 py-2 rounded-lg shadow">+1</button>
+              <button onclick="adjustManualSold('day', 5)" class="bg-sky-800 hover:bg-sky-700 text-white font-black px-3 py-2 rounded-lg shadow">+5</button>
+              <button onclick="saveManualSoldOnly()" class="ml-auto bg-slate-900 text-amber-300 font-black px-3 py-2 rounded-lg">保存</button>
+            </div>
+          </div>
+
+          <!-- 夜公演 手売り -->
+          <div class="bg-white rounded-xl p-3.5 border border-purple-300 space-y-2.5 shadow-sm">
+            <div class="flex justify-between items-center">
+              <span class="font-black text-sm sm:text-base text-purple-800">🌙 夜公演 手売り累計枚数</span>
+              <span id="admNightBreakdown" class="text-slate-500 font-bold">Web確定:0 + 手売り:0 = 計0/264枚</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-1.5">
+              <button onclick="resetSingleManualSold('night')" class="bg-rose-600 hover:bg-rose-500 text-white font-black px-3 py-2 rounded-lg shadow">0に戻す</button>
+              <button onclick="adjustManualSold('night', -5)" class="bg-slate-200 hover:bg-slate-300 font-black px-2.5 py-2 rounded-lg">-5</button>
+              <button onclick="adjustManualSold('night', -1)" class="bg-slate-200 hover:bg-slate-300 font-black px-2.5 py-2 rounded-lg">-1</button>
+              <input type="number" id="admManualNight" min="0" max="264" value="0"
+                onfocus="isEditingManual=true" onblur="isEditingManual=false"
+                class="w-20 border-2 border-purple-400 rounded-lg px-2 py-1.5 font-black text-base text-center" />
+              <span class="font-bold">枚</span>
+              <button onclick="adjustManualSold('night', 1)" class="bg-purple-600 hover:bg-purple-500 text-white font-black px-3 py-2 rounded-lg shadow">+1</button>
+              <button onclick="adjustManualSold('night', 5)" class="bg-purple-800 hover:bg-purple-700 text-white font-black px-3 py-2 rounded-lg shadow">+5</button>
+              <button onclick="saveManualSoldOnly()" class="ml-auto bg-slate-900 text-amber-300 font-black px-3 py-2 rounded-lg">保存</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🛡️ 未入金カウント防止設定 -->
+      <div class="bg-indigo-50 rounded-2xl p-4 border-2 border-indigo-300 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm">
+        <div class="space-y-1">
+          <div class="font-black text-sm sm:text-base text-indigo-950">🛡️ 販売メーター＆電子チケット発券の反映ルール（未払いカウント防止）</div>
+          <p class="text-indigo-800">
+            現在は<strong>「入金確認済にチェックを入れた申込のみ」</strong>が販売枚数メーターに加算される安全設定です。
+          </p>
+        </div>
+        <button id="toggleCountRuleBtn" onclick="toggleCountOnlyPaid()" class="font-black px-4 py-2.5 rounded-xl shadow shrink-0">
+          設定読込中...
+        </button>
+      </div>
+
+      <details class="bg-slate-50 rounded-2xl p-4 border border-slate-200 text-xs sm:text-sm">
+        <summary class="font-black text-sm sm:text-base text-slate-900 cursor-pointer">
+          ⚙️ 定員(264枚)・価格(3,500円)・Stripe決済URL(2種)・振込口座・特典URL設定を開く
+        </summary>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 pt-3 border-t">
+          <div class="space-y-2.5">
+            <div class="font-black text-slate-800">📊 定員・価格・送料設定</div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <div><label class="block text-slate-500 font-bold mb-0.5">昼定員</label><input type="number" id="admDayCap" value="264" class="w-full border rounded-lg p-2 font-black" /></div>
+              <div><label class="block text-slate-500 font-bold mb-0.5">夜定員</label><input type="number" id="admNightCap" value="264" class="w-full border rounded-lg p-2 font-black" /></div>
+              <div><label class="block text-slate-500 font-bold mb-0.5">1枚価格(円)</label><input type="number" id="admTicketPrice" value="3500" class="w-full border rounded-lg p-2 font-black" /></div>
+              <div><label class="block text-slate-500 font-bold mb-0.5">紙郵送料(円)</label><input type="number" id="admShippingFee" value="120" class="w-full border rounded-lg p-2 font-black" /></div>
+            </div>
+            <div class="font-black text-slate-800 pt-2">💳 Stripe決済リンク（2種類） ＆ 振込先口座</div>
+            <div>
+              <label class="block text-slate-500 font-bold mb-0.5">📱 電子チケット用 Stripe決済URL</label>
+              <input type="text" id="admStripeElectronicUrl" class="w-full border rounded-lg p-2" />
+            </div>
+            <div>
+              <label class="block text-slate-500 font-bold mb-0.5">✉️ 紙チケット（送料込み）用 Stripe決済URL</label>
+              <input type="text" id="admStripePaperUrl" class="w-full border rounded-lg p-2" />
+            </div>
+            <div>
+              <label class="block text-slate-500 font-bold mb-0.5">🏦 銀行振込先口座案内</label>
+              <textarea id="admBankInfo" rows="5" class="w-full border rounded-lg p-2"></textarea>
+            </div>
+          </div>
+          <div class="space-y-2.5">
+            <div class="font-black text-slate-800">🎁 特典URL設定</div>
+            <div><label class="block text-slate-500 font-bold mb-0.5">【30%】限定画像① URL</label><input type="text" id="admReward30" placeholder="https://..." class="w-full border rounded-lg p-2" /></div>
+            <div><label class="block text-slate-500 font-bold mb-0.5">【50%】限定画像② URL</label><input type="text" id="admReward50" placeholder="https://..." class="w-full border rounded-lg p-2" /></div>
+            <div><label class="block text-slate-500 font-bold mb-0.5">【80%】限定動画 URL</label><input type="text" id="admReward80" placeholder="https://..." class="w-full border rounded-lg p-2" /></div>
+            <div class="pt-2"><button onclick="saveAdminConfig()" class="w-full bg-slate-900 text-amber-300 font-black py-3 rounded-xl shadow">💾 設定を保存する</button></div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 📋 Web申込者一覧リスト -->
+      <div class="space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h3 class="text-base sm:text-lg font-black text-slate-900">📋 Webチケットお申し込み一覧</h3>
+            <p class="text-xs sm:text-sm text-rose-600 font-bold">※右側の「入金確認済（発券）」にチェックを入れるとメーターに加算され、購入者の画面に電子チケットが表示されます。</p>
+          </div>
+          <div id="adminStatsSummary" class="text-xs sm:text-sm font-bold text-slate-600"></div>
+        </div>
+        <div id="adminOrdersList" class="space-y-2.5"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="border-t border-slate-800/80 py-6 px-4 text-sm text-slate-400">
+    <div class="max-w-2xl mx-auto flex justify-between items-center">
+      <span>恋するオルゴール 卒業コンサート実行委員会 (Ver.2.3)</span>
+      <button onclick="openLoginModal()" class="underline hover:text-amber-300 font-bold">🔒 スタッフ管理画面</button>
     </div>
   </footer>
 
-  <!-- 管理者ログインモーダル -->
-  <div id="loginModal" class="no-print fixed inset-0 z-50 hidden bg-black/75 flex items-center justify-center p-4">
-    <div class="glass-card w-full max-w-xs rounded-3xl p-6 space-y-4">
-      <h3 class="text-lg font-black text-amber-200">🔒 スタッフログイン</h3>
-      <input type="password" id="adminPassInput" placeholder="パスワード" onkeydown="if(event.key==='Enter') checkAdminLogin()"
-        class="w-full bg-slate-950 border border-slate-600 rounded-xl px-3.5 py-2.5 text-base font-bold text-white">
-      <p id="loginErr" class="hidden text-xs text-rose-400 font-bold">パスワードが違います。</p>
-      <div class="flex gap-2">
-        <button onclick="closeLoginModal()" class="w-1/2 bg-slate-800 text-slate-200 text-sm font-bold py-2.5 rounded-xl">閉じる</button>
-        <button onclick="checkAdminLogin()" class="w-1/2 gold-grad text-slate-950 text-sm font-black py-2.5 rounded-xl">ログイン</button>
+  <div id="loginModal" class="fixed inset-0 z-50 hidden bg-black/70 flex items-center justify-center p-4 text-slate-800">
+    <div class="bg-white w-full max-w-xs rounded-3xl p-6 space-y-3.5 shadow-2xl border-4 border-amber-400">
+      <h3 class="text-base font-black">🔒 スタッフ・管理者ログイン</h3>
+      <input type="password" id="adminPassInput" placeholder="パスワード" onkeydown="if(event.key==='Enter') checkAdminLogin()" class="w-full border-2 border-slate-300 rounded-xl px-3.5 py-2.5 text-base font-bold" />
+      <p id="loginErr" class="hidden text-xs sm:text-sm text-rose-600 font-bold">パスワードが違います。</p>
+      <div class="flex gap-2 pt-1">
+        <button onclick="closeLoginModal()" class="w-1/2 bg-slate-200 text-sm font-bold py-2.5 rounded-xl">キャンセル</button>
+        <button onclick="checkAdminLogin()" class="w-1/2 bg-slate-900 text-amber-300 text-sm font-black py-2.5 rounded-xl">ログイン</button>
       </div>
     </div>
   </div>
 
   <script>
-    // =========================================================================
-    // Firebase ＆ 決済設定（既存の /koioru_ticket_2027 データと完全互換）
-    // =========================================================================
     const CLOUD_DB_URL = "https://t-rextaikenkai-default-rtdb.firebaseio.com/";
     const DB_NODE = "/koioru_ticket_2027";
     const PASS = "12345";
 
-    const DEFAULT_STRIPE_ELEC  = "https://buy.stripe.com/fZu3cu0QsgGx3vAcVR6sw01";
-    const DEFAULT_STRIPE_PAPER = "https://buy.stripe.com/cNiaEWfLm1LD8PU4pl6sw02";
+    const IMG_DAY_PRIMARY = "恋するオルゴール (170 x 54 mm)(昼）.jpg";
+    const IMG_DAY_FALLBACK = "ticket_day.jpg";
+    const IMG_NIGHT_PRIMARY = "恋するオルゴール (170 x 54 mm) (夜).jpg";
+    const IMG_NIGHT_FALLBACK = "ticket_night.jpg";
 
-    const KEY_MY_ORDER = "koioru_ticket_2027_my_order_id";
+    const DEFAULT_STRIPE_ELECTRONIC = "https://buy.stripe.com/fZu3cu0QsgGx3vAcVR6sw01";
+    const DEFAULT_STRIPE_PAPER = "https://buy.stripe.com/cNiaEWfLm1LD8PU4pl6sw02";
+    const DEFAULT_BANK_INFO =
+      "ドコモSMTBネット銀行（金融機関コード0038）\n" +
+      "法人第一支店（支店コード106）\n" +
+      "普通 2686319\n" +
+      "カ）カルテツロ\n" +
+      "※株式会社Cartelloは恋するオルゴールマネジメント会社になります。\n" +
+      "※振込名義は申込者名を記載ください。";
+
+    const KEY_MY_ORDERS = "koioru_my_order_ids_v8";
+
+    let orders = [];
+    let myOrderIds = [];
+    let isMutating = false;
+    let isEditingManual = false;
+
+    let selectedSession = "day";
+    let selectedFormat = "electronic";
+    let selectedPay = "stripe";
 
     let config = {
       dayCap: 264,
       nightCap: 264,
       ticketPrice: 3500,
       shippingFee: 120,
+      manualSold: 0,
       manualDaySold: 0,
       manualNightSold: 0,
-      countOnlyPaid: false,
+      countOnlyPaid: true,
+      stripeElectronicUrl: DEFAULT_STRIPE_ELECTRONIC,
+      stripePaperUrl: DEFAULT_STRIPE_PAPER,
+      bankInfo: DEFAULT_BANK_INFO,
       reward30Url: "",
       reward50Url: "",
-      reward80Url: "",
-      reward100Url: "",
-      stripeElecUrl: DEFAULT_STRIPE_ELEC,
-      stripePaperUrl: DEFAULT_STRIPE_PAPER
+      reward80Url: ""
     };
-
-    let orders = [];
-    let myOrderId = localStorage.getItem(KEY_MY_ORDER) || null;
-    let isMutating = false;
 
     function getCleanDbUrl() {
       return CLOUD_DB_URL.trim().replace(/\/$/, "");
     }
 
-    async function initApp() {
-      onFormChange();
-      await fetchCloudData(true);
-      setInterval(() => fetchCloudData(false), 3000);
+    function showAdminToast(msg) {
+      const el = document.getElementById("adminStatusToast");
+      if (!el) return;
+      el.textContent = msg;
+      el.classList.remove("hidden");
+      setTimeout(() => el.classList.add("hidden"), 3500);
     }
 
-    // 注文データの正規化（過去データ形式とも完全互換）
-    function normalizeOrder(raw) {
-      if (!raw || raw.deleted || raw.cancelled) return null;
-      const dayQty = raw.dayQty !== undefined ? (parseInt(raw.dayQty, 10) || 0) : (raw.perf === "day" ? (parseInt(raw.qty, 10) || 0) : 0);
-      const nightQty = raw.nightQty !== undefined ? (parseInt(raw.nightQty, 10) || 0) : (raw.perf === "night" ? (parseInt(raw.qty, 10) || 0) : 0);
-      const totalQty = (parseInt(raw.totalQty, 10) || (dayQty + nightQty));
-      if (totalQty <= 0) return null;
+    async function initApp() {
+      try {
+        myOrderIds = JSON.parse(localStorage.getItem(KEY_MY_ORDERS) || "[]");
+        if (!Array.isArray(myOrderIds)) myOrderIds = [];
+      } catch (e) {
+        myOrderIds = [];
+      }
 
-      return {
-        id: raw.id,
-        orderNo: raw.orderNo || raw.serialNo || "K-001",
-        name: raw.name || "",
-        email: raw.email || "",
-        phone: raw.phone || "",
-        zip: raw.zip || "",
-        address: raw.address || "",
-        sessionType: raw.sessionType || raw.perf || (dayQty > 0 && nightQty > 0 ? "both" : dayQty > 0 ? "day" : "night"),
-        dayQty: dayQty,
-        nightQty: nightQty,
-        totalQty: totalQty,
-        totalPrice: raw.totalPrice || raw.totalAmount || (totalQty * 3500),
-        ticketFormat: raw.ticketFormat || raw.format || "electronic",
-        paymentMethod: raw.paymentMethod || raw.payMethod || "stripe",
-        paid: !!raw.paid,
-        shipped: !!raw.shipped,
-        createdAt: raw.createdAt || 0
-      };
+      selectSessionType("day");
+      selectTicketFormat("electronic");
+      selectPaymentMethod("stripe");
+
+      await fetchCloudData(true);
+      renderAll();
+      setInterval(() => fetchCloudData(false), 2500);
     }
 
     async function fetchCloudData(force = false) {
@@ -680,20 +605,27 @@
         const data = await res.json();
         if (isMutating && !force) return;
 
-        if (data && data.config) {
-          config = Object.assign(config, data.config);
-          if (data.config.manualDay !== undefined && data.config.manualDaySold === undefined) {
-            config.manualDaySold = parseInt(data.config.manualDay, 10) || 0;
-          }
-          if (data.config.manualNight !== undefined && data.config.manualNightSold === undefined) {
-            config.manualNightSold = parseInt(data.config.manualNight, 10) || 0;
-          }
-        }
-
         if (data && data.orders && typeof data.orders === "object") {
-          orders = Object.values(data.orders).map(normalizeOrder).filter(Boolean);
+          orders = Object.values(data.orders).filter(o => o && !o.cancelled && o.orderNo);
         } else {
           orders = [];
+        }
+
+        if (data && data.config) {
+          config = Object.assign(config, data.config);
+          if (!data.config.dayCap || data.config.dayCap === 100) config.dayCap = 264;
+          if (!data.config.nightCap || data.config.nightCap === 100) config.nightCap = 264;
+          if (!data.config.ticketPrice || data.config.ticketPrice === 4000) config.ticketPrice = 3500;
+          if (data.config.shippingFee === undefined) config.shippingFee = 120;
+          if (data.config.countOnlyPaid === undefined) config.countOnlyPaid = true;
+          config.manualDaySold = Math.max(0, parseInt(data.config.manualDaySold, 10) || 0);
+          config.manualNightSold = Math.max(0, parseInt(data.config.manualNightSold, 10) || 0);
+
+          if (!data.config.stripeElectronicUrl) config.stripeElectronicUrl = DEFAULT_STRIPE_ELECTRONIC;
+          if (!data.config.stripePaperUrl) config.stripePaperUrl = DEFAULT_STRIPE_PAPER;
+          if (!data.config.bankInfo || data.config.bankInfo.includes("準備中")) {
+            config.bankInfo = DEFAULT_BANK_INFO;
+          }
         }
 
         renderAll();
@@ -702,329 +634,702 @@
       }
     }
 
-    // フォームの選択変更時に枚数・合計金額・サイト内のStripe枚数注意書きを即時更新
-    function onFormChange() {
-      const sessionType = document.querySelector('input[name="sessionType"]:checked')?.value || "day";
-      const dayBox = document.getElementById("dayQtyBox");
-      const nightBox = document.getElementById("nightQtyBox");
-
-      if (sessionType === "day") {
-        dayBox.classList.remove("hidden");
-        nightBox.classList.add("hidden");
-      } else if (sessionType === "night") {
-        dayBox.classList.add("hidden");
-        nightBox.classList.remove("hidden");
-      } else {
-        dayBox.classList.remove("hidden");
-        nightBox.classList.remove("hidden");
+    async function writeOrderToCloud(orderObj) {
+      isMutating = true;
+      renderAll();
+      try {
+        await fetch(getCleanDbUrl() + DB_NODE + "/orders/" + orderObj.id + ".json?_t=" + Date.now(), {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(orderObj)
+        });
+      } catch (e) {
+        console.warn("Write error:", e);
+      } finally {
+        isMutating = false;
+        await fetchCloudData(true);
       }
-
-      const dQty = sessionType === "night" ? 0 : (parseInt(document.getElementById("dayQtySelect").value, 10) || 0);
-      const nQty = sessionType === "day" ? 0 : (parseInt(document.getElementById("nightQtySelect").value, 10) || 0);
-      const totalQty = dQty + nQty;
-
-      const ticketFormat = document.querySelector('input[name="ticketFormat"]:checked')?.value || "electronic";
-      const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked')?.value || "stripe";
-
-      // サイト内の「お申込みフォーム入力の枚数（〇枚）」表示をすべてリアルタイム更新
-      document.querySelectorAll(".sync-total-qty").forEach(el => {
-        el.textContent = totalQty;
-      });
-
-      // 紙チケット選択時は住所欄を展開
-      const shipBox = document.getElementById("shippingFieldsBox");
-      const elecPrev = document.getElementById("elecPreviewBox");
-      if (ticketFormat === "paper") {
-        shipBox.classList.remove("hidden");
-        elecPrev.classList.add("hidden");
-      } else {
-        shipBox.classList.add("hidden");
-        elecPrev.classList.remove("hidden");
-      }
-
-      // Stripe選択時はボタン直前の特大警告を表示
-      const bottomWarn = document.getElementById("bottomStripeWarningBox");
-      if (paymentMethod === "stripe") {
-        bottomWarn.classList.remove("hidden");
-      } else {
-        bottomWarn.classList.add("hidden");
-      }
-
-      const unitPrice = parseInt(config.ticketPrice, 10) || 3500;
-      const shipFee = ticketFormat === "paper" ? (parseInt(config.shippingFee, 10) || 120) : 0;
-      const totalPrice = (unitPrice * totalQty) + shipFee;
-
-      document.getElementById("totalPriceText").textContent = totalPrice.toLocaleString() + "円";
-      document.getElementById("priceFormulaText").textContent =
-        "内訳：チケット " + unitPrice.toLocaleString() + "円 × 合計 " + totalQty + "枚" +
-        (dQty > 0 && nQty > 0 ? "（昼" + dQty + "枚・夜" + nQty + "枚）" : "") +
-        (ticketFormat === "paper" ? " ＋ 紙チケット郵送料 " + shipFee + "円" : " ＋ 送料 0円（電子チケット）");
     }
 
-    function calcStats() {
-      const targetOrders = config.countOnlyPaid ? orders.filter(o => o.paid) : orders;
-      const webDay = targetOrders.reduce((s, o) => s + (o.dayQty || 0), 0);
-      const webNight = targetOrders.reduce((s, o) => s + (o.nightQty || 0), 0);
+    function selectSessionType(type) {
+      selectedSession = type;
+      ["day", "night", "both"].forEach(t => {
+        const btn = document.getElementById("btnSession_" + t);
+        if (!btn) return;
+        if (t === type) {
+          btn.className = "p-4 rounded-2xl border-2 border-amber-400 bg-amber-400/20 text-left transition flex flex-col justify-between shadow-lg";
+        } else {
+          btn.className = "p-4 rounded-2xl border-2 border-slate-700 bg-slate-900/60 hover:border-slate-500 text-left transition flex flex-col justify-between opacity-75";
+        }
+      });
+
+      const dayRow = document.getElementById("dayQtyRow");
+      const nightRow = document.getElementById("nightQtyRow");
+      if (type === "day") {
+        dayRow.classList.remove("hidden");
+        nightRow.classList.add("hidden");
+      } else if (type === "night") {
+        dayRow.classList.add("hidden");
+        nightRow.classList.remove("hidden");
+      } else {
+        dayRow.classList.remove("hidden");
+        nightRow.classList.remove("hidden");
+      }
+      updateTotalAmount();
+    }
+
+    function selectTicketFormat(fmt) {
+      selectedFormat = fmt;
+      ["electronic", "paper"].forEach(f => {
+        const btn = document.getElementById("btnFormat_" + f);
+        if (!btn) return;
+        if (f === fmt) {
+          btn.className = "p-4 rounded-2xl border-2 border-amber-400 bg-amber-400/20 text-left transition shadow-lg";
+        } else {
+          btn.className = "p-4 rounded-2xl border-2 border-slate-700 bg-slate-900/60 hover:border-slate-500 text-left transition opacity-75";
+        }
+      });
+
+      const addrBox = document.getElementById("shippingAddressBox");
+      if (fmt === "paper") {
+        addrBox.classList.remove("hidden");
+      } else {
+        addrBox.classList.add("hidden");
+      }
+      updateTotalAmount();
+    }
+
+    function selectPaymentMethod(pay) {
+      selectedPay = pay;
+      ["stripe", "bank"].forEach(p => {
+        const btn = document.getElementById("btnPay_" + p);
+        if (!btn) return;
+        if (p === pay) {
+          btn.className = "p-4 rounded-2xl border-2 border-amber-400 bg-amber-400/20 text-left transition shadow-lg";
+        } else {
+          btn.className = "p-4 rounded-2xl border-2 border-slate-700 bg-slate-900/60 hover:border-slate-500 text-left transition opacity-75";
+        }
+      });
+
+      const warnBox = document.getElementById("stripeFormWarningBox");
+      if (warnBox) {
+        if (pay === "stripe") {
+          warnBox.classList.remove("hidden");
+        } else {
+          warnBox.classList.add("hidden");
+        }
+      }
+    }
+
+    function getSelectedQuantities() {
+      const dQty = (selectedSession === "day" || selectedSession === "both")
+        ? parseInt(document.getElementById("dayQtySelect").value, 10) || 1
+        : 0;
+      const nQty = (selectedSession === "night" || selectedSession === "both")
+        ? parseInt(document.getElementById("nightQtySelect").value, 10) || 1
+        : 0;
+      return { dayQty: dQty, nightQty: nQty, totalQty: dQty + nQty };
+    }
+
+    function updateTotalAmount() {
+      const price = parseInt(config.ticketPrice, 10) || 3500;
+      const shipFee = selectedFormat === "paper" ? (parseInt(config.shippingFee, 10) || 120) : 0;
+      document.getElementById("unitPriceLabel").textContent = price.toLocaleString();
+
+      const { dayQty, nightQty, totalQty } = getSelectedQuantities();
+      const ticketSubTotal = totalQty * price;
+      const totalYen = ticketSubTotal + shipFee;
+
+      const parts = [];
+      if (dayQty > 0) parts.push("昼公演 " + dayQty + "枚");
+      if (nightQty > 0) parts.push("夜公演 " + nightQty + "枚");
+
+      const shipText = selectedFormat === "paper"
+        ? " ＋ 郵送料" + shipFee + "円"
+        : "（電子チケット 送料無料）";
+
+      document.getElementById("totalSummarySub").textContent = parts.join("・") + "（計" + totalQty + "枚）" + shipText;
+      document.getElementById("totalPriceDisplay").textContent = totalYen.toLocaleString() + "円";
+
+      // フォーム内のStripe枚数リマインダーもリアルタイム更新
+      const reminderEl = document.getElementById("stripeFormQtyReminder");
+      if (reminderEl) {
+        reminderEl.innerHTML = '👉 あなたは現在 <span class="text-white underline text-xl">合計 ' + totalQty + ' 枚</span> 選択中です。Stripe画面でも必ず <span class="bg-amber-400 text-slate-950 px-2 py-0.5 rounded font-black">数量：' + totalQty + '</span> を入力してご購入ください！';
+      }
+    }
+
+    function getSalesStats() {
+      let webConfirmedDay = 0;
+      let webConfirmedNight = 0;
+      let webPendingDay = 0;
+      let webPendingNight = 0;
+
+      orders.forEach(o => {
+        const d = parseInt(o.dayQty, 10) || 0;
+        const n = parseInt(o.nightQty, 10) || 0;
+        if (config.countOnlyPaid) {
+          if (o.paid) {
+            webConfirmedDay += d;
+            webConfirmedNight += n;
+          } else {
+            webPendingDay += d;
+            webPendingNight += n;
+          }
+        } else {
+          webConfirmedDay += d;
+          webConfirmedNight += n;
+        }
+      });
+
+      const manualDay = Math.max(0, parseInt(config.manualDaySold, 10) || 0);
+      const manualNight = Math.max(0, parseInt(config.manualNightSold, 10) || 0);
+
       const dayCap = parseInt(config.dayCap, 10) || 264;
       const nightCap = parseInt(config.nightCap, 10) || 264;
-      const daySold = Math.min(dayCap, webDay + (parseInt(config.manualDaySold, 10) || 0));
-      const nightSold = Math.min(nightCap, webNight + (parseInt(config.manualNightSold, 10) || 0));
-      return { daySold, nightSold, dayCap, nightCap };
+
+      const daySold = webConfirmedDay + manualDay;
+      const nightSold = webConfirmedNight + manualNight;
+
+      const totalGoal = dayCap + nightCap;
+      const totalSold = daySold + nightSold;
+      const remaining = Math.max(0, totalGoal - totalSold);
+
+      const dayRemain = Math.max(0, dayCap - daySold);
+      const nightRemain = Math.max(0, nightCap - nightSold);
+
+      const dayAvailableForBooking = Math.max(0, dayCap - (daySold + webPendingDay));
+      const nightAvailableForBooking = Math.max(0, nightCap - (nightSold + webPendingNight));
+
+      const dayPct = dayCap > 0 ? Math.min(100, Math.floor((daySold / dayCap) * 100)) : 0;
+      const nightPct = nightCap > 0 ? Math.min(100, Math.floor((nightSold / nightCap) * 100)) : 0;
+      const pct = totalGoal > 0 ? Math.min(100, Math.floor((totalSold / totalGoal) * 100)) : 0;
+
+      return {
+        webConfirmedDay, webConfirmedNight,
+        webPendingDay, webPendingNight,
+        manualDay, manualNight,
+        dayCap, nightCap,
+        daySold, nightSold,
+        dayRemain, nightRemain,
+        dayAvailableForBooking, nightAvailableForBooking,
+        dayPct, nightPct,
+        totalSold, totalGoal, remaining, pct
+      };
     }
 
     async function submitOrder() {
       const errEl = document.getElementById("orderErrorMsg");
       errEl.classList.add("hidden");
 
-      const sessionType = document.querySelector('input[name="sessionType"]:checked')?.value || "day";
-      const dQty = sessionType === "night" ? 0 : (parseInt(document.getElementById("dayQtySelect").value, 10) || 0);
-      const nQty = sessionType === "day" ? 0 : (parseInt(document.getElementById("nightQtySelect").value, 10) || 0);
-      const totalQty = dQty + nQty;
-
-      const ticketFormat = document.querySelector('input[name="ticketFormat"]:checked')?.value || "electronic";
-      const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked')?.value || "stripe";
-
       const name = document.getElementById("buyerName").value.trim();
-      const phone = document.getElementById("buyerPhone").value.trim();
       const email = document.getElementById("buyerEmail").value.trim();
-      const zip = document.getElementById("buyerZip").value.trim();
-      const address = document.getElementById("buyerAddress").value.trim();
+      const { dayQty, nightQty, totalQty } = getSelectedQuantities();
 
-      if (!name || !phone || !email) {
-        errEl.textContent = "お名前・電話番号・メールアドレスをすべてご入力ください。";
+      if (!name) {
+        errEl.textContent = "お名前を入力してください。";
         errEl.classList.remove("hidden");
         return;
       }
-      if (ticketFormat === "paper" && (!zip || !address)) {
-        errEl.textContent = "紙チケット郵送をご希望の場合は、郵便番号とご住所をご入力ください。";
+      if (!email || !email.includes("@")) {
+        errEl.textContent = "正しいメールアドレスを入力してください。";
         errEl.classList.remove("hidden");
         return;
+      }
+
+      let zip = "", phone = "", address = "";
+      if (selectedFormat === "paper") {
+        zip = document.getElementById("buyerZip").value.trim();
+        phone = document.getElementById("buyerPhone").value.trim();
+        address = document.getElementById("buyerAddress").value.trim();
+        if (!zip || !phone || !address) {
+          errEl.textContent = "紙チケットの郵送に必要な「郵便番号・電話番号・ご住所」をすべて入力してください。";
+          errEl.classList.remove("hidden");
+          return;
+        }
       }
 
       const btn = document.getElementById("submitOrderBtn");
       btn.disabled = true;
-      btn.textContent = "送信中...";
+      btn.textContent = "お申し込み処理中...";
 
       await fetchCloudData(true);
-      const { daySold, nightSold, dayCap, nightCap } = calcStats();
+      const stats = getSalesStats();
 
-      if (dQty > (dayCap - daySold)) {
-        errEl.textContent = "昼公演の残り枚数が不足しています（残り " + Math.max(0, dayCap - daySold) + " 枚）。";
+      if (dayQty > stats.dayAvailableForBooking) {
+        errEl.textContent = "申し訳ありません。昼公演の受付可能枠はあと " + stats.dayAvailableForBooking + " 枚です。";
         errEl.classList.remove("hidden");
         btn.disabled = false;
-        btn.textContent = "✨ この内容で申し込む";
+        btn.textContent = "✨ この内容で申し込む（お支払い案内へ）";
         return;
       }
-      if (nQty > (nightCap - nightSold)) {
-        errEl.textContent = "夜公演の残り枚数が不足しています（残り " + Math.max(0, nightCap - nightSold) + " 枚）。";
+      if (nightQty > stats.nightAvailableForBooking) {
+        errEl.textContent = "申し訳ありません。夜公演の受付可能枠はあと " + stats.nightAvailableForBooking + " 枚です。";
         errEl.classList.remove("hidden");
         btn.disabled = false;
-        btn.textContent = "✨ この内容で申し込む";
+        btn.textContent = "✨ この内容で申し込む（お支払い案内へ）";
         return;
       }
 
-      const unitPrice = parseInt(config.ticketPrice, 10) || 3500;
-      const shipFee = ticketFormat === "paper" ? (parseInt(config.shippingFee, 10) || 120) : 0;
-      const totalPrice = (unitPrice * totalQty) + shipFee;
-
-      const id = "ORD_" + Date.now() + "_" + Math.floor(100 + Math.random() * 900);
-      const orderNo = "K-" + String(orders.length + 101);
+      const price = parseInt(config.ticketPrice, 10) || 3500;
+      const shipFee = selectedFormat === "paper" ? (parseInt(config.shippingFee, 10) || 120) : 0;
+      const orderNo = "KOI-" + Math.floor(1000 + Math.random() * 9000);
+      const orderId = "ORD_" + Date.now() + "_" + Math.floor(Math.random() * 1000);
 
       const newOrder = {
-        id: id,
+        id: orderId,
         orderNo: orderNo,
         name: name,
         email: email,
-        phone: phone,
-        zip: zip,
-        address: address,
-        sessionType: sessionType,
-        dayQty: dQty,
-        nightQty: nQty,
+        sessionType: selectedSession,
+        dayQty: dayQty,
+        nightQty: nightQty,
         totalQty: totalQty,
-        totalPrice: totalPrice,
-        ticketFormat: ticketFormat,
-        paymentMethod: paymentMethod,
+        shippingFee: shipFee,
+        totalPrice: (totalQty * price) + shipFee,
+        ticketFormat: selectedFormat,
+        zip: zip,
+        phone: phone,
+        address: address,
+        paymentMethod: selectedPay,
         paid: false,
         shipped: false,
         cancelled: false,
         createdAt: Date.now()
       };
 
-      isMutating = true;
       orders.push(newOrder);
-      myOrderId = id;
-      localStorage.setItem(KEY_MY_ORDER, id);
-      renderAll();
+      myOrderIds.push(orderId);
+      localStorage.setItem(KEY_MY_ORDERS, JSON.stringify(myOrderIds));
 
-      try {
-        await fetch(getCleanDbUrl() + DB_NODE + "/orders/" + id + ".json?_t=" + Date.now(), {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newOrder)
-        });
-      } catch (e) {}
-      isMutating = false;
-      await fetchCloudData(true);
+      await writeOrderToCloud(newOrder);
 
       btn.disabled = false;
-      btn.textContent = "✨ この内容で申し込む";
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      btn.textContent = "✨ この内容で申し込む（お支払い案内へ）";
+      document.getElementById("myTicketSection").scrollIntoView({ behavior: "smooth" });
     }
 
-    function resetForNewOrder() {
-      myOrderId = null;
-      localStorage.removeItem(KEY_MY_ORDER);
-      renderAll();
+    function scrollToFormForAdditional() {
       document.getElementById("orderFormSection").scrollIntoView({ behavior: "smooth" });
     }
 
     function renderAll() {
-      renderMeters();
-      renderMyOrder();
-      renderAdmin();
+      updateTotalAmount();
+      renderMeterAndRewards();
+      renderMyTickets();
+      renderAdminView();
     }
 
-    function renderMeters() {
-      const { daySold, nightSold, dayCap, nightCap } = calcStats();
-      const dayRem = Math.max(0, dayCap - daySold);
-      const nightRem = Math.max(0, nightCap - nightSold);
-      const dayPct = Math.min(100, Math.round((daySold / dayCap) * 100));
-      const nightPct = Math.min(100, Math.round((nightSold / nightCap) * 100));
-      const totalPct = Math.min(100, Math.round(((daySold + nightSold) / (dayCap + nightCap)) * 100));
+    function renderMeterAndRewards() {
+      const stats = getSalesStats();
+      document.getElementById("meterPercentText").textContent = stats.pct + "%";
+      document.getElementById("meterRemainingText").textContent = stats.remaining;
+      document.getElementById("meterSoldText").textContent = stats.totalSold;
+      document.getElementById("meterGoalText").textContent = stats.totalGoal;
+      document.getElementById("meterBarFill").style.width = stats.pct + "%";
 
-      document.getElementById("daySoldNum").textContent = daySold;
-      document.getElementById("dayCapNum").textContent = dayCap;
-      document.getElementById("dayPctNum").textContent = dayPct;
-      document.getElementById("dayRemainBadge").textContent = dayRem === 0 ? "完売御礼" : "残席 " + dayRem + "枚";
-      document.getElementById("dayMeterBar").style.width = dayPct + "%";
+      document.getElementById("dayRemainBadge").textContent = stats.dayRemain === 0 ? "🎉 SOLD OUT!" : "あと " + stats.dayRemain + " 枚";
+      document.getElementById("dayBarFill").style.width = stats.dayPct + "%";
+      document.getElementById("daySoldDetail").textContent = "確定数: " + stats.daySold + " / " + stats.dayCap + "枚";
+      document.getElementById("dayPctDetail").textContent = stats.dayPct + "%";
 
-      document.getElementById("nightSoldNum").textContent = nightSold;
-      document.getElementById("nightCapNum").textContent = nightCap;
-      document.getElementById("nightPctNum").textContent = nightPct;
-      document.getElementById("nightRemainBadge").textContent = nightRem === 0 ? "完売御礼" : "残席 " + nightRem + "枚";
-      document.getElementById("nightMeterBar").style.width = nightPct + "%";
+      document.getElementById("nightRemainBadge").textContent = stats.nightRemain === 0 ? "🎉 SOLD OUT!" : "あと " + stats.nightRemain + " 枚";
+      document.getElementById("nightBarFill").style.width = stats.nightPct + "%";
+      document.getElementById("nightSoldDetail").textContent = "確定数: " + stats.nightSold + " / " + stats.nightCap + "枚";
+      document.getElementById("nightPctDetail").textContent = stats.nightPct + "%";
 
-      const effectivePct = Math.max(dayPct, nightPct, totalPct);
-      document.getElementById("totalPctNum").textContent = effectivePct;
+      const pendingTotal = stats.webPendingDay + stats.webPendingNight;
+      const pendingNotice = document.getElementById("pendingNoticeText");
+      if (config.countOnlyPaid && pendingTotal > 0) {
+        pendingNotice.textContent = "※現在、上記以外に「お支払い確認待ち（仮予約）」が " + pendingTotal + " 枚あります";
+      } else {
+        pendingNotice.textContent = "";
+      }
 
-      const rewards = [
-        { pct: 30, label: "30%達成", name: "🖼️ 限定画像①", url: config.reward30Url || config.url30 },
-        { pct: 50, label: "50%達成", name: "🖼️ 限定画像②", url: config.reward50Url || config.url50 },
-        { pct: 80, label: "80%達成", name: "🎬 限定動画",   url: config.reward80Url || config.url80 },
-        { pct: 100, label: "100%達成", name: "🎁 限定グッズ", url: config.reward100Url || config.url100 }
+      const hintEl = document.getElementById("nextMilestoneHint");
+      const nextTargetPct = [30, 50, 80, 100].find(p => stats.pct < p);
+      if (nextTargetPct) {
+        const neededTickets = Math.max(1, Math.ceil((nextTargetPct / 100) * stats.totalGoal) - stats.totalSold);
+        hintEl.textContent = "次の" + nextTargetPct + "%特典解放まで あと" + neededTickets + "枚！";
+      } else {
+        hintEl.textContent = "🎊 全特典コンプリート達成！！";
+      }
+
+      const milestones = [
+        { pct: 30, title: "30%達成特典", desc: "限定メモリアル画像① 解放", type: "img30", url: config.reward30Url },
+        { pct: 50, title: "50%達成特典", desc: "限定メモリアル画像② 解放", type: "img50", url: config.reward50Url },
+        { pct: 80, title: "80%達成特典", desc: "限定スペシャル動画 解放", type: "vid80", url: config.reward80Url },
+        { pct: 100, title: "100%達成特典", desc: "チケット購入者全員に限定グッズプレゼント！", type: "goods100", url: "unlocked" }
       ];
 
-      document.getElementById("rewardsGrid").innerHTML = rewards.map(r => {
-        const unlocked = effectivePct >= r.pct;
-        return '<div class="p-3.5 rounded-2xl border text-center space-y-1 ' +
-          (unlocked ? 'bg-amber-400/20 border-amber-400 text-white' : 'bg-slate-900/60 border-slate-800 text-slate-500') + '">' +
-          '<div class="text-xs font-black ' + (unlocked ? 'text-amber-300' : 'text-slate-500') + '">' + r.label + '</div>' +
-          '<div class="text-sm sm:text-base font-black">' + r.name + '</div>' +
-          (unlocked
-            ? (r.url ? '<a href="' + esc(r.url) + '" target="_blank" class="inline-block mt-1 gold-grad text-slate-950 text-xs font-black px-3 py-1 rounded-lg">特典を開く</a>'
-                     : '<span class="inline-block text-xs font-bold text-emerald-300">🔓 解放済</span>')
-            : '<span class="inline-block text-xs">🔒 未解放</span>') +
+      const grid = document.getElementById("rewardsGrid");
+      grid.innerHTML = milestones.map(m => {
+        const unlocked = stats.pct >= m.pct;
+        const targetCount = Math.ceil((m.pct / 100) * stats.totalGoal);
+        const remainToUnlock = Math.max(0, targetCount - stats.totalSold);
+        if (unlocked) {
+          return '<div class="bg-gradient-to-r from-amber-500/25 to-pink-500/25 border-2 border-amber-400 rounded-2xl p-3.5 flex items-center justify-between gap-2">' +
+            '<div>' +
+              '<div class="flex items-center gap-1.5">' +
+                '<span class="bg-amber-400 text-slate-950 text-xs font-black px-2.5 py-0.5 rounded-full">🔓 UNLOCKED!</span>' +
+                '<span class="text-sm font-black text-amber-300">' + m.title + '</span>' +
+              '</div>' +
+              '<div class="text-sm font-bold text-white mt-1.5">' + m.desc + '</div>' +
+            '</div>' +
+            '<button onclick="openRewardModal(\'' + m.type + '\')" class="bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs sm:text-sm font-black px-3.5 py-2 rounded-xl shrink-0 shadow">' +
+              '特典を見る' +
+            '</button>' +
+          '</div>';
+        } else {
+          return '<div class="bg-slate-950/60 border border-slate-700/80 rounded-2xl p-3.5 flex items-center justify-between gap-2 opacity-80">' +
+            '<div>' +
+              '<div class="flex items-center gap-1.5">' +
+                '<span class="bg-slate-800 text-slate-300 text-xs font-bold px-2.5 py-0.5 rounded-full">🔒 LOCKED</span>' +
+                '<span class="text-sm font-bold text-slate-200">' + m.title + '</span>' +
+              '</div>' +
+              '<div class="text-sm font-bold text-slate-300 mt-1.5">' + m.desc + '</div>' +
+            '</div>' +
+            '<div class="text-right shrink-0">' +
+              '<div class="text-sm font-black text-pink-300">あと' + remainToUnlock + '枚</div>' +
+              '<div class="text-xs text-slate-400">(' + m.pct + '%で解放)</div>' +
+            '</div>' +
+          '</div>';
+        }
+      }).join("");
+    }
+
+    // ★ 申込完了後のStripe決済案内：特大文字で「お申込みフォーム入力の枚数を入力し購入してください」を強調表示
+    function renderMyTickets() {
+      const sec = document.getElementById("myTicketSection");
+      const myList = orders.filter(o => myOrderIds.includes(o.id));
+      if (myList.length === 0) {
+        sec.classList.add("hidden");
+        return;
+      }
+      sec.classList.remove("hidden");
+
+      const latest = myList[myList.length - 1];
+      const payBox = document.getElementById("paymentInstructionBox");
+      const isPaper = latest.ticketFormat === "paper";
+      const shipNote = isPaper ? "（紙チケット・郵送料120円込）" : "（電子チケット・送料無料）";
+
+      if (latest.paid) {
+        payBox.innerHTML =
+          '<div class="flex items-center gap-2 text-emerald-400 font-black text-base sm:text-lg">' +
+            '<span>✅ お支払い確認完了（正式発券済み）</span>' +
+          '</div>' +
+          '<p class="text-slate-200 text-sm sm:text-base font-bold">ご入金ありがとうございました！あなたのチケット枚数が応援メーターに加算されました✨</p>';
+      } else if (latest.paymentMethod === "stripe") {
+        const targetStripeUrl = isPaper
+          ? (config.stripePaperUrl || DEFAULT_STRIPE_PAPER)
+          : (config.stripeElectronicUrl || DEFAULT_STRIPE_ELECTRONIC);
+        const btnLabel = isPaper
+          ? "💳 紙チケット（送料込み）Stripe決済画面を開く"
+          : "💳 電子チケット Stripe決済画面を開く";
+
+        payBox.innerHTML =
+          '<div class="font-black text-pink-300 text-base sm:text-lg">⏳ ステータス：クレジットカード決済手続き待ち</div>' +
+          '<div class="text-slate-100 text-base sm:text-lg font-bold leading-relaxed">' +
+            'お申し込み枚数：<span class="text-amber-300 font-black text-xl">合計 ' + latest.totalQty + ' 枚</span> ／ ' +
+            'お支払い合計：<span class="font-black text-amber-300 text-xl">' + latest.totalPrice.toLocaleString() + '円</span> ' +
+            '<span class="text-sm text-slate-300">' + shipNote + '</span>' +
+          '</div>' +
+
+          /* 🚨 特大・超目立つ枚数入力の注意喚起バナー */
+          '<div class="bg-amber-300 text-slate-950 rounded-2xl p-4 sm:p-5 border-4 border-rose-600 shadow-2xl space-y-2">' +
+            '<div class="text-rose-700 font-black text-lg sm:text-xl flex items-center gap-1.5">' +
+              '<span class="text-2xl">🚨</span>' +
+              <span>【重要】Stripe画面で必ず「枚数」を入力してください！</span>' +
+            '</div>' +
+            '<p class="text-slate-900 font-black text-base sm:text-lg leading-relaxed">' +
+              'お申し込みフォームの枚数とStripeの枚数は自動連動しません。<br>' +
+              '次のStripe決済画面では、<span class="bg-rose-600 text-white px-2.5 py-0.5 rounded-lg underline">必ずお申込みフォームで入力した枚数【 ' + latest.totalQty + ' 枚 】を入力（変更）</span>してご購入ください！' +
+            '</p>' +
+          '</div>' +
+
+          '<div class="pt-1">' +
+            '<a href="' + esc(targetStripeUrl) + '" target="_blank" rel="noopener noreferrer" class="block w-full text-center bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black px-6 py-4 rounded-2xl shadow-xl text-base sm:text-xl transition transform active:scale-95">' +
+              btnLabel + '（数量を「' + latest.totalQty + '」にして決済）' +
+            '</a>' +
+          '</div>' +
+          '<p class="text-xs sm:text-sm text-slate-300 font-bold">※決済完了後、スタッフの確認が完了すると応援メーターに加算され、下に電子チケット画像が表示されます。</p>';
+      } else {
+        payBox.innerHTML =
+          '<div class="font-black text-amber-300 text-base sm:text-lg">⏳ ステータス：銀行振込手続き待ち</div>' +
+          '<p class="text-slate-100 text-base sm:text-lg font-bold">お振込合計金額：<span class="font-black text-amber-300 text-2xl">' + latest.totalPrice.toLocaleString() + '円</span> <span class="text-sm text-slate-300">' + shipNote + '</span></p>' +
+          '<div class="bg-slate-900 p-4 rounded-2xl border-2 border-amber-400/50 space-y-3">' +
+            '<div class="font-bold text-amber-100 whitespace-pre-line leading-relaxed text-sm sm:text-base">' + esc(config.bankInfo || DEFAULT_BANK_INFO) + '</div>' +
+            '<div class="pt-1 flex flex-wrap items-center gap-2.5">' +
+              '<button onclick="copyAccountNumber()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs sm:text-sm font-black px-4 py-2 rounded-xl shadow">📋 口座番号「2686319」をコピー</button>' +
+              '<span class="text-xs sm:text-sm text-pink-300 font-black">※振込名義：「' + esc(latest.name) + '」様のお名前でご送金ください</span>' +
+            '</div>' +
+          '</div>' +
+          '<p class="text-xs sm:text-sm text-slate-300 font-bold">※ご入金確認後、応援メーターに加算され、下に電子チケット画像が表示されます。</p>';
+      }
+
+      const container = document.getElementById("issuedTicketsContainer");
+      container.innerHTML = myList.map(ord => {
+        const canShowTicket = !config.countOnlyPaid || ord.paid;
+
+        if (!canShowTicket) {
+          return '<div class="bg-slate-900/90 rounded-2xl p-4 sm:p-5 border border-slate-700 text-sm sm:text-base space-y-2">' +
+            '<div class="flex flex-wrap justify-between items-center gap-2">' +
+              '<span class="font-mono font-black text-amber-300 text-base">申込番号：' + esc(ord.orderNo) + '</span>' +
+              '<span class="bg-amber-500/20 text-amber-300 border border-amber-400/40 px-3 py-1 rounded-full text-xs sm:text-sm font-bold">⏳ お支払い確認待ち</span>' +
+            '</div>' +
+            '<div class="text-slate-200 font-bold">お名前：' + esc(ord.name) + ' 様 ／ 昼公演:' + ord.dayQty + '枚・夜公演:' + ord.nightQty + '枚（合計 ' + ord.totalPrice.toLocaleString() + '円）</div>' +
+            '<div class="text-xs sm:text-sm text-pink-300 font-bold pt-1">🔒 ご入金確認が完了すると、こちらに記念チケット画像が表示されます。</div>' +
+          '</div>';
+        }
+
+        let ticketsHtml = "";
+        if (ord.dayQty > 0) {
+          ticketsHtml +=
+            '<div class="bg-slate-950/90 rounded-2xl p-4 border-2 border-sky-400/70 space-y-3">' +
+              '<div class="flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm">' +
+                '<span class="bg-sky-400 text-slate-950 font-black px-3 py-1 rounded-full">☀️ 昼公演（13:00開演）</span>' +
+                '<span class="font-black text-amber-300 text-base">整理番号：' + esc(ord.orderNo) + '（' + ord.dayQty + '枚）</span>' +
+              '</div>' +
+              '<img src="' + IMG_DAY_PRIMARY + '" onerror="this.onerror=null;this.src=\'' + IMG_DAY_FALLBACK + '\';" alt="恋するオルゴール 昼公演チケット" class="w-full rounded-xl shadow-lg border border-amber-300/50" />' +
+              '<div class="flex justify-between items-center text-xs sm:text-sm text-slate-200 pt-1 px-1 font-bold">' +
+                '<span>ご購入者：<strong class="text-white">' + esc(ord.name) + ' 様</strong></span>' +
+                '<span>種別：' + (ord.ticketFormat === "paper" ? "✉️ 紙チケット（郵送手配）" : "📱 電子チケット") + '</span>' +
+              '</div>' +
+            '</div>';
+        }
+
+        if (ord.nightQty > 0) {
+          ticketsHtml +=
+            '<div class="bg-slate-950/90 rounded-2xl p-4 border-2 border-purple-400/70 space-y-3 mt-3">' +
+              '<div class="flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm">' +
+                '<span class="bg-purple-400 text-slate-950 font-black px-3 py-1 rounded-full">🌙 夜公演（17:30開演）</span>' +
+                '<span class="font-black text-amber-300 text-base">整理番号：' + esc(ord.orderNo) + '（' + ord.nightQty + '枚）</span>' +
+              '</div>' +
+              '<img src="' + IMG_NIGHT_PRIMARY + '" onerror="this.onerror=null;this.src=\'' + IMG_NIGHT_FALLBACK + '\';" alt="恋するオルゴール 夜公演チケット" class="w-full rounded-xl shadow-lg border border-amber-300/50" />' +
+              '<div class="flex justify-between items-center text-xs sm:text-sm text-slate-200 pt-1 px-1 font-bold">' +
+                '<span>ご購入者：<strong class="text-white">' + esc(ord.name) + ' 様</strong></span>' +
+                '<span>種別：' + (ord.ticketFormat === "paper" ? "✉️ 紙チケット（郵送手配）" : "📱 電子チケット") + '</span>' +
+              '</div>' +
+            '</div>';
+        }
+
+        return '<div class="space-y-2.5">' +
+          '<div class="text-xs sm:text-sm font-bold text-amber-200">📸 当日受付でご提示いただけるよう、このチケット画面をスクリーンショット保存してください。</div>' +
+          ticketsHtml +
+        '</div>';
+      }).join('<hr class="border-slate-700 my-4" />');
+    }
+
+    function copyAccountNumber() {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText("2686319");
+        alert("口座番号「2686319」をコピーしました！");
+      }
+    }
+
+    function openRewardModal(type) {
+      const modal = document.getElementById("rewardModal");
+      const title = document.getElementById("rewardModalTitle");
+      const body = document.getElementById("rewardModalBody");
+
+      if (type === "img30") {
+        title.textContent = "🎁 30%達成特典：限定メモリアル画像①";
+        body.innerHTML = config.reward30Url
+          ? '<img src="' + esc(config.reward30Url) + '" class="w-full rounded-2xl border border-amber-400 mb-2" /><a href="' + esc(config.reward30Url) + '" target="_blank" class="inline-block bg-amber-400 text-slate-950 font-black px-5 py-2.5 rounded-xl">画像を開く・保存する</a>'
+          : '<p class="py-6 text-amber-200 font-bold">🎉 30%達成おめでとうございます！限定画像はただいま準備中です✨</p>';
+      } else if (type === "img50") {
+        title.textContent = "🎁 50%達成特典：限定メモリアル画像②";
+        body.innerHTML = config.reward50Url
+          ? '<img src="' + esc(config.reward50Url) + '" class="w-full rounded-2xl border border-amber-400 mb-2" /><a href="' + esc(config.reward50Url) + '" target="_blank" class="inline-block bg-amber-400 text-slate-950 font-black px-5 py-2.5 rounded-xl">画像を開く・保存する</a>'
+          : '<p class="py-6 text-amber-200 font-bold">🎉 50%達成おめでとうございます！限定画像はただいま準備中です✨</p>';
+      } else if (type === "vid80") {
+        title.textContent = "🎁 80%達成特典：限定スペシャル動画";
+        body.innerHTML = config.reward80Url
+          ? '<p class="mb-3">80%達成ありがとうございます！以下のリンクより限定動画をご覧ください🎬</p><a href="' + esc(config.reward80Url) + '" target="_blank" class="inline-block bg-pink-500 text-white font-black px-5 py-3 rounded-xl shadow">🎬 限定スペシャル動画を視聴する</a>'
+          : '<p class="py-6 text-amber-200 font-bold">🎉 80%達成おめでとうございます！限定動画はただいま準備中です✨</p>';
+      } else {
+        title.textContent = "🎊 100%達成特典：全員に限定グッズプレゼント！";
+        body.innerHTML = '<div class="py-4 space-y-2"><div class="text-4xl">🎊🎁✨</div><p class="text-lg font-black text-amber-300">目標100%達成ありがとうございます！！</p><p class="leading-relaxed">チケットをご購入いただいた皆様全員に、2027年1月9日(土)のコンサート当日会場にて「恋するオルゴール限定記念グッズ」をプレゼントいたします！</p></div>';
+      }
+
+      modal.classList.remove("hidden");
+    }
+
+    function closeRewardModal() {
+      document.getElementById("rewardModal").classList.add("hidden");
+    }
+
+    function renderAdminView() {
+      const f = (id, val) => {
+        const el = document.getElementById(id);
+        if (el && document.activeElement !== el) el.value = val !== undefined ? val : "";
+      };
+      if (!isEditingManual) {
+        f("admManualDay", config.manualDaySold || 0);
+        f("admManualNight", config.manualNightSold || 0);
+      }
+      f("admDayCap", config.dayCap || 264);
+      f("admNightCap", config.nightCap || 264);
+      f("admTicketPrice", config.ticketPrice || 3500);
+      f("admShippingFee", config.shippingFee !== undefined ? config.shippingFee : 120);
+      f("admStripeElectronicUrl", config.stripeElectronicUrl || DEFAULT_STRIPE_ELECTRONIC);
+      f("admStripePaperUrl", config.stripePaperUrl || DEFAULT_STRIPE_PAPER);
+      f("admBankInfo", config.bankInfo || DEFAULT_BANK_INFO);
+      f("admReward30", config.reward30Url);
+      f("admReward50", config.reward50Url);
+      f("admReward80", config.reward80Url);
+
+      const ruleBtn = document.getElementById("toggleCountRuleBtn");
+      if (ruleBtn) {
+        if (config.countOnlyPaid) {
+          ruleBtn.textContent = "🛡️ 現在：入金確認済のみメーター加算（推奨・クリックで切替）";
+          ruleBtn.className = "font-black px-4 py-2.5 rounded-xl shadow bg-indigo-700 text-white text-xs sm:text-sm";
+        } else {
+          ruleBtn.textContent = "⚡ 現在：未入金でも申込時点でメーター即時加算（クリックで切替）";
+          ruleBtn.className = "font-black px-4 py-2.5 rounded-xl shadow bg-amber-400 text-slate-950 text-xs sm:text-sm";
+        }
+      }
+
+      const stats = getSalesStats();
+
+      const quickBadge = document.getElementById("adminTotalQuickBadge");
+      if (quickBadge) {
+        quickBadge.textContent = "確定販売: " + stats.totalSold + " / " + stats.totalGoal + "枚 (" + stats.pct + "% | 残り" + stats.remaining + "枚)";
+      }
+      const dayBrk = document.getElementById("admDayBreakdown");
+      if (dayBrk) {
+        dayBrk.textContent = "Web確定:" + stats.webConfirmedDay + " (未入金:" + stats.webPendingDay + ") + 手売り:" + stats.manualDay + " = 計" + stats.daySold + "/" + stats.dayCap + "枚";
+      }
+      const nightBrk = document.getElementById("admNightBreakdown");
+      if (nightBrk) {
+        nightBrk.textContent = "Web確定:" + stats.webConfirmedNight + " (未入金:" + stats.webPendingNight + ") + 手売り:" + stats.manualNight + " = 計" + stats.nightSold + "/" + stats.nightCap + "枚";
+      }
+
+      const summaryEl = document.getElementById("adminStatsSummary");
+      if (summaryEl) {
+        summaryEl.textContent = "Web申込総数: " + orders.length + "件（入金済: " + orders.filter(o => o.paid).length + "件 ／ 未入金: " + orders.filter(o => !o.paid).length + "件）";
+      }
+
+      const listEl = document.getElementById("adminOrdersList");
+      if (!listEl) return;
+
+      if (orders.length === 0) {
+        listEl.innerHTML = '<div class="text-sm text-slate-400 py-8 text-center">まだWebからのお申し込みはありません。</div>';
+        return;
+      }
+
+      const sorted = [...orders].sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+      listEl.innerHTML = sorted.map(o => {
+        const isPaper = o.ticketFormat === "paper";
+        return '<div class="p-4 rounded-2xl border-2 ' + (o.paid ? 'bg-emerald-50/70 border-emerald-400' : 'bg-amber-50/50 border-amber-300') + ' text-xs sm:text-sm space-y-2">' +
+          '<div class="flex flex-wrap items-center justify-between gap-2">' +
+            '<div class="flex flex-wrap items-center gap-2">' +
+              '<span class="font-mono font-black bg-slate-900 text-amber-300 px-2.5 py-0.5 rounded">' + esc(o.orderNo) + '</span>' +
+              (o.paid
+                ? '<span class="bg-emerald-600 text-white font-black px-2.5 py-0.5 rounded-full text-xs">✅ 入金確認済</span>'
+                : '<span class="bg-amber-500 text-slate-950 font-black px-2.5 py-0.5 rounded-full text-xs">⏳ 未入金</span>') +
+              '<span class="font-black text-base text-slate-900">' + esc(o.name) + ' 様</span>' +
+              '<span class="text-slate-500">(' + esc(o.email) + ')</span>' +
+              '<span class="font-black text-rose-600">昼:' + o.dayQty + '枚 / 夜:' + o.nightQty + '枚（計' + o.totalPrice.toLocaleString() + '円）</span>' +
+            '</div>' +
+            '<div class="flex items-center gap-2">' +
+              '<label class="inline-flex items-center gap-1.5 ' + (o.paid ? 'bg-emerald-600 text-white' : 'bg-white text-slate-900 border-2 border-emerald-600') + ' px-3 py-1.5 rounded-xl font-black cursor-pointer shadow-sm">' +
+                '<input type="checkbox" ' + (o.paid ? 'checked' : '') + ' onchange="toggleOrderPaid(\'' + o.id + '\')" />' +
+                '<span>入金確認済（発券）</span>' +
+              '</label>' +
+              (isPaper ? (
+                '<label class="inline-flex items-center gap-1 bg-pink-50 px-2.5 py-1.5 rounded-xl border border-pink-300 font-bold text-pink-800 cursor-pointer">' +
+                  '<input type="checkbox" ' + (o.shipped ? 'checked' : '') + ' onchange="toggleOrderShipped(\'' + o.id + '\')" />' +
+                  '<span>紙チケ発送済</span>' +
+                '</label>'
+              ) : '') +
+              '<button onclick="cancelOrderAdmin(\'' + o.id + '\')" class="text-rose-600 hover:underline font-bold ml-1">取消</button>' +
+            '</div>' +
+          '</div>' +
+          '<div class="text-xs text-slate-600 flex flex-wrap gap-3">' +
+            '<span>種別：<strong>' + (isPaper ? '✉️ 紙チケット郵送（送料120円込）' : '📱 電子チケット（送料無料）') + '</strong></span>' +
+            '<span>支払：<strong>' + (o.paymentMethod === 'stripe' ? '💳 Stripeクレカ' : '🏦 銀行振込') + '</strong></span>' +
+            (isPaper ? '<span class="text-pink-700 font-bold">📮 郵送先：〒' + esc(o.zip) + ' ' + esc(o.address) + ' (TEL: ' + esc(o.phone) + ')</span>' : '') +
+          '</div>' +
         '</div>';
       }).join("");
     }
 
-    function renderMyOrder() {
-      const box = document.getElementById("myOrderBox");
-      const myOrd = orders.find(o => o.id === myOrderId);
-      if (!myOrd) {
-        box.classList.add("hidden");
-        return;
-      }
-      box.classList.remove("hidden");
-
-      const statusBadge = document.getElementById("myOrderStatusBadge");
-      if (myOrd.paid) {
-        statusBadge.textContent = "✅ ご入金確認済み";
-        statusBadge.className = "text-sm sm:text-base font-black px-4 py-1.5 rounded-full bg-emerald-500 text-slate-950";
-      } else {
-        statusBadge.textContent = "⏳ お支払い・確認待ち";
-        statusBadge.className = "text-sm sm:text-base font-black px-4 py-1.5 rounded-full bg-amber-400 text-slate-950";
-      }
-
-      const breakdown = [];
-      if (myOrd.dayQty > 0) breakdown.push("☀️ 昼公演：" + myOrd.dayQty + "枚");
-      if (myOrd.nightQty > 0) breakdown.push("🌙 夜公演：" + myOrd.nightQty + "枚");
-
-      document.getElementById("myOrderSummary").innerHTML =
-        '<div>受付番号：<span class="text-amber-300 font-mono font-black">' + esc(myOrd.orderNo) + '</span> ／ お名前：<span class="text-white font-black">' + esc(myOrd.name) + ' 様</span></div>' +
-        '<div>お申込み内訳：<span class="text-amber-200 font-black">' + breakdown.join(" ／ ") + '（合計 ' + myOrd.totalQty + ' 枚）</span></div>' +
-        '<div>チケット種別：<span>' + (myOrd.ticketFormat === "paper" ? "✉️ 紙チケット郵送（送料120円込）" : "📱 電子チケット（送料無料）") + '</span></div>' +
-        '<div>お支払い合計：<span class="text-2xl font-black text-amber-300">' + Number(myOrd.totalPrice).toLocaleString() + '円</span></div>';
-
-      const stripeBox = document.getElementById("myStripeGuideBox");
-      const bankBox = document.getElementById("myBankGuideBox");
-
-      if (myOrd.paid) {
-        stripeBox.classList.add("hidden");
-        bankBox.classList.add("hidden");
-      } else if (myOrd.paymentMethod === "stripe") {
-        stripeBox.classList.remove("hidden");
-        bankBox.classList.add("hidden");
-        document.getElementById("myStripeQtyBigText").textContent = "【 合計 " + myOrd.totalQty + " 枚 】を入力してください";
-        const stripeUrl = myOrd.ticketFormat === "paper"
-          ? (config.stripePaperUrl || DEFAULT_STRIPE_PAPER)
-          : (config.stripeElecUrl || DEFAULT_STRIPE_ELEC);
-        document.getElementById("myStripeCheckoutBtn").href = stripeUrl;
-      } else {
-        stripeBox.classList.add("hidden");
-        bankBox.classList.remove("hidden");
-      }
-
-      // 入金確認済 ＆ 電子チケットの場合、昼・夜デジタルチケット画像を表示
-      const issuedArea = document.getElementById("myIssuedTicketsArea");
-      if (myOrd.paid && myOrd.ticketFormat === "electronic") {
-        issuedArea.classList.remove("hidden");
-        let html = '<div class="text-lg sm:text-xl font-black text-emerald-300">🎟️ 発行済みデジタルチケット（当日受付でご提示ください）</div>';
-        if (myOrd.dayQty > 0) {
-          html +=
-            '<div class="bg-slate-950 p-4 rounded-2xl border-2 border-amber-400 space-y-2">' +
-              '<div class="flex justify-between items-center text-sm sm:text-base font-black text-amber-300">' +
-                '<span>☀️ 昼公演（12:00開場 / 13:00開演）</span>' +
-                '<span>整理番号: ' + esc(myOrd.orderNo) + ' ／ ' + myOrd.dayQty + '枚</span>' +
-              '</div>' +
-              '<img src="恋するオルゴール (170 x 54 mm)(昼）.jpg" alt="昼公演デジタルチケット" onerror="this.src=\'恋するオルゴール (170 x 54 mm) (昼).jpg\'" class="w-full rounded-xl shadow-lg" />' +
-              '<div class="text-sm font-bold text-white text-right">ご氏名：' + esc(myOrd.name) + ' 様</div>' +
-            '</div>';
-        }
-        if (myOrd.nightQty > 0) {
-          html +=
-            '<div class="bg-slate-950 p-4 rounded-2xl border-2 border-pink-400 space-y-2">' +
-              '<div class="flex justify-between items-center text-sm sm:text-base font-black text-pink-300">' +
-                '<span>🌙 夜公演（16:30開場 / 17:30開演）</span>' +
-                '<span>整理番号: ' + esc(myOrd.orderNo) + ' ／ ' + myOrd.nightQty + '枚</span>' +
-              '</div>' +
-              '<img src="恋するオルゴール (170 x 54 mm) (夜).jpg" alt="夜公演デジタルチケット" onerror="this.src=\'恋するオルゴール (170 x 54 mm)(夜）.jpg\'" class="w-full rounded-xl shadow-lg" />' +
-              '<div class="text-sm font-bold text-white text-right">ご氏名：' + esc(myOrd.name) + ' 様</div>' +
-            '</div>';
-        }
-        issuedArea.innerHTML = html;
-      } else {
-        issuedArea.classList.add("hidden");
-      }
+    async function toggleCountOnlyPaid() {
+      config.countOnlyPaid = !config.countOnlyPaid;
+      await pushConfigToCloud(false);
     }
 
-    // ==================== 管理者機能 ====================
-    function stepManual(type, delta) {
-      const id = type === "day" ? "manualDayInput" : "manualNightInput";
-      const el = document.getElementById(id);
-      el.value = Math.max(0, (parseInt(el.value, 10) || 0) + delta);
+    async function adjustManualSold(session, delta) {
+      if (session === "day") {
+        const cur = parseInt(config.manualDaySold, 10) || 0;
+        const next = Math.max(0, cur + delta);
+        config.manualDaySold = next;
+        document.getElementById("admManualDay").value = next;
+      } else {
+        const cur = parseInt(config.manualNightSold, 10) || 0;
+        const next = Math.max(0, cur + delta);
+        config.manualNightSold = next;
+        document.getElementById("admManualNight").value = next;
+      }
+      await pushConfigToCloud(false);
+    }
+
+    async function resetSingleManualSold(session) {
+      isEditingManual = false;
+      if (session === "day") {
+        config.manualDaySold = 0;
+        document.getElementById("admManualDay").value = 0;
+      } else {
+        config.manualNightSold = 0;
+        document.getElementById("admManualNight").value = 0;
+      }
+      config.manualSold = 0;
+      await pushConfigToCloud(false);
+      showAdminToast("✅ 手売り枚数を0にリセットしました");
+    }
+
+    async function resetAllManualSold() {
+      isEditingManual = false;
+      config.manualDaySold = 0;
+      config.manualNightSold = 0;
+      config.manualSold = 0;
+      document.getElementById("admManualDay").value = 0;
+      document.getElementById("admManualNight").value = 0;
+      await pushConfigToCloud(false);
+      showAdminToast("✅ 昼・夜の手売り枚数をすべて0枚にリセットしました！");
+    }
+
+    async function saveManualSoldOnly() {
+      isEditingManual = false;
+      const dVal = parseInt(document.getElementById("admManualDay").value, 10);
+      const nVal = parseInt(document.getElementById("admManualNight").value, 10);
+      config.manualDaySold = isNaN(dVal) ? 0 : Math.max(0, dVal);
+      config.manualNightSold = isNaN(nVal) ? 0 : Math.max(0, nVal);
+      config.manualSold = 0;
+      await pushConfigToCloud(true);
     }
 
     async function saveAdminConfig() {
-      config.manualDaySold = parseInt(document.getElementById("manualDayInput").value, 10) || 0;
-      config.manualNightSold = parseInt(document.getElementById("manualNightInput").value, 10) || 0;
-      config.countOnlyPaid = document.getElementById("countOnlyPaidCheck").checked;
-      config.reward30Url = document.getElementById("reward30Input").value.trim();
-      config.reward50Url = document.getElementById("reward50Input").value.trim();
-      config.reward80Url = document.getElementById("reward80Input").value.trim();
-      config.reward100Url = document.getElementById("reward100Input").value.trim();
+      isEditingManual = false;
+      const dVal = parseInt(document.getElementById("admManualDay").value, 10);
+      const nVal = parseInt(document.getElementById("admManualNight").value, 10);
+      config.manualDaySold = isNaN(dVal) ? 0 : Math.max(0, dVal);
+      config.manualNightSold = isNaN(nVal) ? 0 : Math.max(0, nVal);
+      config.manualSold = 0;
+      config.dayCap = parseInt(document.getElementById("admDayCap").value, 10) || 264;
+      config.nightCap = parseInt(document.getElementById("admNightCap").value, 10) || 264;
+      config.ticketPrice = parseInt(document.getElementById("admTicketPrice").value, 10) || 3500;
+      config.shippingFee = parseInt(document.getElementById("admShippingFee").value, 10) || 120;
+      config.stripeElectronicUrl = document.getElementById("admStripeElectronicUrl").value.trim() || DEFAULT_STRIPE_ELECTRONIC;
+      config.stripePaperUrl = document.getElementById("admStripePaperUrl").value.trim() || DEFAULT_STRIPE_PAPER;
+      config.bankInfo = document.getElementById("admBankInfo").value;
+      config.reward30Url = document.getElementById("admReward30").value.trim();
+      config.reward50Url = document.getElementById("admReward50").value.trim();
+      config.reward80Url = document.getElementById("admReward80").value.trim();
+      await pushConfigToCloud(true);
+    }
 
+    async function pushConfigToCloud(showAlert) {
       isMutating = true;
       renderAll();
       try {
@@ -1033,100 +1338,74 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(config)
         });
+        if (showAlert) showAdminToast("💾 設定をクラウドに保存しました！");
       } catch (e) {}
       isMutating = false;
       await fetchCloudData(true);
     }
 
-    async function togglePaid(orderId) {
-      const ord = orders.find(o => o.id === orderId);
-      if (!ord) return;
-      ord.paid = !ord.paid;
+    async function clearAllWebOrders() {
       isMutating = true;
+      orders = [];
+      myOrderIds = [];
+      localStorage.removeItem(KEY_MY_ORDERS);
       renderAll();
       try {
-        await fetch(getCleanDbUrl() + DB_NODE + "/orders/" + orderId + ".json?_t=" + Date.now(), {
+        await fetch(getCleanDbUrl() + DB_NODE + "/orders.json?_t=" + Date.now(), {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(ord)
+          body: JSON.stringify({ _empty: { cancelled: true } })
         });
+        showAdminToast("🗑️ Webテスト申込データをすべて消去しました！");
       } catch (e) {}
       isMutating = false;
       await fetchCloudData(true);
     }
 
-    async function deleteOrder(orderId) {
-      const ord = orders.find(o => o.id === orderId);
-      if (!ord) return;
-      ord.cancelled = true;
-      isMutating = true;
-      orders = orders.filter(o => o.id !== orderId);
-      renderAll();
-      try {
-        await fetch(getCleanDbUrl() + DB_NODE + "/orders/" + orderId + ".json?_t=" + Date.now(), {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(ord)
-        });
-      } catch (e) {}
-      isMutating = false;
-      await fetchCloudData(true);
+    async function toggleOrderPaid(id) {
+      const target = orders.find(o => o.id === id);
+      if (!target) return;
+      target.paid = !target.paid;
+      await writeOrderToCloud(target);
     }
 
-    function renderAdmin() {
-      const mDay = document.getElementById("manualDayInput");
-      const mNight = document.getElementById("manualNightInput");
-      if (mDay && document.activeElement !== mDay) mDay.value = config.manualDaySold || 0;
-      if (mNight && document.activeElement !== mNight) mNight.value = config.manualNightSold || 0;
+    async function toggleOrderShipped(id) {
+      const target = orders.find(o => o.id === id);
+      if (!target) return;
+      target.shipped = !target.shipped;
+      await writeOrderToCloud(target);
+    }
 
-      const chk = document.getElementById("countOnlyPaidCheck");
-      if (chk) chk.checked = !!config.countOnlyPaid;
+    async function cancelOrderAdmin(id) {
+      const target = orders.find(o => o.id === id);
+      if (!target) return;
+      target.cancelled = true;
+      await writeOrderToCloud(target);
+    }
 
-      const r30 = document.getElementById("reward30Input");
-      const r50 = document.getElementById("reward50Input");
-      const r80 = document.getElementById("reward80Input");
-      const r100 = document.getElementById("reward100Input");
-      if (r30 && document.activeElement !== r30) r30.value = config.reward30Url || "";
-      if (r50 && document.activeElement !== r50) r50.value = config.reward50Url || "";
-      if (r80 && document.activeElement !== r80) r80.value = config.reward80Url || "";
-      if (r100 && document.activeElement !== r100) r100.value = config.reward100Url || "";
-
-      const container = document.getElementById("adminOrdersContainer");
-      if (!container) return;
-      if (orders.length === 0) {
-        container.innerHTML = '<div class="text-slate-400 py-6 text-center font-bold">まだお申込みデータがありません。</div>';
-        return;
-      }
-
-      const sorted = [...orders].sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-      container.innerHTML = sorted.map(o => {
-        return '<div class="bg-slate-900/90 p-4 rounded-2xl border ' + (o.paid ? 'border-emerald-500/60' : 'border-slate-700') + ' flex flex-wrap items-center justify-between gap-3 text-sm">' +
-          '<div class="space-y-1">' +
-            '<div class="flex flex-wrap items-center gap-2">' +
-              '<span class="font-mono font-black text-amber-300">' + esc(o.orderNo) + '</span>' +
-              '<span class="font-black text-base text-white">' + esc(o.name) + ' 様</span>' +
-              '<span class="text-amber-200 font-bold">（昼:' + o.dayQty + '枚 / 夜:' + o.nightQty + '枚 / 計' + o.totalQty + '枚 / ' + Number(o.totalPrice).toLocaleString() + '円）</span>' +
-              '<span class="px-2 py-0.5 rounded bg-slate-800 text-xs font-bold">' + (o.ticketFormat === "paper" ? "✉️ 紙郵送" : "📱 電子") + '・' + (o.paymentMethod === "stripe" ? "💳 Stripe" : "🏦 振込") + '</span>' +
-            '</div>' +
-            '<div class="text-xs text-slate-400 font-bold">' +
-              'TEL: ' + esc(o.phone) + ' ／ Email: ' + esc(o.email) + (o.address ? ' ／ 郵送先: 〒' + esc(o.zip) + ' ' + esc(o.address) : '') +
-            '</div>' +
-          '</div>' +
-          '<div class="flex items-center gap-2">' +
-            '<button onclick="togglePaid(\'' + o.id + '\')" class="px-3.5 py-2 rounded-xl font-black text-xs ' +
-              (o.paid ? 'bg-emerald-500 text-slate-950' : 'bg-amber-400 text-slate-950') + '">' +
-              (o.paid ? '✅ 入金確認済' : '💰 入金確認済にする') +
-            '</button>' +
-            '<button onclick="deleteOrder(\'' + o.id + '\')" class="text-rose-400 hover:underline text-xs font-bold px-2">取消</button>' +
-          '</div>' +
-        '</div>';
-      }).join("");
+    function exportCsv() {
+      const headers = ["整理番号", "お名前", "メール", "昼枚数", "夜枚数", "送料", "合計金額", "チケット種別", "支払方法", "入金確認", "発送済", "郵便番号", "住所", "電話番号"];
+      const rows = orders.map(o => [
+        o.orderNo, o.name, o.email, o.dayQty, o.nightQty, o.shippingFee || 0, o.totalPrice,
+        o.ticketFormat === "paper" ? "紙チケット郵送" : "電子チケット",
+        o.paymentMethod === "stripe" ? "Stripe" : "銀行振込",
+        o.paid ? "入金済" : "未入金", o.shipped ? "発送済" : "未",
+        o.zip || "", o.address || "", o.phone || ""
+      ]);
+      const csvContent = "\uFEFF" + [headers, ...rows].map(r => r.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(",")).join("\n");
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "koioru_tickets_20270109.csv";
+      a.click();
     }
 
     function openLoginModal() {
       document.getElementById("adminPassInput").value = "";
       document.getElementById("loginErr").classList.add("hidden");
       document.getElementById("loginModal").classList.remove("hidden");
+      setTimeout(() => document.getElementById("adminPassInput").focus(), 50);
     }
 
     function closeLoginModal() {
