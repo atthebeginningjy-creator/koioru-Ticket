@@ -399,7 +399,7 @@
       <div class="flex flex-wrap items-center justify-between gap-2 border-b pb-3.5">
         <div class="flex flex-wrap items-center gap-2">
           <span class="bg-amber-400 text-slate-950 text-xs sm:text-sm font-black px-3 py-1 rounded-full">
-            👑 チケット管理画面 Ver.3.0
+            👑 チケット管理画面 Ver.3.1
           </span>
           <button type="button" onclick="switchMode('user')" class="bg-slate-200 hover:bg-slate-300 text-xs sm:text-sm font-bold px-3 py-1.5 rounded-xl">
             ← 購入ページへ戻る
@@ -418,6 +418,28 @@
           </button>
           <button type="button" onclick="exportCsv()" class="bg-emerald-700 hover:bg-emerald-600 text-white text-xs sm:text-sm font-black px-3 py-2 rounded-xl">
             📥 CSV出力
+          </button>
+        </div>
+      </div>
+
+      <!-- 🔑 最上部に配置：スタッフ管理画面 ログインパスワード変更パネル -->
+      <div class="bg-emerald-50 rounded-2xl p-4 border-2 border-emerald-400 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm shadow-sm">
+        <div class="space-y-1">
+          <div class="font-black text-base text-emerald-950 flex items-center gap-1.5">
+            <span>🔑</span>
+            <span>スタッフ管理画面 ログインパスワードの変更</span>
+          </div>
+          <p class="text-xs text-emerald-800 font-bold">
+            現在のパスワード：<strong id="currentPassDisplay" class="font-mono text-sm bg-white px-2.5 py-0.5 rounded border border-emerald-400 text-rose-600">12345</strong>
+            （右の欄に新しいパスワードを入力して「変更を保存」を押してください）
+          </p>
+        </div>
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <input type="text" id="admNewPassInput" placeholder="新しいパスワードを入力"
+            onfocus="isEditingPass=true" onblur="isEditingPass=false"
+            class="flex-1 sm:w-48 bg-white border-2 border-emerald-600 rounded-xl px-3.5 py-2 font-mono font-black text-sm text-slate-900 focus:outline-none" />
+          <button type="button" onclick="saveNewAdminPass()" class="bg-emerald-700 hover:bg-emerald-600 text-white font-black px-4 py-2.5 rounded-xl shadow shrink-0 cursor-pointer">
+            🔑 変更を保存
           </button>
         </div>
       </div>
@@ -472,27 +494,6 @@
               <button type="button" onclick="saveManualSoldOnly()" class="ml-auto bg-slate-900 text-amber-300 font-black px-2.5 py-1.5 rounded-lg">保存</button>
             </div>
           </div>
-        </div>
-      </div>
-
-      <!-- 🔑 スタッフ管理画面 ログインパスワード変更パネル -->
-      <div class="bg-emerald-50 rounded-2xl p-4 border-2 border-emerald-300 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm">
-        <div class="space-y-0.5">
-          <div class="font-black text-emerald-950 flex items-center gap-1.5">
-            <span>🔑</span>
-            <span>スタッフ管理画面 ログインパスワードの変更</span>
-          </div>
-          <p class="text-xs text-emerald-800">
-            新しいパスワードを入力して「パスワードを更新」を押すと、全端末で即座に変更されます（現在：<strong id="currentPassDisplay" class="font-mono bg-white px-2 py-0.5 rounded border border-emerald-300">12345</strong>）。
-          </p>
-        </div>
-        <div class="flex items-center gap-2 w-full sm:w-auto">
-          <input type="text" id="admNewPassInput" placeholder="新しいパスワードを入力"
-            onfocus="isEditingPass=true" onblur="isEditingPass=false"
-            class="flex-1 sm:w-48 bg-white border-2 border-emerald-500 rounded-xl px-3 py-2 font-mono font-black text-sm text-slate-900 focus:outline-none" />
-          <button type="button" onclick="saveNewAdminPass()" class="bg-emerald-700 hover:bg-emerald-600 text-white font-black px-4 py-2 rounded-xl shadow shrink-0">
-            🔑 パスワードを更新
-          </button>
         </div>
       </div>
 
@@ -558,20 +559,44 @@
 
   <footer class="border-t border-slate-800/80 py-5 px-4 text-xs sm:text-sm text-slate-400">
     <div class="max-w-2xl mx-auto flex justify-between items-center">
-      <span>恋するオルゴール 卒業コンサート実行委員会 (Ver.3.0)</span>
-      <button type="button" onclick="openLoginModal()" class="underline hover:text-amber-300 font-bold">🔒 スタッフ管理画面</button>
+      <span>恋するオルゴール 卒業コンサート実行委員会 (Ver.3.1)</span>
+      <button type="button" onclick="openLoginModal()" class="underline hover:text-amber-300 font-bold cursor-pointer">🔒 スタッフ管理・パスワード変更</button>
     </div>
   </footer>
 
-  <div id="loginModal" class="fixed inset-0 z-50 hidden bg-black/70 flex items-center justify-center p-4 text-slate-800">
-    <div class="bg-white w-full max-w-xs rounded-3xl p-5 space-y-3 shadow-2xl border-4 border-amber-400">
-      <h3 class="text-sm sm:text-base font-black">🔒 スタッフ・管理者ログイン</h3>
-      <input type="password" id="adminPassInput" placeholder="パスワード" onkeydown="if(event.key==='Enter') checkAdminLogin()" class="w-full border-2 border-slate-300 rounded-xl px-3 py-2 text-sm font-bold" />
-      <p id="loginErr" class="hidden text-xs text-rose-600 font-bold">パスワードが違います。</p>
-      <div class="flex gap-2 pt-1">
-        <button type="button" onclick="closeLoginModal()" class="w-1/2 bg-slate-200 text-xs sm:text-sm font-bold py-2 rounded-xl">キャンセル</button>
-        <button type="button" onclick="checkAdminLogin()" class="w-1/2 bg-slate-900 text-amber-300 text-xs sm:text-sm font-black py-2 rounded-xl">ログイン</button>
+  <!-- ==================== 4. スタッフログイン ＆ パスワード変更モーダル ==================== -->
+  <div id="loginModal" class="fixed inset-0 z-50 hidden bg-black/75 flex items-center justify-center p-4 text-slate-800">
+    <div class="bg-white w-full max-w-sm rounded-3xl p-5 space-y-4 shadow-2xl border-4 border-amber-400">
+      <div class="space-y-2">
+        <h3 class="text-base font-black text-slate-900">🔒 スタッフ管理画面ログイン</h3>
+        <input type="password" id="adminPassInput" placeholder="現在のパスワードを入力" onkeydown="if(event.key==='Enter') checkAdminLogin()" class="w-full border-2 border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-bold" />
+        <p id="loginErr" class="hidden text-xs text-rose-600 font-bold">パスワードが違います。</p>
+        <div class="flex gap-2 pt-1">
+          <button type="button" onclick="closeLoginModal()" class="w-1/2 bg-slate-200 text-xs sm:text-sm font-bold py-2.5 rounded-xl cursor-pointer">キャンセル</button>
+          <button type="button" onclick="checkAdminLogin()" class="w-1/2 bg-slate-900 text-amber-300 text-xs sm:text-sm font-black py-2.5 rounded-xl cursor-pointer">ログイン</button>
+        </div>
       </div>
+
+      <!-- ★ ログイン画面内でも直接パスワードを変更できるエリア -->
+      <details class="border-t border-slate-200 pt-3 text-xs">
+        <summary class="font-black text-emerald-700 cursor-pointer hover:underline">
+          🔑 パスワードを変更する場合はこちらをタップ
+        </summary>
+        <div class="mt-2.5 space-y-2 bg-emerald-50 p-3 rounded-2xl border border-emerald-300">
+          <div>
+            <label class="block font-bold text-slate-700 mb-0.5">現在のパスワード（初期値：12345）</label>
+            <input type="password" id="modalCurrentPass" placeholder="現在のパスワード" class="w-full border border-slate-300 rounded-lg px-2.5 py-1.5 font-bold bg-white" />
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-0.5">新しいパスワード</label>
+            <input type="text" id="modalNewPass" placeholder="新しいパスワードを入力" class="w-full border border-emerald-500 rounded-lg px-2.5 py-1.5 font-mono font-black bg-white" />
+          </div>
+          <p id="modalPassMsg" class="hidden font-bold"></p>
+          <button type="button" onclick="changePassFromModal()" class="w-full bg-emerald-700 hover:bg-emerald-600 text-white font-black py-2 rounded-xl shadow cursor-pointer">
+            🔑 新しいパスワードに変更してログイン
+          </button>
+        </div>
+      </details>
     </div>
   </div>
 
@@ -1414,7 +1439,7 @@
       }).join("");
     }
 
-    // ★ スタッフ管理画面のログインパスワードを変更してクラウドへ保存する処理
+    // ★ 管理画面最上部のパネルからパスワード変更
     async function saveNewAdminPass() {
       isEditingPass = false;
       const newPass = document.getElementById("admNewPassInput").value.trim();
@@ -1425,7 +1450,34 @@
       }
       config.adminPass = newPass;
       await pushConfigToCloud(false);
-      showAdminToast("🔑 ログインパスワードを「" + newPass + "」に変更しました！");
+      alert("🔑 ログインパスワードを「" + newPass + "」に変更しました！");
+      showAdminToast("🔑 パスワードを「" + newPass + "」に変更しました！");
+    }
+
+    // ★ ログインポップアップ画面から直接パスワードを変更してログインする処理
+    async function changePassFromModal() {
+      const curInput = document.getElementById("modalCurrentPass").value.trim();
+      const newInput = document.getElementById("modalNewPass").value.trim();
+      const msgEl = document.getElementById("modalPassMsg");
+      const currentPass = config.adminPass || DEFAULT_PASS;
+
+      msgEl.classList.remove("hidden");
+      if (curInput !== currentPass) {
+        msgEl.textContent = "❌ 現在のパスワードが違います。";
+        msgEl.className = "font-bold text-rose-600";
+        return;
+      }
+      if (!newInput) {
+        msgEl.textContent = "❌ 新しいパスワードを入力してください。";
+        msgEl.className = "font-bold text-rose-600";
+        return;
+      }
+
+      config.adminPass = newInput;
+      await pushConfigToCloud(false);
+      alert("🔑 パスワードを「" + newInput + "」に変更しました！管理画面へ移動します。");
+      closeLoginModal();
+      switchMode("admin");
     }
 
     async function toggleCountOnlyPaid() {
@@ -1581,7 +1633,10 @@
 
     function openLoginModal() {
       document.getElementById("adminPassInput").value = "";
+      document.getElementById("modalCurrentPass").value = "";
+      document.getElementById("modalNewPass").value = "";
       document.getElementById("loginErr").classList.add("hidden");
+      document.getElementById("modalPassMsg").classList.add("hidden");
       document.getElementById("loginModal").classList.remove("hidden");
       setTimeout(() => document.getElementById("adminPassInput").focus(), 50);
     }
@@ -1590,7 +1645,6 @@
       document.getElementById("loginModal").classList.add("hidden");
     }
 
-    // ★ クラウド保存された現在のパスワード（未設定時は12345）と照合してログイン
     function checkAdminLogin() {
       const currentPass = config.adminPass || DEFAULT_PASS;
       if (document.getElementById("adminPassInput").value.trim() === currentPass) {
