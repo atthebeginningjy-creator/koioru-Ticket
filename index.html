@@ -377,15 +377,15 @@
     </section>
   </div>
 
-  <!-- ==================== 2. 特典閲覧モーダル ==================== -->
-  <div id="rewardModal" class="fixed inset-0 z-50 hidden bg-black/80 flex items-center justify-center p-4">
-    <div class="bg-slate-900 border-2 border-amber-400 w-full max-w-md rounded-3xl p-5 space-y-4 shadow-2xl">
-      <div class="flex justify-between items-center border-b border-slate-700 pb-2.5">
+  <!-- ==================== 2. 特典閲覧モーダル（2枚表示・スクロール対応） ==================== -->
+  <div id="rewardModal" class="fixed inset-0 z-50 hidden bg-black/85 flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-slate-900 border-2 border-amber-400 w-full max-w-lg rounded-3xl p-4 sm:p-6 space-y-4 shadow-2xl max-h-[90vh] flex flex-col">
+      <div class="flex justify-between items-center border-b border-slate-700 pb-2.5 shrink-0">
         <h3 id="rewardModalTitle" class="font-black text-base sm:text-lg text-amber-300">🎁 特典コンテンツ</h3>
         <button type="button" onclick="closeRewardModal()" class="text-2xl font-bold text-slate-400 hover:text-white">&times;</button>
       </div>
-      <div id="rewardModalBody" class="text-center space-y-3 text-sm text-slate-200"></div>
-      <button type="button" onclick="closeRewardModal()" class="w-full bg-slate-800 hover:bg-slate-700 text-amber-300 font-black py-2.5 rounded-xl text-sm">
+      <div id="rewardModalBody" class="text-center space-y-5 text-sm text-slate-200 overflow-y-auto pr-1"></div>
+      <button type="button" onclick="closeRewardModal()" class="w-full bg-slate-800 hover:bg-slate-700 text-amber-300 font-black py-3 rounded-xl text-sm shrink-0">
         閉じる
       </button>
     </div>
@@ -399,10 +399,13 @@
       <div class="flex flex-wrap items-center justify-between gap-2 border-b pb-3.5">
         <div class="flex flex-wrap items-center gap-2">
           <span class="bg-amber-400 text-slate-950 text-xs sm:text-sm font-black px-3 py-1 rounded-full">
-            👑 チケット管理画面 Ver.2.8
+            👑 チケット管理画面 Ver.2.9
           </span>
           <button type="button" onclick="switchMode('user')" class="bg-slate-200 hover:bg-slate-300 text-xs sm:text-sm font-bold px-3 py-1.5 rounded-xl">
             ← 購入ページへ戻る
+          </button>
+          <button type="button" onclick="openRewardModal('img30')" class="bg-pink-600 hover:bg-pink-500 text-white text-xs sm:text-sm font-black px-3 py-1.5 rounded-xl shadow">
+            🎁 30%特典(2枚)をプレビュー確認
           </button>
           <span id="adminStatusToast" class="text-xs sm:text-sm font-black text-emerald-700 bg-emerald-50 px-3 py-1 rounded-lg hidden"></span>
         </div>
@@ -510,8 +513,9 @@
             </div>
           </div>
           <div class="space-y-2">
-            <div class="font-black text-slate-800">🎁 特典URL設定（30%=90枚 / 50%=150枚 / 80%=240枚）</div>
-            <div><label class="block text-slate-500 font-bold mb-0.5">【30%・90枚】限定画像① URL</label><input type="text" id="admReward30" placeholder="https://..." class="w-full border rounded-lg p-1.5" /></div>
+            <div class="font-black text-slate-800">🎁 特典URL設定（30%=90枚[2枚組] / 50%=150枚 / 80%=240枚）</div>
+            <div><label class="block text-slate-500 font-bold mb-0.5">【30%・90枚】限定画像①（1枚目）ファイル名/URL</label><input type="text" id="admReward30_1" class="w-full border rounded-lg p-1.5" /></div>
+            <div><label class="block text-slate-500 font-bold mb-0.5">【30%・90枚】限定画像①（2枚目）ファイル名/URL</label><input type="text" id="admReward30_2" class="w-full border rounded-lg p-1.5" /></div>
             <div><label class="block text-slate-500 font-bold mb-0.5">【50%・150枚】限定画像② URL</label><input type="text" id="admReward50" placeholder="https://..." class="w-full border rounded-lg p-1.5" /></div>
             <div><label class="block text-slate-500 font-bold mb-0.5">【80%・240枚】限定動画 URL</label><input type="text" id="admReward80" placeholder="https://..." class="w-full border rounded-lg p-1.5" /></div>
             <div class="pt-2"><button type="button" onclick="saveAdminConfig()" class="w-full bg-slate-900 text-amber-300 font-black py-2.5 rounded-xl shadow">💾 設定を保存する</button></div>
@@ -533,7 +537,7 @@
 
   <footer class="border-t border-slate-800/80 py-5 px-4 text-xs sm:text-sm text-slate-400">
     <div class="max-w-2xl mx-auto flex justify-between items-center">
-      <span>恋するオルゴール 卒業コンサート実行委員会 (Ver.2.8)</span>
+      <span>恋するオルゴール 卒業コンサート実行委員会 (Ver.2.9)</span>
       <button type="button" onclick="openLoginModal()" class="underline hover:text-amber-300 font-bold">🔒 スタッフ管理画面</button>
     </div>
   </footer>
@@ -559,6 +563,12 @@
     const IMG_DAY_FALLBACK = "ticket_day.jpg";
     const IMG_NIGHT_PRIMARY = "恋するオルゴール (170 x 54 mm) (夜).jpg";
     const IMG_NIGHT_FALLBACK = "ticket_night.jpg";
+
+    // ★ 30%達成特典（90枚）の限定画像2枚（そのままのファイル名と英数字別名の両方に対応）
+    const DEFAULT_REWARD30_IMG1 = "恋するオルゴールと虹色バルーン.png";
+    const FALLBACK_REWARD30_IMG1 = "reward30_1.png";
+    const DEFAULT_REWARD30_IMG2 = "風船と踊る恋するオルゴール.png";
+    const FALLBACK_REWARD30_IMG2 = "reward30_2.png";
 
     const DEFAULT_STRIPE_ELECTRONIC = "https://buy.stripe.com/fZu3cu0QsgGx3vAcVR6sw01";
     const DEFAULT_STRIPE_PAPER = "https://buy.stripe.com/cNiaEWfLm1LD8PU4pl6sw02";
@@ -594,7 +604,8 @@
       stripeElectronicUrl: DEFAULT_STRIPE_ELECTRONIC,
       stripePaperUrl: DEFAULT_STRIPE_PAPER,
       bankInfo: DEFAULT_BANK_INFO,
-      reward30Url: "",
+      reward30Url1: DEFAULT_REWARD30_IMG1,
+      reward30Url2: DEFAULT_REWARD30_IMG2,
       reward50Url: "",
       reward80Url: ""
     };
@@ -671,6 +682,9 @@
           if (!data.config.bankInfo || data.config.bankInfo.includes("準備中")) {
             config.bankInfo = DEFAULT_BANK_INFO;
           }
+          // 30%特典の2枚の画像が未設定ならデフォルトの2枚をセット
+          if (!data.config.reward30Url1) config.reward30Url1 = DEFAULT_REWARD30_IMG1;
+          if (!data.config.reward30Url2) config.reward30Url2 = DEFAULT_REWARD30_IMG2;
         }
 
         renderAll();
@@ -1047,7 +1061,7 @@
       }
 
       const milestones = [
-        { pct: 30, targetCount: Math.round(stats.totalGoal * 0.3), title: "30%達成（" + Math.round(stats.totalGoal * 0.3) + "枚）", desc: "限定メモリアル画像①", type: "img30" },
+        { pct: 30, targetCount: Math.round(stats.totalGoal * 0.3), title: "30%達成（" + Math.round(stats.totalGoal * 0.3) + "枚）", desc: "限定メモリアル画像①（2枚セット）", type: "img30" },
         { pct: 50, targetCount: Math.round(stats.totalGoal * 0.5), title: "50%達成（" + Math.round(stats.totalGoal * 0.5) + "枚）", desc: "限定メモリアル画像②", type: "img50" },
         { pct: 80, targetCount: Math.round(stats.totalGoal * 0.8), title: "80%達成（" + Math.round(stats.totalGoal * 0.8) + "枚）", desc: "限定スペシャル動画", type: "vid80" },
         { pct: 100, targetCount: stats.totalGoal, title: "100%達成（" + stats.totalGoal + "枚）", desc: "購入者全員に限定グッズ", type: "goods100" }
@@ -1074,7 +1088,7 @@
               '</div>' +
               '<div class="text-xs sm:text-sm font-bold text-white truncate mt-1">' + m.desc + '</div>' +
             '</div>' +
-            '<button type="button" onclick="openRewardModal(\'' + m.type + '\')" class="bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs sm:text-sm font-black px-3.5 py-2 rounded-lg shrink-0 shadow">' +
+            '<button type="button" onclick="openRewardModal(\'' + m.type + '\')" class="bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs sm:text-sm font-black px-3.5 py-2 rounded-lg shrink-0 shadow cursor-pointer">' +
               '見る' +
             '</button>' +
           '</div>';
@@ -1131,7 +1145,6 @@
             '<span class="text-xs text-slate-300">' + shipNote + '</span>' +
           '</div>' +
 
-          /* 🚨 決済ボタン直前の特大・点滅警告ボックス */
           '<div class="stripe-alert-flash rounded-2xl p-4 sm:p-5 border-4 space-y-2.5 text-center sm:text-left">' +
             '<div class="text-amber-300 font-black text-base sm:text-xl blink-strong flex items-center justify-center sm:justify-start gap-1.5">' +
               '<span class="text-2xl">🚨</span>' +
@@ -1223,16 +1236,30 @@
       }
     }
 
+    // ★ 30%達成特典で2枚の限定画像を並べて表示するモーダル処理
     function openRewardModal(type) {
       const modal = document.getElementById("rewardModal");
       const title = document.getElementById("rewardModalTitle");
       const body = document.getElementById("rewardModalBody");
 
       if (type === "img30") {
-        title.textContent = "🎁 30%達成特典（90枚）：限定画像①";
-        body.innerHTML = config.reward30Url
-          ? '<img src="' + esc(config.reward30Url) + '" class="w-full rounded-xl border border-amber-400 mb-2" /><a href="' + esc(config.reward30Url) + '" target="_blank" class="inline-block bg-amber-400 text-slate-950 font-black px-4 py-2 rounded-xl">画像を開く・保存する</a>'
-          : '<p class="py-5 text-amber-200 font-bold">🎉 30%（90枚）達成おめでとうございます！限定画像はただいま準備中です✨</p>';
+        const img1 = config.reward30Url1 || DEFAULT_REWARD30_IMG1;
+        const img2 = config.reward30Url2 || DEFAULT_REWARD30_IMG2;
+        title.textContent = "🎁 30%達成特典（90枚）：限定メモリアル画像（2枚組）";
+        body.innerHTML =
+          '<p class="text-amber-200 font-bold text-xs sm:text-sm">🎉 30%（90枚）達成ありがとうございます！限定メモリアル画像2枚をプレゼントいたします✨（長押しまたは下のボタンから保存できます）</p>' +
+          '<div class="space-y-5 pt-1">' +
+            '<div class="bg-slate-950/90 p-3 rounded-2xl border border-amber-400/50 space-y-2.5">' +
+              '<div class="text-xs font-black text-amber-300">✨ 限定メモリアル画像①（1枚目）</div>' +
+              '<img src="' + esc(img1) + '" onerror="this.onerror=null;this.src=\'' + FALLBACK_REWARD30_IMG1 + '\';" alt="30%達成特典画像1" class="w-full rounded-xl border border-amber-400/40 shadow-lg mx-auto" />' +
+              '<a href="' + esc(img1) + '" download target="_blank" class="inline-block bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs sm:text-sm px-5 py-2 rounded-xl shadow">📥 1枚目の画像を開く・保存する</a>' +
+            '</div>' +
+            '<div class="bg-slate-950/90 p-3 rounded-2xl border border-amber-400/50 space-y-2.5">' +
+              '<div class="text-xs font-black text-amber-300">✨ 限定メモリアル画像①（2枚目）</div>' +
+              '<img src="' + esc(img2) + '" onerror="this.onerror=null;this.src=\'' + FALLBACK_REWARD30_IMG2 + '\';" alt="30%達成特典画像2" class="w-full rounded-xl border border-amber-400/40 shadow-lg mx-auto" />' +
+              '<a href="' + esc(img2) + '" download target="_blank" class="inline-block bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs sm:text-sm px-5 py-2 rounded-xl shadow">📥 2枚目の画像を開く・保存する</a>' +
+            '</div>' +
+          '</div>';
       } else if (type === "img50") {
         title.textContent = "🎁 50%達成特典（150枚）：限定画像②";
         body.innerHTML = config.reward50Url
@@ -1270,7 +1297,8 @@
       f("admStripeElectronicUrl", config.stripeElectronicUrl || DEFAULT_STRIPE_ELECTRONIC);
       f("admStripePaperUrl", config.stripePaperUrl || DEFAULT_STRIPE_PAPER);
       f("admBankInfo", config.bankInfo || DEFAULT_BANK_INFO);
-      f("admReward30", config.reward30Url);
+      f("admReward30_1", config.reward30Url1 || DEFAULT_REWARD30_IMG1);
+      f("admReward30_2", config.reward30Url2 || DEFAULT_REWARD30_IMG2);
       f("admReward50", config.reward50Url);
       f("admReward80", config.reward80Url);
 
@@ -1423,7 +1451,8 @@
       config.stripeElectronicUrl = document.getElementById("admStripeElectronicUrl").value.trim() || DEFAULT_STRIPE_ELECTRONIC;
       config.stripePaperUrl = document.getElementById("admStripePaperUrl").value.trim() || DEFAULT_STRIPE_PAPER;
       config.bankInfo = document.getElementById("admBankInfo").value;
-      config.reward30Url = document.getElementById("admReward30").value.trim();
+      config.reward30Url1 = document.getElementById("admReward30_1").value.trim() || DEFAULT_REWARD30_IMG1;
+      config.reward30Url2 = document.getElementById("admReward30_2").value.trim() || DEFAULT_REWARD30_IMG2;
       config.reward50Url = document.getElementById("admReward50").value.trim();
       config.reward80Url = document.getElementById("admReward80").value.trim();
       await pushConfigToCloud(true);
