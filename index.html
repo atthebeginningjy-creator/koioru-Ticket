@@ -399,7 +399,7 @@
       <div class="flex flex-wrap items-center justify-between gap-2 border-b pb-3.5">
         <div class="flex flex-wrap items-center gap-2">
           <span class="bg-amber-400 text-slate-950 text-xs sm:text-sm font-black px-3 py-1 rounded-full">
-            👑 チケット管理画面 Ver.2.9
+            👑 チケット管理画面 Ver.3.0
           </span>
           <button type="button" onclick="switchMode('user')" class="bg-slate-200 hover:bg-slate-300 text-xs sm:text-sm font-bold px-3 py-1.5 rounded-xl">
             ← 購入ページへ戻る
@@ -475,6 +475,27 @@
         </div>
       </div>
 
+      <!-- 🔑 スタッフ管理画面 ログインパスワード変更パネル -->
+      <div class="bg-emerald-50 rounded-2xl p-4 border-2 border-emerald-300 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm">
+        <div class="space-y-0.5">
+          <div class="font-black text-emerald-950 flex items-center gap-1.5">
+            <span>🔑</span>
+            <span>スタッフ管理画面 ログインパスワードの変更</span>
+          </div>
+          <p class="text-xs text-emerald-800">
+            新しいパスワードを入力して「パスワードを更新」を押すと、全端末で即座に変更されます（現在：<strong id="currentPassDisplay" class="font-mono bg-white px-2 py-0.5 rounded border border-emerald-300">12345</strong>）。
+          </p>
+        </div>
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <input type="text" id="admNewPassInput" placeholder="新しいパスワードを入力"
+            onfocus="isEditingPass=true" onblur="isEditingPass=false"
+            class="flex-1 sm:w-48 bg-white border-2 border-emerald-500 rounded-xl px-3 py-2 font-mono font-black text-sm text-slate-900 focus:outline-none" />
+          <button type="button" onclick="saveNewAdminPass()" class="bg-emerald-700 hover:bg-emerald-600 text-white font-black px-4 py-2 rounded-xl shadow shrink-0">
+            🔑 パスワードを更新
+          </button>
+        </div>
+      </div>
+
       <!-- 🛡️ 未入金カウント防止設定 -->
       <div class="bg-indigo-50 rounded-2xl p-3.5 border border-indigo-200 flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm">
         <div>
@@ -537,7 +558,7 @@
 
   <footer class="border-t border-slate-800/80 py-5 px-4 text-xs sm:text-sm text-slate-400">
     <div class="max-w-2xl mx-auto flex justify-between items-center">
-      <span>恋するオルゴール 卒業コンサート実行委員会 (Ver.2.9)</span>
+      <span>恋するオルゴール 卒業コンサート実行委員会 (Ver.3.0)</span>
       <button type="button" onclick="openLoginModal()" class="underline hover:text-amber-300 font-bold">🔒 スタッフ管理画面</button>
     </div>
   </footer>
@@ -557,14 +578,13 @@
   <script>
     const CLOUD_DB_URL = "https://t-rextaikenkai-default-rtdb.firebaseio.com/";
     const DB_NODE = "/koioru_ticket_2027";
-    const PASS = "12345";
+    const DEFAULT_PASS = "12345";
 
     const IMG_DAY_PRIMARY = "恋するオルゴール (170 x 54 mm)(昼）.jpg";
     const IMG_DAY_FALLBACK = "ticket_day.jpg";
     const IMG_NIGHT_PRIMARY = "恋するオルゴール (170 x 54 mm) (夜).jpg";
     const IMG_NIGHT_FALLBACK = "ticket_night.jpg";
 
-    // ★ 30%達成特典（90枚）の限定画像2枚（そのままのファイル名と英数字別名の両方に対応）
     const DEFAULT_REWARD30_IMG1 = "恋するオルゴールと虹色バルーン.png";
     const FALLBACK_REWARD30_IMG1 = "reward30_1.png";
     const DEFAULT_REWARD30_IMG2 = "風船と踊る恋するオルゴール.png";
@@ -586,12 +606,14 @@
     let myOrderIds = [];
     let isMutating = false;
     let isEditingManual = false;
+    let isEditingPass = false;
 
     let selectedSession = "day";
     let selectedFormat = "electronic";
     let selectedPay = "stripe";
 
     let config = {
+      adminPass: DEFAULT_PASS,
       goalTotal: 300,
       dayCap: 264,
       nightCap: 264,
@@ -668,6 +690,11 @@
 
         if (data && data.config) {
           config = Object.assign(config, data.config);
+          if (!data.config.adminPass || String(data.config.adminPass).trim() === "") {
+            config.adminPass = DEFAULT_PASS;
+          } else {
+            config.adminPass = String(data.config.adminPass).trim();
+          }
           if (!data.config.goalTotal || data.config.goalTotal === 528) config.goalTotal = 300;
           if (!data.config.dayCap || data.config.dayCap === 100) config.dayCap = 264;
           if (!data.config.nightCap || data.config.nightCap === 100) config.nightCap = 264;
@@ -682,7 +709,6 @@
           if (!data.config.bankInfo || data.config.bankInfo.includes("準備中")) {
             config.bankInfo = DEFAULT_BANK_INFO;
           }
-          // 30%特典の2枚の画像が未設定ならデフォルトの2枚をセット
           if (!data.config.reward30Url1) config.reward30Url1 = DEFAULT_REWARD30_IMG1;
           if (!data.config.reward30Url2) config.reward30Url2 = DEFAULT_REWARD30_IMG2;
         }
@@ -1236,7 +1262,6 @@
       }
     }
 
-    // ★ 30%達成特典で2枚の限定画像を並べて表示するモーダル処理
     function openRewardModal(type) {
       const modal = document.getElementById("rewardModal");
       const title = document.getElementById("rewardModalTitle");
@@ -1291,6 +1316,12 @@
         f("admManualDay", config.manualDaySold || 0);
         f("admManualNight", config.manualNightSold || 0);
       }
+      if (!isEditingPass) {
+        f("admNewPassInput", config.adminPass || DEFAULT_PASS);
+      }
+      const passDisp = document.getElementById("currentPassDisplay");
+      if (passDisp) passDisp.textContent = config.adminPass || DEFAULT_PASS;
+
       f("admGoalTotal", config.goalTotal || 300);
       f("admTicketPrice", config.ticketPrice || 3500);
       f("admShippingFee", config.shippingFee !== undefined ? config.shippingFee : 120);
@@ -1383,6 +1414,20 @@
       }).join("");
     }
 
+    // ★ スタッフ管理画面のログインパスワードを変更してクラウドへ保存する処理
+    async function saveNewAdminPass() {
+      isEditingPass = false;
+      const newPass = document.getElementById("admNewPassInput").value.trim();
+      if (!newPass) {
+        alert("パスワードを空欄にすることはできません。1文字以上入力してください。");
+        document.getElementById("admNewPassInput").value = config.adminPass || DEFAULT_PASS;
+        return;
+      }
+      config.adminPass = newPass;
+      await pushConfigToCloud(false);
+      showAdminToast("🔑 ログインパスワードを「" + newPass + "」に変更しました！");
+    }
+
     async function toggleCountOnlyPaid() {
       config.countOnlyPaid = !config.countOnlyPaid;
       await pushConfigToCloud(false);
@@ -1440,8 +1485,12 @@
 
     async function saveAdminConfig() {
       isEditingManual = false;
+      isEditingPass = false;
       const dVal = parseInt(document.getElementById("admManualDay").value, 10);
       const nVal = parseInt(document.getElementById("admManualNight").value, 10);
+      const newPass = document.getElementById("admNewPassInput").value.trim();
+      if (newPass) config.adminPass = newPass;
+
       config.manualDaySold = isNaN(dVal) ? 0 : Math.max(0, dVal);
       config.manualNightSold = isNaN(nVal) ? 0 : Math.max(0, nVal);
       config.manualSold = 0;
@@ -1541,8 +1590,10 @@
       document.getElementById("loginModal").classList.add("hidden");
     }
 
+    // ★ クラウド保存された現在のパスワード（未設定時は12345）と照合してログイン
     function checkAdminLogin() {
-      if (document.getElementById("adminPassInput").value.trim() === PASS) {
+      const currentPass = config.adminPass || DEFAULT_PASS;
+      if (document.getElementById("adminPassInput").value.trim() === currentPass) {
         closeLoginModal();
         switchMode("admin");
       } else {
